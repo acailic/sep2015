@@ -1,0 +1,22 @@
+{
+  "name": "Merchant",
+  "version": "0.0.0",
+  "authors": [
+    "TimSEP"
+  ],
+  "description": "",
+  "main": "index.html",
+  "keywords": [
+    "angular best practices",
+    "project structure",
+    "bower",
+    "gulp"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "angular": "~1.4.6",
+    "angular-resource": "~1.4.6",
+    "angular-ui-router": "~0.2.15",
+    "angular-material": "^0.11.2"
+  }
+}
