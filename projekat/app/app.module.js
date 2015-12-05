@@ -1,6 +1,6 @@
 (function() {
 	angular
-		.module('merchant', ['merchant.core', 'merchant.insurance', 'merchant.modal'])
+		.module('merchant', ['merchant.core', 'merchant.insurance', 'merchant.modal', 'merchant.sale'])
 		.config(function($mdThemingProvider) {
 		    
 		    $mdThemingProvider.theme('default');
