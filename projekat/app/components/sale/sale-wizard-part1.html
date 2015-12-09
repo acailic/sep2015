@@ -1,0 +1,217 @@
+<!-- Pocetak forme za osnovne podatke -->
+<md-card>
+    <fieldset style="border: 2px double rgb(3,169,244)" layout-padding>
+     
+      <legend style="color:rgb(3,169,244); font-weight: bold">Osnovno</legend>
+      <div layout-gt-sm="row">
+        <section layout="column" >
+          <label flex-offset="15">Početak putovanja:</label>
+          <md-datepicker ng-model="myDate" id="datapicker_travel_start"  md-placeholder="Upišite datum"
+           md-min-date="minDate" md-max-date="maxDate" ></md-datepicker>        
+        </section>  
+
+        <section layout="column" >
+          <label flex-offset="15">Kraj putovanja:</label>
+          <md-datepicker ng-model="myDate" id="datapicker_travel_start"  md-placeholder="Upišite datum"
+          md-min-date="minDate" md-max-date="maxDate" ></md-datepicker>        
+        </section>
+      </div>
+
+      <div layout-gt-sm="row">
+        <md-input-container  flex-gt-sm>
+          <label>Region</label>
+          <md-select ng-model="state">
+            <md-option>Austrija</md-option>
+            <md-option>Francuska</md-option>
+            <md-option>Italija</md-option>
+          </md-select>
+        </md-input-container>
+
+        <md-input-container flex-gt-sm>
+          <label>Broj osoba</label>
+          <md-select ng-model="people">
+            <md-option>Individualno</md-option>
+            <md-option>Porodica</md-option>
+            <md-option>Grupa</md-option>
+          </md-select>
+        </md-input-container>
+
+        <md-input-container flex-gt-sm>
+          <label>Max. iznos osiguranja</label>
+          <md-select ng-model="premium">
+            <md-option>10000</md-option>
+            <md-option>20000</md-option>
+            <md-option>30000</md-option>
+          </md-select>
+        </md-input-container>
+    </div>
+
+    <div layout-gt-sm="row">
+      <div>
+        <md-checkbox aria-label="Checkbox 1"  class="md-primary" ng-model="activity" flex-gt-sm>
+            Bavljenje sportom
+        </md-checkbox>
+      </div>
+      <div flex-offset="3">
+        <md-input-container layout="row" layout-align="left center" ng-show="activity = !activity" flex-gt-sm>
+          <label>Sport</label>
+          <md-select ng-model="sport">
+            <md-option>Plivanje</md-option>
+            <md-option>Skijanje</md-option>
+            <md-option>Klizanje</md-option>
+          </md-select>
+        </md-input-container>
+      </div>
+    </div>
+
+    <fieldset style="border: 1px solid rgb(3,169,244)">
+      <legend style="color:rgb(3,169,244)">Dodatno</legend>
+      <div>
+        <md-checkbox aria-label="Checkbox 1"  class="md-primary" ng-model="flat">
+            Stambeno
+        </md-checkbox>
+        <md-checkbox aria-label="Checkbox 1"  class="md-primary" ng-model="car">
+            Auto
+        </md-checkbox>
+      </div>
+     </fieldset>
+
+  </fieldset>
+</md-card>
+<!-- Kraj forme za osnovne podatke -->
+
+<!-- Pocetak forme za stan -->
+<md-card>
+  <fieldset style="border: 1px solid rgb(255, 98, 21)" ng-show="flat = !flat">
+      <legend style="color:rgb(255, 98, 21)">Stambeno</legend>
+      
+      <div layout="row">
+        <div flex="55">
+          <br/>
+          <div>
+              <i>Podaci o stanu</i>
+          </div>
+          <md-input-container layout="column" layout-align="left center">
+            <label for="input_203">Trajanje</label>
+            <input class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10">
+          </md-input-container>
+           <md-input-container layout="column" layout-align="left center">
+            <label for="input_203">Površina stana</label>
+            <input class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10">
+          </md-input-container>
+           <md-input-container layout="column" layout-align="left center">
+            <label for="input_203">Starost stana</label>
+            <input class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10">
+          </md-input-container>
+           <md-input-container layout="column" layout-align="left center">
+            <label for="input_203">Porcenjene vrednosti stana</label>
+            <input class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10">
+          </md-input-container>
+          <md-input-container layout="column" layout-align="left center">
+          <label>Uzrok</label>
+          <md-select ng-model="uzrok">
+            <md-option>Poplava</md-option>
+            <md-option>Krađa</md-option>
+            <md-option>Požar</md-option>
+          </md-select>
+        </md-input-container>
+      </div>
+    <div>
+
+    <br/>
+
+    <div>
+      <i>Podaci o vlasniku</i>
+    </div>
+    <md-input-container layout="column" layout-align="left center">
+        <label for="input_203">Ime</label>
+        <input class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10">
+      </md-input-container>
+       <md-input-container layout="column" layout-align="left center">
+        <label for="input_203">Prezime</label>
+        <input class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10">
+      </md-input-container>
+       <md-input-container layout="column" layout-align="left center">
+        <label for="input_203">Jmbg</label>
+        <input class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10">
+      </md-input-container>
+       <md-input-container layout="column" layout-align="left center">
+        <label for="input_203">Adresa</label>
+        <input class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10">
+      </md-input-container>
+    </div>
+
+  </fieldset>
+</md-card>
+<!-- Kraj forme za stan -->
+
+<!-- Pocetak forme za auto -->
+<md-card>
+  <fieldset style="border: 1px solid rgb(255, 98, 21)" ng-show="car = !car">
+    <legend  style="color:rgb(255, 98, 21)">Auto</legend>
+    <br/>
+
+    <div layout="row">
+
+      <div flex="40">
+        <div>
+          <i>Osnovni podaci</i>
+        </div>
+        <md-input-container layout="column" layout-align="left center">
+          <label for="input_203">Trajanje</label>
+          <input class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10">
+        </md-input-container>
+        <md-checkbox aria-label="Checkbox 1"  class="md-primary">
+            Šlepovanje do određene kilometraže
+        </md-checkbox>
+        <md-checkbox aria-label="Checkbox 1"  class="md-primary">
+            Popravka do određene cene
+        </md-checkbox>
+        <md-checkbox aria-label="Checkbox 1"  class="md-primary">
+            Smeštaj u hotelu do određenog broja dana
+        </md-checkbox>
+        <md-checkbox aria-label="Checkbox 1"  class="md-primary">
+            Alternativni prevoz
+        </md-checkbox>
+       </div>
+
+        <div flex="30">
+          <div>
+            <i>Podaci o vozilu</i>
+          </div>
+          <md-input-container layout="column" layout-align="left center">
+            <label for="input_203">Marka i tip</label>
+            <input class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10">
+          </md-input-container>
+          <md-input-container layout="column" layout-align="left center">
+            <label for="input_203">Godina proizvodnje</label>
+            <input class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10">
+          </md-input-container>
+           <md-input-container layout="column" layout-align="left center">
+            <label for="input_203">Broj reg. tablice</label>
+            <input class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10">
+          </md-input-container>
+          <md-input-container layout="column" layout-align="left center">
+            <label for="input_203">Broj šasije</label>
+            <input class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10">
+          </md-input-container>
+        </div>
+      
+        <div>
+          <div>
+            <i>Podaci o vlasniku</i>
+          </div>
+          <md-input-container layout="column" layout-align="left center">
+            <label for="input_203">Ime</label>
+            <input class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10">
+          </md-input-container>
+          <md-input-container layout="column" layout-align="left center">
+            <label for="input_203">Prezime</label>
+            <input class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10">
+          </md-input-container>
+        </div>
+      </div>
+
+  </fieldset>
+</md-card>
+<!-- Kraj forme za auto -->
