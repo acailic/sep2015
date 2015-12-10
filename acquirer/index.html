@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Acquirer</title>
+	<link href="./assets/js/angular-material/angular-material.css" rel="stylesheet">
+	<link href="./assets/js/angular-material/angular-material.layouts.css" rel="stylesheet">
+	<!-- <link href="./assets/css/font-awesome.css" rel="stylesheet"> -->
+</head>
+<body ng-app="acquirer" layout="row" layout-align="center start">
+	<!--<script src="./dist/vendor.min.js"></script>
+	<script src="./dist/all.min.js"></script> -->
+
+    <div flex="80" layout="column" tabIndex="-1" role="main">
+
+	     <div ui-view="header"></div>
+	     <div ui-view="menu"></div>
+	     <div ui-view="content"></div>
+	      <div ui-view="footer"></div>
+
+    </div>
+
+	<script src="./assets/js/angular/angular.js"></script>
+	<script src="./assets/js/angular-resource/angular-resource.js"></script>
+	<script src="./assets/js/angular-ui-router/release/angular-ui-router.js"></script>
+	<script src="./assets/js/angular-animate/angular-animate.js"></script>
+	<script src="./assets/js/angular-aria/angular-aria.js"></script>
+	<script src="./assets/js/angular-material/angular-material.js"></script>
+	<script src="./assets/js/angular-messages/angular-messages.js"></script>
+	<script src="./app/app.module.js"></script>
+	<script src="./app/components/acquirer/acquirer.module.js"></script>
+	<script src="./app/components/acquirer/home.js"></script>
+	<script src="./app/components/acquirer/acquirer.route.js"></script>
+	<script src="./app/components/modal/modal.module.js"></script>
+	<script src="./app/components/modal/modal.js"></script> 
+	 
+
+	 <script src="./app/components/input/input.module.js"></script>
+	<script src="./app/components/input/input.js"></script> 
+ 	 
+	 
+</body>
+</html>

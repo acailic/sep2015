@@ -1,0 +1,18 @@
+<div ng-cloak>
+	<md-content>
+		<md-tabs md-dynamic-height md-border-bottom>
+			<md-tab label="O nama" ui-sref='main.home'></md-tab>
+			 <md-tab label="Unos" ui-sref='main.input'></md-tab>
+		    <md-tab label="Kontakt" ui-sref='main.about'></md-tab>
+		</md-tabs>
+	</md-content>
+</div>
+
+<style>
+	md-toolbar.md-warn > md-tabs.md-default-theme, md-tabs > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]){
+		color: rgb(0,0,0);
+	}
+	md-toolbar.md-warn > md-tabs.md-default-theme, md-tabs > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-active, md-toolbar.md-warn > md-tabs.md-default-theme, md-tabs > md-tabs-wrapper > md-tabs-canvas > md-pagination-wrapper > md-tab-item:not([disabled]).md-focused {
+		color: rgb(255, 98, 21);
+	}
+</style>
