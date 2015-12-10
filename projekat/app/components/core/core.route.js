@@ -37,13 +37,5 @@
 					}
 				}
 			});
-			/*.state('main.insurance', {
-				url: '/insurance',
-				views: {
-					'content@': {
-						templateUrl: 'app/components/insurance/insurance.html'
-					}
-				}
-			});*/
 	}
 })();

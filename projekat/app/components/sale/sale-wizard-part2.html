@@ -1,0 +1,136 @@
+<md-card>
+  <div layout="column" class="layout-column flex">
+    <section class="demo-container md-whiteframe-z1">
+
+      <md-toolbar class="demo-toolbar md-primary" ng-click="content = !content" style="cursor:pointer">
+        <div class="md-toolbar-tools">
+          <h3 class="ng-binding">Osoba 1</h3>
+          <span flex="" class="flex"></span>
+          <!-- <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="content = !content">
+              <md-icon md-svg-src="./assets/images/angular-material/icons/ic_code_24px.svg" class="ng-scope ng-isolate-scope" aria-hidden="true"></md-icon>
+          </button> -->
+        </div>
+      </md-toolbar>
+
+      <md-content ng-show="content = !content">
+        <br/>
+        <fieldset style="border: 1px solid rgb(255, 98, 21)">
+          <legend style="color:rgb(255, 98, 21)">Podaci</legend>
+
+          <div layout="row">
+            <md-input-container md-no-float="" class="md-block md-input-has-placeholder md-has-icon">
+              <md-icon md-svg-src="./assets/images/angular-material/icons/profile29.svg" class="name ng-isolate-scope" aria-hidden="true"></md-icon>
+              <input placeholder="Ime" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="100">
+            </md-input-container>
+             <md-input-container flex-offset="5" md-no-float="" class="md-block md-input-has-placeholder md-has-icon">
+              <input placeholder="Prezime"class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="100">
+            </md-input-container>
+            <md-input-container layout="column" layout-align="left center"  flex-offset="5" md-no-float="" class="md-block md-input-has-placeholder md-has-icon">
+              <md-select ng-model="age" aria-label="Starost" placeholder="Starost" >
+                <md-option>do 18</md-option>
+                <md-option>od 18-60</md-option>
+                <md-option>preko 60</md-option>
+              </md-select>
+            </md-input-container>
+          </div>
+
+          <div layout="row">
+            <md-input-container md-no-float="" class="md-block md-input-has-placeholder md-has-icon">
+              <md-icon md-svg-src="./assets/images/angular-material/icons/home10.svg" class="name ng-isolate-scope" aria-hidden="true"></md-icon>
+              <input placeholder="Mesto stanovanja" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="100">
+            </md-input-container>
+            <md-input-container flex-offset="5" md-no-float="" class="md-block md-input-has-placeholder md-has-icon">
+              <input placeholder="Ulica" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="100">
+            </md-input-container>
+            <md-input-container flex-offset="5" md-no-float=""  class="md-block md-input-has-placeholder md-has-icon">
+              <input placeholder="Broj" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="50">
+            </md-input-container>
+          </div>
+
+          <div layout="row">
+            <md-input-container md-no-float="" class="md-block md-input-has-placeholder md-has-icon">
+              <md-icon md-svg-src="./assets/images/angular-material/icons/identification58.svg" class="name ng-isolate-scope" aria-hidden="true"></md-icon>
+              <input placeholder="Jmbg" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="100">
+            </md-input-container>
+            <md-input-container flex-offset="5" md-no-float="" class="md-block md-input-has-placeholder md-has-icon">
+              <input placeholder="Broj pasoša" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="100">
+            </md-input-container>
+            <md-input-container flex-offset="5" md-no-float="" class="md-block md-input-has-placeholder md-has-icon">
+              <input placeholder="Broj telefona" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="100">
+            </md-input-container>
+          </div>
+
+        </fieldset>
+        <br/>
+      </md-content>
+    </section>
+  </div>
+
+  <br/>
+  <div layout="column" class="layout-column">
+      <section class="demo-container md-whiteframe-z1">
+
+        <md-toolbar class="demo-toolbar md-primary" ng-click="content1 = !content1"  style="cursor:pointer">
+          <div class="md-toolbar-tools">
+            <h3 class="ng-binding">Osoba 2</h3>
+            <span flex="" class="flex"></span>
+            <!-- <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="content1 = !content1">
+                <md-icon md-svg-src="./assets/images/angular-material/icons/ic_code_24px.svg" class="ng-scope ng-isolate-scope" aria-hidden="true"></md-icon>
+            </button> -->
+          </div>
+        </md-toolbar>
+
+        <md-content ng-show="content1 = !content1">
+          <br/>
+          <fieldset style="border: 1px solid rgb(255, 98, 21)">
+            <legend style="color:rgb(255, 98, 21)">Podaci</legend>
+
+              <div layout="row">
+                <md-input-container md-no-float="" class="md-block md-input-has-placeholder md-has-icon">
+                  <md-icon md-svg-src="./assets/images/angular-material/icons/profile29.svg" class="name ng-isolate-scope" aria-hidden="true"></md-icon>
+                  <input placeholder="Ime" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="100">
+                </md-input-container>
+                 <md-input-container flex-offset="5" md-no-float="" class="md-block md-input-has-placeholder md-has-icon">
+                  <input placeholder="Prezime"class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="100">
+                </md-input-container>
+                <md-input-container layout="column" layout-align="left center" flex-offset="5" md-no-float="" class="md-block md-input-has-placeholder md-has-icon">
+                  <md-select ng-model="age" aria-label="Starost" placeholder="Starost">
+                    <md-option>do 18</md-option>
+                    <md-option>od 18-60</md-option>
+                    <md-option>preko 60</md-option>
+                  </md-select>
+                </md-input-container>
+              </div>
+
+              <div layout="row">
+                <md-input-container md-no-float="" class="md-block md-input-has-placeholder md-has-icon">
+                  <md-icon md-svg-src="./assets/images/angular-material/icons/home10.svg" style="display:inline-block;" class="name ng-isolate-scope" aria-hidden="true"></md-icon>
+                  <input placeholder="Mesto stanovanja" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="100">
+                </md-input-container>
+                <md-input-container flex-offset="5" md-no-float="" class="md-block md-input-has-placeholder md-has-icon">
+                  <input placeholder="Ulica" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="100">
+                </md-input-container>
+                 <md-input-container flex-offset="5" md-no-float=""  class="md-block md-input-has-placeholder md-has-icon">
+                  <input placeholder="Broj" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="50">
+                </md-input-container>
+              </div>
+
+              <div layout="row">
+                <md-input-container md-no-float="" class="md-block md-input-has-placeholder md-has-icon">
+                  <md-icon md-svg-src="./assets/images/angular-material/icons/identification58.svg" class="name ng-isolate-scope" aria-hidden="true"></md-icon>
+                  <input placeholder="Jmbg" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="100">
+                </md-input-container>
+                <md-input-container flex-offset="5" md-no-float="" class="md-block md-input-has-placeholder md-has-icon">
+                  <input placeholder="Broj pasoša" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="100">
+                </md-input-container>
+                <md-input-container flex-offset="5" md-no-float="" class="md-block md-input-has-placeholder md-has-icon">
+                  <input placeholder="Broj telefona" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="100">
+                </md-input-container>
+              </div>
+          </fieldset>
+          <br/>
+        </md-content>
+
+    </section>
+  </div>
+</md-card>

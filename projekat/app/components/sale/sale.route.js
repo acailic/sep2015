@@ -12,7 +12,9 @@
 				url: '/sale',
 				views: {
 					'content@': {
-						templateUrl: 'app/components/sale/sale.html'
+						templateUrl: 'app/components/sale/sale.html',
+						controller: 'SaleController',
+						controllerAs: 'slc'
 					}
 				}
 			});
