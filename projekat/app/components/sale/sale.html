@@ -1,20 +1,18 @@
-<md-content class="md-padding" layout="column" flex="80" ng-init="tab1 = true">
+<md-content class="md-padding" layout="column" flex="80">
   
   <md-card>
     <div ng-cloak>
       <md-content>
-        <md-tabs md-dynamic-height md-border-bottom>
-          <md-tab label="Putovanje" ng-click="tab1 = true; tab2 = false; tab3 = false"></md-tab>
-          <md-tab label="Putnici" ng-click="tab2 = true; tab1 = false; tab3 = false"></md-tab>
-          <md-tab label="Sumarno" ng-click="tab3 = true; tab1 = false; tab2 = false"></md-tab>
+        <md-tabs md-dynamic-height md-border-bottom md-stretch-tabs="always">
+          <md-tab label="Putovanje"></md-tab>
+          <md-tab label="Putnici"></md-tab>
+          <md-tab label="Sumarno"></md-tab>
         </md-tabs>
       </md-content>
     </div>
 
     <md-content>
-        <div ng-show="tab1" ng-include src="'app/components/sale/sale-wizard-part1.html'"></div>
-        <div ng-show="tab2" ng-include src="'app/components/sale/sale-wizard-part2.html'"></div>
-        <div ng-show="tab3" ng-include src="'app/components/sale/sale-wizard-part3.html'"></div>
+        <div ui-view="wizard"></div>
     </md-content>
   <md-card>
 
