@@ -7,7 +7,7 @@
 
 	config.$inject = ['$stateProvider', '$urlRouterProvider'];
 	function config($stateProvider, $urlRouterProvider) {
-		$urlRouterProvider.otherwise('/home');
+		$urlRouterProvider.otherwise('/insurance');
 
 		$stateProvider
 			.state('main', {
@@ -18,14 +18,6 @@
 					},
 					'menu': {
 						templateUrl: 'app/components/core/menu.html'	
-					}
-				}
-			})
-			.state('main.home', {
-				url: '/home',
-				views: {
-					'content@': {
-						templateUrl: 'app/components/core/home.html'
 					}
 				}
 			})

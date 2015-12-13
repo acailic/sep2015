@@ -1,11 +1,38 @@
 <div ng-cloak>
 	<md-content>
 		<md-tabs md-dynamic-height md-border-bottom>
-			<md-tab label="Naslovna" ui-sref='main.home'></md-tab>
-		    <md-tab label="Osiguranja" ui-sref='main.insurance'></md-tab>
-		    <md-tab label="Kalkulacije" ui-sref='main.calculator'></md-tab>
-		    <md-tab label="Prodaja" ui-sref='main.sale.wizard1'></md-tab>
-		    <md-tab label="Kontakt" ui-sref='main.about'></md-tab>
+		    <md-tab ui-sref='main.insurance'>
+				<md-tab-label>
+		          <section layout="row" layout-align="center center" flex>
+		            <md-icon  md-svg-src="./assets/images/angular-material/icons/home4.svg" class="md-primary"></md-icon>
+		           	<div flex-offset="5">Naslovna</div>
+		          </section>
+		        </md-tab-label>
+			</md-tab>
+		    <md-tab ui-sref='main.calculator'>
+		    	<md-tab-label>
+		          <section layout="row" layout-align="center center" flex>
+		            <md-icon  md-svg-src="./assets/images/angular-material/icons/currency13.svg" class="md-primary"></md-icon>
+		           	<div flex-offset="5">Kalkulacije</div>
+		          </section>
+		        </md-tab-label>
+			</md-tab>
+		    <md-tab ui-sref='main.sale.wizard1'>
+		    	<md-tab-label>
+		          <section layout="row" layout-align="center center" flex>
+		            <md-icon  md-svg-src="./assets/images/angular-material/icons/shop32.svg" class="md-primary"></md-icon>
+		           	<div flex-offset="5">Prodaja</div>
+		          </section>
+		        </md-tab-label>
+			</md-tab>
+		    <md-tab ui-sref='main.about'>
+		    	<md-tab-label>
+		          <section layout="row" layout-align="center center" flex>
+		            <md-icon  md-svg-src="./assets/images/angular-material/icons/envelope92.svg" class="md-primary"></md-icon>
+		           	<div flex-offset="5">Kontakt</div>
+		          </section>
+		        </md-tab-label>
+			</md-tab>
 		</md-tabs>
 	</md-content>
 </div>
