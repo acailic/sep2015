@@ -7,7 +7,7 @@
 
  	 
  	function HomeController($scope ) {
- 		  $scope.imagePath = './assets/images/insurance-app/travel.jpg';
+ 		  
  		  console.log("UCITALO JE KONTROLOER");
 	}
  })();
