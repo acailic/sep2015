@@ -4,11 +4,29 @@
           <md-icon md-svg-icon="/assets/images/angular-material/icons/android.svg"></md-icon>
         </md-button>
         <h2>
-          <span><md-button>Coa Payment </md-button></span>
+          <span><md-button >Coa {{'LABELS.PAYMENT'|translate}}   </md-button></span>
         </h2>
          <span flex=""></span>
+          <md-menu-bar>
+          <md-menu>
+           <button class="md-icon-button" ng-click="$mdOpenMenu()">
+               <md-icon md-svg-icon="/assets/images/angular-material/icons/more_vert.svg">  </md-icon>
+              {{hc.currentLanguage}}
+            </button>
+             <md-menu-content>
+              <md-menu-item>
+                <!--  <md-icon md-svg-icon="/assets/images/angular-material/icons/android.svg"> -->
+                 <md-menu-item type="checkbox"  ng-href ng-click="hc.setLanguage('en')">eng</md-menu-item>
+              </md-menu-item>
+               <md-menu-item>
+               <!-- <md-icon md-svg-icon="/assets/images/angular-material/icons/android.svg"> -->
+                 <md-menu-item type="checkbox" ng-href ng-click="hc.setLanguage('sr-latn')">srb</md-menu-item>
+              </md-menu-item>
+                
+         </md-menu-content>
+          </md-menu>
          <md-button class="md-icon-button" aria-label="More">
-          <md-icon md-svg-icon="/assets/images/angular-material/icons/more_vert.svg"></md-icon>
+          <md-icon md-svg-icon="/assets/images/angular-material/icons/android.svg"></md-icon>
         </md-button>
    </div>
 </md-toolbar>

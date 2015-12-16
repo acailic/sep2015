@@ -3,11 +3,12 @@
   
   angular
     .module('acquirer.input' )
-    .controller('DemoCtrl', DemoCtrl);
+    .controller('InputCtrl', InputCtrl);
      
- 	function DemoCtrl($scope ) {
- 		 console.log("DemoCtrl");
+ 	function InputCtrl($scope ) {
+ 		 console.log("InputCtrl");
  		 $scope.payment = {
+           value: 1000,
       		 cardholdername: '',
            cardholderlastname: '',
            cardtype: '',

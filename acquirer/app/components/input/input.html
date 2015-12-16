@@ -1,69 +1,75 @@
 
-<div  ng-controller="DemoCtrl" layout="column" ng-cloak="" class="inputdemoErrors">
+<div  ng-controller="InputCtrl" layout="column" ng-cloak="" class="inputdemoErrors">
  <section layout="row" flex="">
     <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
 
       <md-toolbar class="md-theme-indigo">
-        <h1 class="md-toolbar-tools">Order total:  <span flex=""></span> CENA $$</h1>
+        <h1 class="md-toolbar-tools">{{'LABELS.ORDERTOTAL'|translate}}   <span flex=""></span> {{ payment.value |  currency }} </h1>
       </md-toolbar>
-      <md-content layout-padding="">
-          <h1>Order summary </h1>
-        <p hide-md="" show-gt-md="">
-           This is summary of order. Fill out the payment form. 
-           <img ng-src="./assets/images/insurance-app/paymentimage.jpg" class="md-card-image" alt="Washed Out">
+      <md-content layout-padding=""> 
+          <h1>{{'LABELS.ORDERSUMMARY'|translate}}</h1>
+        <p hide-md="" show-gt-md="" translate>
+            
+           {{'LABELS.ORDERSUMMARYTEXT'|translate}}
+           
         </p>
+         <img ng-src="./assets/images/insurance-app/paymentimage.jpg" class="md-card-image" alt="Washed Out">
         <p hide-md="" show-gt-md="" >
-            <img ng-src="./assets/images/angular-material/icons/ic_person_24px.svg" class="md-card-image" alt="Washed Out"> Buyer Protection by CoaPayment</p>
+            <img ng-src="./assets/images/angular-material/icons/ic_person_24px.svg" class="md-card-image" alt="Washed Out"> {{'LABELS.BUYERPROTECTION'|translate}}  Coa{{'LABELS.PAYMENT'|translate}}</p>
       </md-content>
 
     </md-sidenav>
    
   <md-content layout-padding="">
    <form name="paymentForm">
+      <h1>{{'LABELS.PAYWITHCARD'|translate}} </h1>
 
-
-      <h1>Pay with card</h1>
     <md-input-container class="md-block"> 
-      <label>Cardholder name 2</label>
+      <label>{{'LABELS.CARDHOLDERNAME'|translate}} </label>
       <input required name="cardholderName" ng-model="payment.cardholderName" >
        <div ng-messages="paymentForm.cardholderName.$error"  >
-          <div ng-message="required">This is required.</div>
+          <div ng-message="required">{{'LABELS.REQUIRED'|translate}}</div>
         </div>
     </md-input-container>
 
+<!--   -->
     <md-input-container>
-      <label>Cardholder lastname</label>
-      <input  required name="cardholderLastname"  ng-model="payment.cardholderLastname"   >
+      <label> {{'LABELS.CARDHOLDERLASTNAME'|translate}}  </label>
+      <input  required  ng-model="payment.cardholderLastname"  name="cardholderName" >
       
        <div ng-messages="paymentForm.cardholderLastname.$error" >
-          <div ng-message="required">This is required.</div>
+          <div ng-message="required">{{'LABELS.REQUIRED'|translate}}</div>
          
         </div>
     </md-input-container>
 
       <div layout-gt-sm="row">
         <md-input-container class="md-block" flex-gt-sm="">
-          <label>Card type</label>
-          <input ng-model="payment.cardtype">
+          <label>{{'LABELS.CARDTYPE'|translate}}</label>
+          <input  required ng-model="payment.cardtype">
+           <div ng-messages="paymentForm.cardtype.$error" >
+          <div ng-message="required">{{'LABELS.REQUIRED'|translate}}</div>
+         
+        </div>
         </md-input-container>
         
       </div>
 
       <div layout-gt-sm="row">
         <md-input-container class="md-block" flex-gt-sm="">
-          <label>Card number</label>
+          <label>{{'LABELS.CARDNUM'|translate}}</label>
           <input ng-model="payment.cardnum" type="number" min="0" required md-minlength="8" name="cardnum">
           <div ng-messages="paymentForm.cardnum.$error" role="alert">
-            <div ng-message="required">This is required.</div>
+            <div ng-message="required">{{'LABELS.REQUIRED'|translate}}</div>
             <div ng-message="md-minlength">Card number has to be at lest 8 num long.</div>
         </div>
         </md-input-container>
 
         <md-input-container class="md-block" flex-gt-sm="">
-          <label>Security Code</label>
+          <label>{{'LABELS.SECCODE'|translate}}</label>
           <input ng-model="payment.seccode" type="number" min="0"  md-minlength="4" name="seccode" required >
             <div ng-messages="paymentForm.seccode.$error"  >
-              <div ng-message="required">This is required.</div>
+              <div ng-message="required">{{'LABELS.REQUIRED'|translate}}</div>
               <div ng-message="md-minlength">Seccode has to be at lest 4 num long.</div>
         </div>
         </md-input-container>
@@ -71,19 +77,19 @@
 
        <div layout-gt-sm="row">
         <md-input-container flex-gt-sm="">
-          <label>Expiration month</label>
+          <label>{{'LABELS.EXPMONTH'|translate}}</label>
           <input required ng-model="payment.expmonth"  type="number" min="0"  md-minlength="2" name="expmonth">
           <div ng-messages="paymentForm.expmonth.$error"  role="alert"  >
-              <div ng-message="required">This is required.</div>
+              <div ng-message="required">{{'LABELS.REQUIRED'|translate}}</div>
               <div ng-message="md-minlength">expmonth has to be at lest 2 num long.</div>
           </div>
         </md-input-container>
 
         <md-input-container flex-gt-sm="">
-          <label>Expiration year</label>
+          <label>{{'LABELS.EXPYEAR'|translate}}</label>
           <input required ng-model="payment.expyear"   type="number" min="0"   md-minlength="2" name="expyear"  >
            <div ng-messages="paymentForm.expyear.$error" role="alert" >
-          <div ng-message="required">This is required.</div>
+          <div ng-message="required">{{'LABELS.REQUIRED'|translate}}</div>
           <div ng-message="md-minlength">expyear has to be at lest 2 num long.</div>
         </div>
         </md-input-container>
@@ -94,24 +100,15 @@
        
 
     <section layout="row" layout-sm="column" layout-align="end end" layout-wrap="">
-        
-      <md-button class="md-raised md-primary">Submit Payment</md-button>
-       
-      <md-button class="md-raised md-warn">Decline Payment</md-button>
-     
+       <md-button class="md-raised md-primary"> {{'LABELS.SUBPAYMENT'|translate}} </md-button>
+        <md-button class="md-raised md-warn"> {{'LABELS.DECPAYMENT'|translate}} </md-button>
     </section>
     </form>
-    <p> 
-    Note:
-
-    Your payment is secured with VeriSign SSL encryption, the highest commercially available encryption technology. Please be assured that your credit/debit card details will not be exposed.
-    Import duties, taxes and other customs related charges are not included. Buyers bear all responsibility for all extra charges incurred (if any).
-
-    </p>
+    <p translate> {{'LABELS.NOTE'|translate}} </p>
      
     <section   layout-sm="column" layout-align="center end" layout-wrap="">
         
-      <md-button class="md-accent" >Cancel and return to Merchant site</md-button>
+      <md-button class="md-accent" > {{'LABELS.CANCELANDRETURN'|translate}}</md-button>
     </section>
   </md-content>
  

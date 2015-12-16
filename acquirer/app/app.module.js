@@ -1,6 +1,6 @@
 (function() {
 	angular
-		.module('acquirer', ['acquirer.core',  'acquirer.modal', 'acquirer.input' ])
+		.module('acquirer', ['acquirer.core',  'acquirer.modal', 'acquirer.input','acquirer.shared'])
 		.config(function($mdThemingProvider) {
 		    
 		    $mdThemingProvider.theme('default')
@@ -19,5 +19,7 @@
 			$mdThemingProvider.theme('input', 'default')
 			    .primaryPalette('purple')
 		});
+
+		 
 		 
 })();

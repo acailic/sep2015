@@ -14,7 +14,9 @@
 				abstract: true,
 				views: {
 					'header': {
-						templateUrl: 'app/components/acquirer/header.html'	
+						templateUrl: 'app/components/acquirer/header.html',
+						controller: 'HeaderController',
+						controllerAs: 'hc'	
 					},
 					'menu': {
 						templateUrl: 'app/components/acquirer/menu.html'	
