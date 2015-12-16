@@ -11,6 +11,32 @@
     </md-toolbar>
     <md-dialog-content>
       <div class="md-dialog-content">
+
+        <md-input-container layout="column" layout-align="left center">
+            <label for="input_203">Trajanje</label>
+            <input class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10">
+        </md-input-container>
+        <md-input-container layout="column" layout-align="left center">
+            <label for="input_203">Površina stana</label>
+            <input class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10">
+        </md-input-container>
+        <md-input-container layout="column" layout-align="left center">
+            <label for="input_203">Starost stana</label>
+            <input class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10">
+        </md-input-container>
+        <md-input-container layout="column" layout-align="left center">
+            <label for="input_203">Porcenjene vrednosti stna</label>
+            <input class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10">
+        </md-input-container>
+        <md-input-container layout="column" layout-align="left center">
+            <label>Uzrok</label>
+            <md-select ng-model="uzrok">
+                <md-option>Poplava</md-option>
+                <md-option>Krađa</md-option>
+                <md-option>Požar</md-option>
+            </md-select>
+        </md-input-container>
+
         <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
           <md-button class="md-raised md-primary" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);">Izračunaj</md-button>
         </section>

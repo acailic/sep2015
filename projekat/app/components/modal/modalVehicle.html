@@ -11,6 +11,65 @@
     </md-toolbar>
     <md-dialog-content>
       <div class="md-dialog-content">
+         <md-input-container layout="column" layout-align="left center">
+            <label for="input_203">Trajanje</label>
+            <input class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10">
+        </md-input-container>
+
+
+        <md-checkbox aria-label="Checkbox 1" class="md-primary" ng-model="towing">
+            Šlepovanje do određene kilometraže
+        </md-checkbox>
+
+        <md-input-container layout="column" layout-align="left center" ng-show="towing = !towing">
+            <label>Šlepovanje:</label>
+            <md-select ng-model="shlepovanje">
+                <md-option>10km</md-option>
+                <md-option>50km</md-option>
+                <md-option>100km</md-option>
+            </md-select>
+        </md-input-container>
+
+
+        <md-checkbox aria-label="Checkbox 1" class="md-primary" ng-model="repair">
+            Popravka do određene cene
+        </md-checkbox>
+        <md-input-container layout="column" layout-align="left center" ng-show="repair = !repair">
+            <label>Popravka:</label>
+            <md-select ng-model="popravka">
+                <md-option>1 000 din</md-option>
+                <md-option>5 000 din</md-option>
+                <md-option>10 000 din</md-option>
+            </md-select>
+        </md-input-container>
+
+
+        <md-checkbox aria-label="Checkbox 1" class="md-primary" ng-model="accommodation">
+            Smeštaj u hotelu do određenog broja dana
+        </md-checkbox>
+        <md-input-container layout="column" layout-align="left center" ng-show="accommodation = !accommodation">
+            <label>Smeštaj:</label>
+            <md-select ng-model="smeshtaj">
+                <md-option>3 dana</md-option>
+                <md-option>5 dana</md-option>
+                <md-option>10 dana</md-option>
+            </md-select>
+        </md-input-container>
+
+
+
+        <md-checkbox aria-label="Checkbox 1" class="md-primary" ng-model="alternative">
+            Alternativni prevoz
+        </md-checkbox>
+        <md-input-container layout="column" layout-align="left center" ng-show="alternative = !alternative">
+            <label> Alternativni prevoz:</label>
+            <md-select ng-model="alternativni_prevoz">
+                <md-option>Prijevoz1</md-option>
+                <md-option>Prijevoz2</md-option>
+                <md-option>Prijevoz3</md-option>
+            </md-select>
+        </md-input-container>
+
         <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
           <md-button class="md-raised md-primary" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);">Izračunaj</md-button>
         </section>

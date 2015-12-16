@@ -11,26 +11,49 @@
     </md-toolbar>
     <md-dialog-content>
       <div class="md-dialog-content">
-          <md-input-container class="md-block">
-            <label for="input_203">Nesto...</label>
+          <md-input-container layout="column" layout-align="left center">
+            <label for="input_203">Trajanje</label>
             <input class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false">
-          </md-input-container>
-          <md-input-container>
-            <label>Broj osoba</label>
-            <md-select ng-model="people">
-              <md-option>Individualno</md-option>
-              <md-option>Porodica</md-option>
-              <md-option>Grupa</md-option>
-            </md-select>
-          </md-input-container>
-          <md-input-container>
-          <label>Država</label>
+        </md-input-container>
+        <md-input-container layout="column" layout-align="left center">
+            <label>Region</label>
             <md-select ng-model="state">
-              <md-option>Austrija</md-option>
-              <md-option>Francuska</md-option>
-              <md-option>Italija</md-option>
+                <md-option>Austrija</md-option>
+                <md-option>Francuska</md-option>
+                <md-option>Italija</md-option>
             </md-select>
-         </md-input-container>
+        </md-input-container>
+        <md-input-container layout="column" layout-align="left center">
+            <label for="input_broj_osoba">Broj osoba</label>
+            <input class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_broj_osoba" aria-invalid="false">
+        </md-input-container>
+        <md-input-container layout="column" layout-align="left center">
+            <label>Starost osoba</label>
+            <md-select ng-model="people">
+                <md-option>do 18 god.</md-option>
+                <md-option>od 18-60 god.</md-option>
+                <md-option>preko 60 god.</md-option>
+            </md-select>
+        </md-input-container>
+        <md-input-container layout="column" layout-align="left center">
+            <label>Max. iznos osiguranja</label>
+            <md-select ng-model="premium">
+                <md-option>10000</md-option>
+                <md-option>20000</md-option>
+                <md-option>30000</md-option>
+            </md-select>
+        </md-input-container>
+        <md-checkbox aria-label="Checkbox 1" class="md-primary" ng-model="activity">
+            Bavljenje sportom
+        </md-checkbox>
+        <md-input-container layout="column" layout-align="left center" ng-show="activity = !activity">
+            <label>Sport</label>
+            <md-select ng-model="sport">
+                <md-option>Plivanje</md-option>
+                <md-option>Skijanje</md-option>
+                <md-option>Klizanje</md-option>
+            </md-select>
+        </md-input-container>
           <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
             <md-button class="md-raised md-primary" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);">Izračunaj</md-button>
           </section>

@@ -1,172 +1,249 @@
 <md-content class="md-padding" layout="row">
-    <fieldset flex="30"  style="border: 1px solid rgb(255, 98, 21)">
-      <legend style="color:rgb(255, 98, 21)"> <md-icon md-svg-icon="\assets\images\angular-material\icons\add182.svg" style="color:rgb(255, 98, 21)" aria-label="Plus"></md-icon> Putno</legend>
-       <md-input-container layout="column" layout-align="left center">
-        <label for="input_203">Trajanje</label>
-        <input class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false">
-      </md-input-container>
-      <md-input-container layout="column" layout-align="left center">
-        <label>Region</label>
-        <md-select ng-model="state">
-          <md-option>Austrija</md-option>
-          <md-option>Francuska</md-option>
-          <md-option>Italija</md-option>
-        </md-select>
-      </md-input-container>
-      <md-input-container layout="column" layout-align="left center">
-        <label for="input_broj_osoba">Broj osoba</label>
-        <input class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_broj_osoba" aria-invalid="false">
-      </md-input-container>
-      <md-input-container layout="column" layout-align="left center">
-        <label>Starost osoba</label>
-        <md-select ng-model="people">
-          <md-option>do 18 god.</md-option>
-          <md-option>od 18-60 god.</md-option>
-          <md-option>preko 60 god.</md-option>
-        </md-select>
-      </md-input-container>
-      <md-input-container layout="column" layout-align="left center">
-        <label>Max. iznos osiguranja</label>
-        <md-select ng-model="premium">
-          <md-option>10000</md-option>
-          <md-option>20000</md-option>
-          <md-option>30000</md-option>
-        </md-select>
-      </md-input-container>
-      <md-checkbox aria-label="Checkbox 1"  class="md-primary" ng-model="activity">
-          Bavljenje sportom
-      </md-checkbox>
-      <md-input-container layout="column" layout-align="left center" ng-show="activity = !activity">
-        <label>Sport</label>
-        <md-select ng-model="sport">
-          <md-option>Plivanje</md-option>
-          <md-option>Skijanje</md-option>
-          <md-option>Klizanje</md-option>
-        </md-select>
-      </md-input-container>
+    <fieldset flex="30" style="border: 1px solid rgb(255, 98, 21)">
+        <legend style="color:rgb(255, 98, 21)">
+            
+            <img ng-src="\assets\images\angular-material\icons\travel.png" alt="Washed Out">Putno</legend>
+        <md-input-container layout="column" layout-align="left center">
+            <label for="input_203">Trajanje</label>
+            <input class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false">
+        </md-input-container>
+        <md-input-container layout="column" layout-align="left center">
+            <label>Region</label>
+            <md-select ng-model="state">
+                <md-option>Austrija</md-option>
+                <md-option>Francuska</md-option>
+                <md-option>Italija</md-option>
+            </md-select>
+        </md-input-container>
+        <md-input-container layout="column" layout-align="left center">
+            <label for="input_broj_osoba">Broj osoba</label>
+            <input class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_broj_osoba" aria-invalid="false">
+        </md-input-container>
+        <md-input-container layout="column" layout-align="left center">
+            <label>Starost osoba</label>
+            <md-select ng-model="people">
+                <md-option>do 18 god.</md-option>
+                <md-option>od 18-60 god.</md-option>
+                <md-option>preko 60 god.</md-option>
+            </md-select>
+        </md-input-container>
+        <md-input-container layout="column" layout-align="left center">
+            <label>Max. iznos osiguranja</label>
+            <md-select ng-model="premium">
+                <md-option>10000</md-option>
+                <md-option>20000</md-option>
+                <md-option>30000</md-option>
+            </md-select>
+        </md-input-container>
+        <md-checkbox aria-label="Checkbox 1" class="md-primary" ng-model="activity">
+            Bavljenje sportom
+        </md-checkbox>
+        <md-input-container layout="column" layout-align="left center" ng-show="activity = !activity">
+            <label>Sport</label>
+            <md-select ng-model="sport">
+                <md-option>Plivanje</md-option>
+                <md-option>Skijanje</md-option>
+                <md-option>Klizanje</md-option>
+            </md-select>
+        </md-input-container>
 
-      <fieldset flex="100" style="border: 1px dotted rgb(3,169,244)">
+        <fieldset flex="100" style="border: 1px dotted rgb(3,169,244)">
             <legend style="color:rgb(3,169,244)">Dodatno</legend>
-              <div>
-                <md-checkbox aria-label="Checkbox 1"  class="md-primary" ng-model="flat" >
+            <div>
+                <md-checkbox aria-label="Checkbox 1" class="md-primary" ng-model="flat">
                     Stambeno
                 </md-checkbox>
-                <md-checkbox aria-label="Checkbox 1"  class="md-primary" ng-model="car">
+                <md-checkbox aria-label="Checkbox 1" class="md-primary" ng-model="car">
                     Auto
                 </md-checkbox>
-              </div>
-          </fieldset>
+            </div>
+        </fieldset>
 
     </fieldset>
 
-  <div flex-offset= "10" layout="row" layout-align="center center" ng-show = "!flat && !car">
+    <div flex-offset="10" layout="row" layout-align="center center" ng-show="!flat && !car">
 
-     <img ng-src="./assets/images/insurance-app/dolarBlue.jpg" width="500" height= "400" class="md-card-image" 
-      alt="Washed Out">
-   </div>
+        <img ng-src="./assets/images/insurance-app/dolarBlue.jpg" width="500" height="400" class="md-card-image" alt="Washed Out">
+    </div>
 
     <div flex="5" style="border: 1px rgb(255, 98, 21)" layout="row" layout-align="center center" ng-show="flat = !flat">
-      <md-icon md-svg-icon="\assets\images\angular-material\icons\add182.svg" style="color:rgb(255, 98, 21)" aria-label="Plus"></md-icon>
+        <md-icon md-svg-icon="\assets\images\angular-material\icons\add182.svg" style="color:rgb(255, 98, 21)" aria-label="Plus"></md-icon>
     </div>
 
 
-     <fieldset flex="30" style="border: 1px solid rgb(255, 98, 21)" ng-show="flat = !flat">
-      <legend  style="color:rgb(255, 98, 21)">Stambeno</legend>
-      
-       
-      
-          <md-input-container layout="column" layout-align="left center">
+    <fieldset flex="30" style="border: 1px solid rgb(255, 98, 21)" ng-show="flat = !flat">
+        <legend style="color:rgb(255, 98, 21)">
+            <md-icon md-svg-icon="\assets\images\angular-material\icons\home.svg" style="color:rgb(255, 98, 21)" aria-label="Home"></md-icon> 
+            Stambeno</legend>
+
+
+
+        <md-input-container layout="column" layout-align="left center">
             <label for="input_203">Trajanje</label>
             <input class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10">
-          </md-input-container>
-           <md-input-container layout="column" layout-align="left center">
+        </md-input-container>
+        <md-input-container layout="column" layout-align="left center">
             <label for="input_203">Površina stana</label>
             <input class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10">
-          </md-input-container>
-           <md-input-container layout="column" layout-align="left center">
+        </md-input-container>
+        <md-input-container layout="column" layout-align="left center">
             <label for="input_203">Starost stana</label>
             <input class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10">
-          </md-input-container>
-           <md-input-container layout="column" layout-align="left center">
-            <label for="input_203">Porcenjene vrednosti stana</label>
-            <input class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10">
-          </md-input-container>
-          <md-input-container layout="column" layout-align="left center">
-          <label>Uzrok</label>
-          <md-select ng-model="uzrok">
-            <md-option>Poplava</md-option>
-            <md-option>Krađa</md-option>
-            <md-option>Požar</md-option>
-          </md-select>
         </md-input-container>
-         
-      </fieldset>
+        <md-input-container layout="column" layout-align="left center">
+            <label for="input_203">Porcenjene vrednosti stna</label>
+            <input class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10">
+        </md-input-container>
+        <md-input-container layout="column" layout-align="left center">
+            <label>Uzrok</label>
+            <md-select ng-model="uzrok">
+                <md-option>Poplava</md-option>
+                <md-option>Krađa</md-option>
+                <md-option>Požar</md-option>
+            </md-select>
+        </md-input-container>
 
-       <div flex="5" style="border: 1px rgb(255, 98, 21)" layout="row" layout-align="center center" ng-show="car = !car">
-      <md-icon md-svg-icon="\assets\images\angular-material\icons\add182.svg" style="color:rgb(255, 98, 21)" aria-label="Plus"></md-icon>
+
+    </fieldset>
+
+    <div flex="5" style="border: 1px rgb(255, 98, 21)" layout="row" layout-align="center center" ng-show="car = !car">
+        <md-icon md-svg-icon="\assets\images\angular-material\icons\add182.svg" style="color:rgb(255, 98, 21)" aria-label="Plus"></md-icon>
     </div>
 
-  <fieldset flex="30" style="border: 1px solid rgb(255, 98, 21)" ng-show="car = !car">
-        <legend  style="color:rgb(255, 98, 21)">Auto</legend>
-            <md-input-container layout="column" layout-align="left center">
-              <label for="input_203">Trajanje</label>
-              <input class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10">
-            </md-input-container>
-          
+    <fieldset flex="30" style="border: 1px solid rgb(255, 98, 21)" ng-show="car = !car">
+        <legend style="color:rgb(255, 98, 21)">
+            <md-icon md-svg-icon="\assets\images\angular-material\icons\craner.svg" height="24" width="24" style="color:rgb(255, 98, 21)" aria-label="Travel"></md-icon> 
+            Auto</legend>
+        <md-input-container layout="column" layout-align="left center">
+            <label for="input_203">Trajanje</label>
+            <input class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10">
+        </md-input-container>
 
-            <md-checkbox aria-label="Checkbox 1"  class="md-primary" ng-model="towing">
-                Šlepovanje do određene kilometraže
-            </md-checkbox>
 
-            <md-input-container layout="column" layout-align="left center" ng-show="towing = !towing">
+        <md-checkbox aria-label="Checkbox 1" class="md-primary" ng-model="towing">
+            Šlepovanje do određene kilometraže
+        </md-checkbox>
+
+        <md-input-container layout="column" layout-align="left center" ng-show="towing = !towing">
             <label>Šlepovanje:</label>
-              <md-select ng-model="shlepovanje">
+            <md-select ng-model="shlepovanje">
                 <md-option>10km</md-option>
                 <md-option>50km</md-option>
                 <md-option>100km</md-option>
-              </md-select>
-            </md-input-container>
+            </md-select>
+        </md-input-container>
 
 
-            <md-checkbox aria-label="Checkbox 1"  class="md-primary"  ng-model="repair">
-                Popravka do određene cene
-            </md-checkbox>
-            <md-input-container layout="column" layout-align="left center" ng-show="repair = !repair">
+        <md-checkbox aria-label="Checkbox 1" class="md-primary" ng-model="repair">
+            Popravka do određene cene
+        </md-checkbox>
+        <md-input-container layout="column" layout-align="left center" ng-show="repair = !repair">
             <label>Popravka:</label>
-              <md-select ng-model="popravka">
+            <md-select ng-model="popravka">
                 <md-option>1 000 din</md-option>
                 <md-option>5 000 din</md-option>
                 <md-option>10 000 din</md-option>
-              </md-select>
-            </md-input-container>
+            </md-select>
+        </md-input-container>
 
 
-            <md-checkbox aria-label="Checkbox 1"  class="md-primary" ng-model="accommodation">
-                Smeštaj u hotelu do određenog broja dana
-            </md-checkbox>
-            <md-input-container layout="column" layout-align="left center" ng-show="accommodation = !accommodation">
+        <md-checkbox aria-label="Checkbox 1" class="md-primary" ng-model="accommodation">
+            Smeštaj u hotelu do određenog broja dana
+        </md-checkbox>
+        <md-input-container layout="column" layout-align="left center" ng-show="accommodation = !accommodation">
             <label>Smeštaj:</label>
-              <md-select ng-model="smeshtaj">
+            <md-select ng-model="smeshtaj">
                 <md-option>3 dana</md-option>
                 <md-option>5 dana</md-option>
                 <md-option>10 dana</md-option>
-              </md-select>
-            </md-input-container>
+            </md-select>
+        </md-input-container>
 
 
 
-            <md-checkbox aria-label="Checkbox 1"  class="md-primary" ng-model="alternative">
-                Alternativni prevoz
-            </md-checkbox>
-               <md-input-container layout="column" layout-align="left center" ng-show="alternative = !alternative">
+        <md-checkbox aria-label="Checkbox 1" class="md-primary" ng-model="alternative">
+            Alternativni prevoz
+        </md-checkbox>
+        <md-input-container layout="column" layout-align="left center" ng-show="alternative = !alternative">
             <label> Alternativni prevoz:</label>
-              <md-select ng-model="alternativni_prevoz">
+            <md-select ng-model="alternativni_prevoz">
                 <md-option>Prijevoz1</md-option>
                 <md-option>Prijevoz2</md-option>
                 <md-option>Prijevoz3</md-option>
-              </md-select>
-            </md-input-container>
-          
-      </fieldset>
+            </md-select>
+        </md-input-container>
+
+
+    </fieldset>
 
 </md-content>
+
+
+
+<md-content class="md-padding" layout="row">
+
+    <div flex="30" layout="row" layout-align="center start">
+        <md-button class="md-raised md-primary" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);">Izračunajte</md-button>
+        <md-button class="md-raised md-primary" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);">Reset</md-button>
+    </div>
+
+    <div flex="35" layout="row" layout-align="center start" ng-show="flat = !flat">
+        <div flex-offset="15">
+            <md-button class="md-raised md-primary" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);">Izračunajte</md-button>
+            <md-button class="md-raised md-primary" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);">Reset</md-button>
+        </div>
+    </div>
+
+    <div flex="35" layout="row" layout-align="center start" ng-show="car = !car">
+        <div flex-offset="15">
+            <md-button class="md-raised md-primary" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);">Izračunajte</md-button>
+            <md-button class="md-raised md-primary" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);">Reset</md-button>
+        </div>
+    </div>
+
+
+</md-content>
+
+
+<md-content class="md-padding" layout="row">
+
+    <div flex="30" layout="row" layout-align="center start">
+        <md-chips>
+            <md-chip>= Iznos1</md-chip>
+        </md-chips>
+    </div>
+
+    <div flex="35" layout="row" layout-align="center start" ng-show="flat = !flat">
+        <div flex-offset="15">
+            <md-chips>
+                <md-chip>= Iznos2</md-chip>
+            </md-chips>
+        </div>
+    </div>
+
+    <div flex="35" layout="row" layout-align="center start" ng-show="car = !car">
+        <div flex-offset="15">
+            <md-chips>
+                <md-chip>= Iznos3</md-chip>
+            </md-chips>
+        </div>
+    </div>
+
+</md-content>
+
+
+<md-divider></md-divider>
+<div layout="row" layout-align="center center" ng-show="flat || car">
+    <md-chips>
+        <md-chip>Ukupno = </md-chip>
+    </md-chips>
+</div>
+
+
+<style>
+    md-chips.md-default-theme,
+    md-chips .md-chip {
+        background: rgb(169, 230, 230);
+        color: rgb(0, 0, 0);
+    }
+</style>
