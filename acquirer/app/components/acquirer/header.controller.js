@@ -3,7 +3,7 @@
 	
 	angular
 		.module('acquirer.core')
-		.controller('HeaderController', HeaderController);
+		 .controller('HeaderController', HeaderController);
 
 	HeaderController.$inject = ['$translate', 'tmhDynamicLocale', 'crTranslations'];
 	function HeaderController($translate, tmhDynamicLocale, crTranslations) {
@@ -24,3 +24,11 @@
 
 
 })();
+
+/*
+.config(function($mdIconProvider) {
+    	$mdIconProvider
+      .iconSet("call", 'images/serbia.svg', 24)
+      .iconSet("social", 'images/serbia.svg', 24);
+  })
+	*/	

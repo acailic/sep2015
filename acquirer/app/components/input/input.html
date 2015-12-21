@@ -4,7 +4,7 @@
     <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
 
       <md-toolbar class="md-theme-indigo">
-        <h1 class="md-toolbar-tools">{{'LABELS.ORDERTOTAL'|translate}}   <span flex=""></span> {{ payment.value |  currency }} </h1>
+        <h1 class="md-toolbar-tools">{{'LABELS.ORDERTOTAL'|translate}}   <span flex=""></span> {{ payment.value |  currency:"USD$" }} </h1>
       </md-toolbar>
       <md-content layout-padding=""> 
           <h1>{{'LABELS.ORDERSUMMARY'|translate}}</h1>
@@ -13,7 +13,7 @@
            {{'LABELS.ORDERSUMMARYTEXT'|translate}}
            
         </p>
-         <img ng-src="./assets/images/insurance-app/paymentimage.jpg" class="md-card-image" alt="Washed Out">
+         <img ng-src="./images/paymentimage.jpg" class="md-card-image" alt="Washed Out">
         <p hide-md="" show-gt-md="" >
             <img ng-src="./assets/images/angular-material/icons/ic_person_24px.svg" class="md-card-image" alt="Washed Out"> {{'LABELS.BUYERPROTECTION'|translate}}  Coa{{'LABELS.PAYMENT'|translate}}</p>
       </md-content>
@@ -104,7 +104,7 @@
         <md-button class="md-raised md-warn"> {{'LABELS.DECPAYMENT'|translate}} </md-button>
     </section>
     </form>
-    <p translate> {{'LABELS.NOTE'|translate}} </p>
+   
      
     <section   layout-sm="column" layout-align="center end" layout-wrap="">
         

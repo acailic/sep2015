@@ -1,11 +1,11 @@
  <md-toolbar layout="row" class="md-whiteframe-z2">
   <div class="md-toolbar-tools">
-  	 <md-button class="md-icon-button"  >
+  	 <md-button class="md-icon-button">
           <md-icon md-svg-icon="/assets/images/angular-material/icons/android.svg"></md-icon>
         </md-button>
         <h2>
-          <span><md-button >Coa {{'LABELS.PAYMENT'|translate}}   </md-button></span>
-        </h2>
+          <span><md-button >Coa {{'LABELS.PAYMENT'|translate}} </md-button></span> </h2>
+
          <span flex=""></span>
           <md-menu-bar>
           <md-menu>
@@ -14,13 +14,23 @@
               {{hc.currentLanguage}}
             </button>
              <md-menu-content>
-              <md-menu-item>
-                <!--  <md-icon md-svg-icon="/assets/images/angular-material/icons/android.svg"> -->
-                 <md-menu-item type="checkbox"  ng-href ng-click="hc.setLanguage('en')">eng</md-menu-item>
+              
+                 
+                 <md-menu-item type class="md-indent">
+
+                    <md-icon  md-svg-src="/assets/images/angular-material/icons/ic_chevron_right_24px.svg"></md-icon>
+                   
+                  <md-button ng-href ng-click="hc.setLanguage('en')">
+                   eng </md-button>
+                 
               </md-menu-item>
-               <md-menu-item>
-               <!-- <md-icon md-svg-icon="/assets/images/angular-material/icons/android.svg"> -->
-                 <md-menu-item type="checkbox" ng-href ng-click="hc.setLanguage('sr-latn')">srb</md-menu-item>
+                <md-menu-item type class="md-indent">
+
+                   <md-icon md-svg-icon="/assets/images/angular-material/icons/ic_chevron_right_24px.svg"></md-icon>
+
+                  <md-button  ng-href ng-click="hc.setLanguage('sr-latn')">
+                  srb</md-button>
+
               </md-menu-item>
                 
          </md-menu-content>
