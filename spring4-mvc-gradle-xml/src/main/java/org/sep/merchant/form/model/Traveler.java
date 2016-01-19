@@ -1,0 +1,107 @@
+package org.sep.merchant.form.model;
+
+import java.io.Serializable;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "traveler")
+public class Traveler implements Serializable{
+	
+	private static final long serialVersionUID = -8696328818648997721L;
+
+	@Id
+	@GeneratedValue
+	@Column(name = "id_traveler")
+	private Integer id;
+	
+	@Column (name = "first_name_traveler", nullable = false)
+	private String firstName;
+	
+	@Column (name = "last_name_traveler", nullable = false)
+	private String lastName;
+	
+	@Column (name = "passport_num_traveler", nullable = false)
+	private String passportNumber;
+	
+	@Column (name = "jmbg_traveler", nullable = false)
+	private String jmbg;
+	
+	@Column (name = "address_traveler", nullable = true)
+	private String address;
+	
+	@Column (name = "telephone_num_traveler", nullable = false)
+	private String telephoneNumber;
+
+	public Traveler(Integer id, String firstName, String lastName,
+			String passportNumber, String jmbg, String address,
+			String telephoneNumber) {
+		super();
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.passportNumber = passportNumber;
+		this.jmbg = jmbg;
+		this.address = address;
+		this.telephoneNumber = telephoneNumber;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String getPassportNumber() {
+		return passportNumber;
+	}
+
+	public void setPassportNumber(String passportNumber) {
+		this.passportNumber = passportNumber;
+	}
+
+	public String getJmbg() {
+		return jmbg;
+	}
+
+	public void setJmbg(String jmbg) {
+		this.jmbg = jmbg;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getTelephoneNumber() {
+		return telephoneNumber;
+	}
+
+	public void setTelephoneNumber(String telephoneNumber) {
+		this.telephoneNumber = telephoneNumber;
+	}
+
+	
+
+}
