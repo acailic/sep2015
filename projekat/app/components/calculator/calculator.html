@@ -15,18 +15,51 @@
                 <md-option>Italija</md-option>
             </md-select>
         </md-input-container>
+        
         <md-input-container layout="column" layout-align="left center">
-            <label for="input_broj_osoba">Broj osoba</label>
-            <input class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_broj_osoba" aria-invalid="false">
-        </md-input-container>
-        <md-input-container layout="column" layout-align="left center">
-            <label>Starost osoba</label>
-            <md-select ng-model="people">
-                <md-option>do 18 god.</md-option>
-                <md-option>od 18-60 god.</md-option>
-                <md-option>preko 60 god.</md-option>
+            <label>Broj osoba do 18 god</label>
+            <md-select ng-model="people1">
+                <md-option>1</md-option>
+                <md-option>2</md-option>
+                <md-option>3</md-option>
+                <md-option>4</md-option>
+                <md-option>5</md-option>
+                <md-option>6</md-option>
+                <md-option>7</md-option>
+                <md-option>8</md-option>
+                <md-option>9</md-option>
             </md-select>
         </md-input-container>
+        <md-input-container layout="column" layout-align="left center">
+            <label>Broj osoba od 18 do 60 god</label>
+            <md-select ng-model="people2">
+                <md-option>1</md-option>
+                <md-option>2</md-option>
+                <md-option>3</md-option>
+                <md-option>4</md-option>
+                <md-option>5</md-option>
+                <md-option>6</md-option>
+                <md-option>7</md-option>
+                <md-option>8</md-option>
+                <md-option>9</md-option>
+            </md-select>
+        </md-input-container>
+        <md-input-container layout="column" layout-align="left center">
+            <label>Broj osoba preko 60 godina</label>
+            <md-select ng-model="people3">
+                <md-option>1</md-option>
+                <md-option>2</md-option>
+                <md-option>3</md-option>
+                <md-option>4</md-option>
+                <md-option>5</md-option>
+                <md-option>6</md-option>
+                <md-option>7</md-option>
+                <md-option>8</md-option>
+                <md-option>9</md-option>
+            </md-select>
+        </md-input-container>
+
+        
         <md-input-container layout="column" layout-align="left center">
             <label>Max. iznos osiguranja</label>
             <md-select ng-model="premium">
@@ -35,9 +68,16 @@
                 <md-option>30000</md-option>
             </md-select>
         </md-input-container>
+
+        <div flex="60">
         <md-checkbox aria-label="Checkbox 1" class="md-primary" ng-model="activity">
             Bavljenje sportom
         </md-checkbox>
+        <md-tooltip md-direction="right">
+               Da li ćete se baviti sportom?
+         </md-tooltip>
+        </div>
+
         <md-input-container layout="column" layout-align="left center" ng-show="activity = !activity">
             <label>Sport</label>
             <md-select ng-model="sport">
@@ -50,12 +90,22 @@
         <fieldset flex="100" style="border: 1px dotted rgb(3,169,244)">
             <legend style="color:rgb(3,169,244)">Dodatno</legend>
             <div>
-                <md-checkbox aria-label="Checkbox 1" class="md-primary" ng-model="flat">
-                    Stambeno
-                </md-checkbox>
+                <div flex= "40">
+                    <md-checkbox aria-label="Checkbox 1" class="md-primary" ng-model="flat">
+                        Stambeno
+                    </md-checkbox>
+                    <md-tooltip md-direction="right">
+                         Da li želite i osiguranje stana/kuće dok ste na putu?
+                    </md-tooltip>
+                </div>
+                 <div flex= "35">
                 <md-checkbox aria-label="Checkbox 1" class="md-primary" ng-model="car">
                     Auto
                 </md-checkbox>
+                <md-tooltip md-direction="right">
+                         Da li želite i osiguranje "Pomoć na putu" dok ste na putu?
+                    </md-tooltip>
+                </div>
             </div>
         </fieldset>
 
@@ -91,17 +141,27 @@
             <input class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10">
         </md-input-container>
         <md-input-container layout="column" layout-align="left center">
-            <label for="input_203">Porcenjene vrednosti stna</label>
+            <label for="input_203">Procenjene vrednosti stana</label>
             <input class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10">
         </md-input-container>
-        <md-input-container layout="column" layout-align="left center">
-            <label>Uzrok</label>
-            <md-select ng-model="uzrok">
-                <md-option>Poplava</md-option>
-                <md-option>Krađa</md-option>
-                <md-option>Požar</md-option>
-            </md-select>
-        </md-input-container>
+    </br>
+
+        <div>
+
+            <label>Izaberite od čega osiguravate stan/kuću:</label>
+            <div>
+            <md-checkbox aria-label="Checkbox 1" class="md-primary" >
+                Poplava
+            </md-checkbox>
+            <md-checkbox aria-label="Checkbox 1" class="md-primary" >
+                Krađa
+            </md-checkbox>
+            <md-checkbox aria-label="Checkbox 1" class="md-primary" >
+                Požar
+            </md-checkbox>
+
+                </div>
+       </div>
 
 
     </fieldset>
@@ -119,10 +179,14 @@
             <input class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10">
         </md-input-container>
 
-
+        <div>
         <md-checkbox aria-label="Checkbox 1" class="md-primary" ng-model="towing">
             Šlepovanje do određene kilometraže
         </md-checkbox>
+        <md-tooltip md-direction="top">
+            Odabirom ove stavke uključujete u osiguranje i šlepovanje do izabrane kilometraže.
+        </md-tooltip>
+        </div>
 
         <md-input-container layout="column" layout-align="left center" ng-show="towing = !towing">
             <label>Šlepovanje:</label>
@@ -133,10 +197,14 @@
             </md-select>
         </md-input-container>
 
-
-        <md-checkbox aria-label="Checkbox 1" class="md-primary" ng-model="repair">
-            Popravka do određene cene
-        </md-checkbox>
+        <div>
+            <md-checkbox aria-label="Checkbox 1" class="md-primary" ng-model="repair">
+                Popravka do određene cene
+            </md-checkbox>
+            <md-tooltip md-direction="top">
+                Odabirom ove stavke uključujete u osiguranje i popravku do izabranog iznosa.
+            </md-tooltip>
+        </div>
         <md-input-container layout="column" layout-align="left center" ng-show="repair = !repair">
             <label>Popravka:</label>
             <md-select ng-model="popravka">
@@ -144,12 +212,18 @@
                 <md-option>5 000 din</md-option>
                 <md-option>10 000 din</md-option>
             </md-select>
+     
         </md-input-container>
 
-
+        <div>
         <md-checkbox aria-label="Checkbox 1" class="md-primary" ng-model="accommodation">
             Smeštaj u hotelu do određenog broja dana
         </md-checkbox>
+        <md-tooltip md-direction="top">
+            Odabirom ove stavke uključujete u osiguranje i smeštaj u trajanju do izabranog broja dana.
+        </md-tooltip>
+        </div>
+
         <md-input-container layout="column" layout-align="left center" ng-show="accommodation = !accommodation">
             <label>Smeštaj:</label>
             <md-select ng-model="smeshtaj">
@@ -160,10 +234,14 @@
         </md-input-container>
 
 
-
+        <div>
         <md-checkbox aria-label="Checkbox 1" class="md-primary" ng-model="alternative">
             Alternativni prevoz
         </md-checkbox>
+        <md-tooltip md-direction="top">
+            Odabirom ove stavke uključujete u osiguranje i željeni alternativni prevoz u slučaju nezgode na putu.
+        </md-tooltip>
+        </div>
         <md-input-container layout="column" layout-align="left center" ng-show="alternative = !alternative">
             <label> Alternativni prevoz:</label>
             <md-select ng-model="alternativni_prevoz">
@@ -183,8 +261,10 @@
 <md-content class="md-padding" layout="row">
 
     <div flex="30" layout="row" layout-align="center start">
-        <md-button class="md-raised md-primary" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);">Izračunajte</md-button>
-        <md-button class="md-raised md-primary" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);">Reset</md-button>
+        <div flex-offset="2">
+            <md-button class="md-raised md-primary" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);">Izračunajte</md-button>
+            <md-button class="md-raised md-primary" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);">Reset</md-button>
+        </div>
     </div>
 
     <div flex="35" layout="row" layout-align="center start" ng-show="flat = !flat">
@@ -236,8 +316,14 @@
 <div layout="row" layout-align="center center" ng-show="flat || car">
     <md-chips>
         <md-chip>Ukupno = </md-chip>
+        <md-icon md-svg-icon="\assets\images\angular-material\icons\right-arrow.svg" style="color:rgb(255, 98, 21)" aria-label="Plus"></md-icon>
     </md-chips>
+
 </div>
+
+
+
+
 
 
 <style>
