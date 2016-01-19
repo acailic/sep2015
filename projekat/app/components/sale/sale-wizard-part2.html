@@ -1,5 +1,6 @@
 <md-card>
   <div layout="column" class="layout-column flex">
+
     <section class="demo-container md-whiteframe-z1">
 
       <md-toolbar class="demo-toolbar md-primary" ng-click="content = !content" style="cursor:pointer">
@@ -10,6 +11,9 @@
               <md-icon md-svg-src="./assets/images/angular-material/icons/ic_code_24px.svg" class="ng-scope ng-isolate-scope" aria-hidden="true"></md-icon>
           </button> -->
         </div>
+        <md-tooltip md-direction="top">
+           Unesite podatke o osiguranicima.
+        </md-tooltip>
       </md-toolbar>
 
       <md-content ng-show="content = !content">
@@ -78,6 +82,9 @@
                 <md-icon md-svg-src="./assets/images/angular-material/icons/ic_code_24px.svg" class="ng-scope ng-isolate-scope" aria-hidden="true"></md-icon>
             </button> -->
           </div>
+          <md-tooltip md-direction="top">
+           Unesite podatke o osiguranicima.
+        </md-tooltip>
         </md-toolbar>
 
         <md-content ng-show="content1 = !content1">
@@ -132,6 +139,7 @@
         </md-content>
 
     </section>
+   
   </div>
 
   <br/>
