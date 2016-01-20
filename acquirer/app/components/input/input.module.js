@@ -2,5 +2,5 @@
 	"use strict";
 	
 	angular
-		.module('acquirer.input', ['ui.router',  'ngMaterial','ngMessages']);
+		.module('acquirer.input', ['ngResource','ui.router',  'ngMaterial','ngMessages']);
 })();

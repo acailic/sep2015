@@ -25,7 +25,13 @@
 				"CARDNUM":"Card Number",
 				"CARDHOLDERNAME":"Card name", 
 				"CARDHOLDERLASTNAME":"Cardholder lastname",   
-				"ORDERSUMMARYTEXT":"This is summary of order. Fill out the payment form." 
+				"ORDERSUMMARYTEXT":"This is summary of order. Fill out the payment form.",
+				"LETTERS":"This field should contain letters.", 
+				"CARDNUMM":"Card number has to be at lest 8 digits long.",
+				"SECCODEM":"Security code has to be at lest 4 digits long.",
+				"EXPMONTHM":"Write a month when your card expire.",
+				"EXPYEARM":"Write a year when your card expire." 
+					
 			},
 
 			"NOTE":"Note:Your payment is secured with VeriSign SSL encryption, the highest commercially available encryption technology. Please be assured that your credit/debit card details will not be exposed.Import duties, taxes and other customs related charges are not included. Buyers bear all responsibility for all extra charges incurred (if any).",
@@ -55,8 +61,12 @@
 				"CARDNUM":"Broj kartice", 
 				"CARDHOLDERNAME":"Ime nosioca kartice", 
 				"CARDHOLDERLASTNAME":"Prezime nosioca kartice",   
-				"ORDERSUMMARYTEXT":"Ovo je rezime transakcije. Popunite formu placanja." 
-			
+				"ORDERSUMMARYTEXT":"Ovo je rezime transakcije. Popunite formu placanja.", 
+				"LETTERS":"Ovo polje treba da sadrzi samo slova.",
+				"CARDNUMM":"Broj kartice se sastoji od 8 cifara.",
+				"SECCODEM":"Sigurnosni kod se sastoji od 4 cifre.",
+				"EXPMONTHM":"Napisite mesec kada kartice istice.",
+				"EXPYEARM":"Napisite godinu isticanja kartice." 	
 			},
  			
  			"NOTE":"Note:",

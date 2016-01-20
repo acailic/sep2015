@@ -46,7 +46,9 @@
 				url: '/input',
 				views: {
 					'content@': {
-						templateUrl: 'app/components/input/input.html'
+						templateUrl: 'app/components/input/input.html',
+						controller: 'InputController',
+						controllerAs: 'inc'
 					}
 				}
 			})

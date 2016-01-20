@@ -1,10 +1,10 @@
 
-<div  ng-controller="InputCtrl" layout="column" ng-cloak="" class="inputdemoErrors">
+<div  ng-controller="InputController" layout="column" ng-cloak="" class="input">
  <section layout="row" flex="">
     <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
 
       <md-toolbar class="md-theme-indigo">
-        <h1 class="md-toolbar-tools">{{'LABELS.ORDERTOTAL'|translate}}   <span flex=""></span> {{ payment.value |  currency:"USD$" }} </h1>
+        <h1 class="md-toolbar-tools">{{'LABELS.ORDERTOTAL'|translate}}   <span flex=""></span> {{ inc.transaction.value |  currency:"USD$" }} </h1>
       </md-toolbar>
       <md-content layout-padding=""> 
           <h1>{{'LABELS.ORDERSUMMARY'|translate}}</h1>
@@ -21,33 +21,34 @@
     </md-sidenav>
    
   <md-content layout-padding="">
-   <form name="paymentForm">
+   <form name="inc.paymentForm" ng-class="{ 'has-error': inc.paymentForm.cardnum.$touched && inc.paymentForm.cardnum.$invalid }">
       <h1>{{'LABELS.PAYWITHCARD'|translate}} </h1>
 
     <md-input-container class="md-block"> 
       <label>{{'LABELS.CARDHOLDERNAME'|translate}} </label>
-      <input required name="cardholderName" ng-model="payment.cardholderName" >
-       <div ng-messages="paymentForm.cardholderName.$error"  >
+      <input required name="cardholderName" ng-model="inc.transaction.cardholderName"   ng-pattern="/^[a-z ,.'-]+$/i" >
+       <div ng-messages="inc.paymentForm.cardholderName.$error" ng-show="inc.paymentForm.cardholderName.$touched" >
           <div ng-message="required">{{'LABELS.REQUIRED'|translate}}</div>
+          <div ng-message="pattern">This field should contain letters. {{'LABELS.LETTERS'|translate}}</div>
         </div>
     </md-input-container>
 
 <!--   -->
     <md-input-container>
       <label> {{'LABELS.CARDHOLDERLASTNAME'|translate}}  </label>
-      <input  required  ng-model="payment.cardholderLastname"  name="cardholderName" >
+      <input  required  ng-model="inc.transaction.cardholderLastname"  name="cardholderLastname" ng-pattern="/^[a-z ,.'-]+$/i" >
       
-       <div ng-messages="paymentForm.cardholderLastname.$error" >
+       <div ng-messages="inc.paymentForm.cardholderLastname.$error" ng-show="inc.paymentForm.cardholderLastname.$touched" >
           <div ng-message="required">{{'LABELS.REQUIRED'|translate}}</div>
-         
+          <div ng-message="pattern">This field should contain letters.</div>
         </div>
     </md-input-container>
 
       <div layout-gt-sm="row">
         <md-input-container class="md-block" flex-gt-sm="">
           <label>{{'LABELS.CARDTYPE'|translate}}</label>
-          <input  required ng-model="payment.cardtype">
-           <div ng-messages="paymentForm.cardtype.$error" >
+          <input  required ng-model="inc.transaction.cardtype" name="cardtype"  ng-pattern="">
+           <div ng-messages="inc.paymentForm.cardtype.$error"   ng-show="inc.paymentForm.cardtype.$touched" >
           <div ng-message="required">{{'LABELS.REQUIRED'|translate}}</div>
          
         </div>
@@ -58,19 +59,22 @@
       <div layout-gt-sm="row">
         <md-input-container class="md-block" flex-gt-sm="">
           <label>{{'LABELS.CARDNUM'|translate}}</label>
-          <input ng-model="payment.cardnum" type="number" min="0" required md-minlength="8" name="cardnum">
-          <div ng-messages="paymentForm.cardnum.$error" role="alert">
+          <input ng-model="inc.transaction.cardnum"  ng-pattern="/^[0-9]{8}$/"  name="cardnum"  required>
+
+          <div ng-messages="inc.paymentForm.cardnum.$error" role="alert" ng-show="inc.paymentForm.cardnum.$touched">
             <div ng-message="required">{{'LABELS.REQUIRED'|translate}}</div>
-            <div ng-message="md-minlength">Card number has to be at lest 8 num long.</div>
+            <div ng-message="pattern"> {{'LABELS.CARDNUMM'|translate}}</div>
         </div>
+
         </md-input-container>
 
         <md-input-container class="md-block" flex-gt-sm="">
           <label>{{'LABELS.SECCODE'|translate}}</label>
-          <input ng-model="payment.seccode" type="number" min="0"  md-minlength="4" name="seccode" required >
-            <div ng-messages="paymentForm.seccode.$error"  >
+          <input ng-model="inc.transaction.seccode" name="seccode" ng-pattern="/^[0-9]{4}$/" required >
+
+            <div ng-messages="inc.paymentForm.seccode.$error" ng-show="inc.paymentForm.seccode.$touched" >
               <div ng-message="required">{{'LABELS.REQUIRED'|translate}}</div>
-              <div ng-message="md-minlength">Seccode has to be at lest 4 num long.</div>
+              <div ng-message="pattern">{{'LABELS.SECCODEM'|translate}}</div>
         </div>
         </md-input-container>
       </div>
@@ -78,19 +82,19 @@
        <div layout-gt-sm="row">
         <md-input-container flex-gt-sm="">
           <label>{{'LABELS.EXPMONTH'|translate}}</label>
-          <input required ng-model="payment.expmonth"  type="number" min="0"  md-minlength="2" name="expmonth">
-          <div ng-messages="paymentForm.expmonth.$error"  role="alert"  >
+          <input required ng-model="inc.transaction.expmonth"  name="expmonth" ng-pattern="/^(0?[1-9]|1[012])$/">
+          <div ng-messages="inc.paymentForm.expmonth.$error" ng-show="inc.paymentForm.expmonth.$touched" role="alert"  >
               <div ng-message="required">{{'LABELS.REQUIRED'|translate}}</div>
-              <div ng-message="md-minlength">expmonth has to be at lest 2 num long.</div>
+              <div ng-message="pattern">{{'LABELS.EXPMONTHM'|translate}}</div>
           </div>
         </md-input-container>
 
         <md-input-container flex-gt-sm="">
           <label>{{'LABELS.EXPYEAR'|translate}}</label>
-          <input required ng-model="payment.expyear"   type="number" min="0"   md-minlength="2" name="expyear"  >
-           <div ng-messages="paymentForm.expyear.$error" role="alert" >
+          <input required ng-model="inc.transaction.expyear"   name="expyear" ng-pattern="/^[12][0-9]{3}$/" >
+           <div ng-messages="inc.paymentForm.expyear.$error" ng-show="inc.paymentForm.expyear.$touched" role="alert" >
           <div ng-message="required">{{'LABELS.REQUIRED'|translate}}</div>
-          <div ng-message="md-minlength">expyear has to be at lest 2 num long.</div>
+          <div ng-message="pattern">{{'LABELS.EXPYEARM'|translate}}</div>
         </div>
         </md-input-container>
       </div>
@@ -100,15 +104,20 @@
        
 
     <section layout="row" layout-sm="column" layout-align="end end" layout-wrap="">
-       <md-button class="md-raised md-primary"> {{'LABELS.SUBPAYMENT'|translate}} </md-button>
-        <md-button class="md-raised md-warn"> {{'LABELS.DECPAYMENT'|translate}} </md-button>
+       <md-button class="md-raised md-primary" ng-disabled="inc.paymentForm.$invalid" 
+       ng-click="inc.showModalProgress($event)"  > {{'LABELS.SUBPAYMENT'|translate}} </md-button>
+        <!-- <md-button class="md-raised md-warn"> {{'LABELS.DECPAYMENT'|translate}} </md-button> -->
+        
     </section>
     </form>
    
-     
+      
     <section   layout-sm="column" layout-align="center end" layout-wrap="">
         
       <md-button class="md-accent" > {{'LABELS.CANCELANDRETURN'|translate}}</md-button>
+      
+      <!-- <md-button class="md-raised md-primary"  ng-click="inc.showModalPayment($event)">MODAL </md-button>
+        -->
     </section>
   </md-content>
  

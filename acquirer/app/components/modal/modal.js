@@ -1,8 +1,8 @@
- /*(function() {
+(function() {
  	"use strict";
 	
  	angular
- 		.module('merchant.insurance')
+ 		.module('acquirer.modal')
  		.controller('ModalController', ModalController);
 
  	ModalController.$inject = ['$mdDialog'];
@@ -19,4 +19,4 @@
 		    $mdDialog.hide(answer);
 		};
 	}
- })();*/
+ })();

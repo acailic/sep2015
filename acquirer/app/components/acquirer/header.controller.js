@@ -7,7 +7,7 @@
 
 	HeaderController.$inject = ['$translate', 'tmhDynamicLocale', 'crTranslations'];
 	function HeaderController($translate, tmhDynamicLocale, crTranslations) {
-		console.log("UCITALO JE HeaderController");
+		//console.log("UCITALO JE HeaderController");
 		var hc = this;
 		hc.currentLanguage = crTranslations[$translate.use()].LANGUAGE;
 		hc.setLanguage = setLanguage;

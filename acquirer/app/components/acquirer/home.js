@@ -8,7 +8,7 @@
  	
 	 
  	function HomeController() {
- 		console.log("UCITALO JE KONTROLOER");
+ 		
  		 
 	}
 
@@ -37,6 +37,4 @@
 			        return out + ' ' + currencySymbol;
    				 }
 		}); */
-
-	
  })();
