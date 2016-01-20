@@ -12,7 +12,9 @@
 				url: '/calculator',
 				views: {
 					'content@': {
-						templateUrl: 'app/components/calculator/calculator.html'
+						templateUrl: 'app/components/calculator/calculator.html',
+						controller: 'CalculatorController',
+						controllerAs: 'calc'
 					}
 				}
 			});

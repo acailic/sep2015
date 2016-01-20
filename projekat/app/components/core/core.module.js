@@ -2,5 +2,5 @@
 	"use strict";
 	
 	angular
-		.module('merchant.core', ['ui.router', 'ngMaterial']);
+		.module('merchant.core', ['ui.router']);
 })();

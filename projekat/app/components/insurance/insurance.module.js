@@ -2,5 +2,5 @@
 	"use strict";
 	
 	angular
-		.module('merchant.insurance', ['ui.router', 'ngMaterial']);
+		.module('merchant.insurance', ['ui.router']);
 })();

@@ -12,7 +12,9 @@
 				abstract: true,
 				views: {
 					'content@': {
-						templateUrl: 'app/components/sale/sale.html'
+						templateUrl: 'app/components/sale/sale.html',
+						controller: 'SaleController',
+						controllerAs: 'slc'
 					}
 				}
 			})
@@ -36,9 +38,8 @@
 				url: '/saleWizard3',
 				views: {
 					'wizard': {
-						templateUrl: 'app/components/sale/sale-wizard-part3.html',
-						controller: 'SaleController',
-						controllerAs: 'slc'
+						templateUrl: 'app/components/sale/sale-wizard-part3.html'
+						
 					}
 				}
 			});

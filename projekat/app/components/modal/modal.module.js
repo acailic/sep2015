@@ -2,5 +2,5 @@
 	"use strict";
 	
 	angular
-		.module('merchant.modal', ['ui.router', 'ngMaterial']);
+		.module('merchant.modal', ['ui.router']);
 })();

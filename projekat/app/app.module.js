@@ -1,6 +1,6 @@
 (function() {
 	angular
-		.module('merchant', ['merchant.core', 'merchant.insurance', 'merchant.modal', 
+		.module('merchant', ['ngMaterial','merchant.core', 'merchant.insurance', 'merchant.modal', 
 			'merchant.sale', 'merchant.calculator'])
 		.config(function($mdThemingProvider) {
 		    

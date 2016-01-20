@@ -5,9 +5,18 @@
  		.module('merchant.insurance')
  		.controller('InsuranceController', InsuranceController);
 
- 	InsuranceController.$inject = ['$mdDialog', '$mdMedia'];
- 	function InsuranceController($mdDialog, $mdMedia) {
+ 	InsuranceController.$inject = ['$mdDialog', '$mdMedia','Insurance'];
+ 	function InsuranceController($mdDialog, $mdMedia, Insurance) {
  		var isc = this;
+
+	
+ 		//pokupiti proslijedjeni insurance
+
+
+ 		isc.create = function () {
+			Insurance.create(isc.insurance);
+		};
+
 
  		isc.showModalTravel = function(ev) {
 		    $mdDialog.show({
