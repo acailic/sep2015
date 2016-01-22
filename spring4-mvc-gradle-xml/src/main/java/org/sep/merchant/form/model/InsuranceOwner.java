@@ -1,11 +1,14 @@
 package org.sep.merchant.form.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -39,6 +42,9 @@ public class InsuranceOwner implements Serializable{
 	
 	@Column (name = "telephone_ins_owner", nullable = false)
 	private String telephoneNumber;
+	
+	@OneToMany(mappedBy = "insuranceOwner")  
+	private Set<Insurance> insurances = new HashSet<Insurance>();
 
 	public InsuranceOwner(Integer id, String firstName, String lastName,
 			String passportNumber, String jmbg, String address,
@@ -114,5 +120,12 @@ public class InsuranceOwner implements Serializable{
 		this.email = email;
 	}
 
+	public Set<Insurance> getInsurances() {
+		return insurances;
+	}
+
+	public void setInsurances(Set<Insurance> insurances) {
+		this.insurances = insurances;
+	}
 	
 }

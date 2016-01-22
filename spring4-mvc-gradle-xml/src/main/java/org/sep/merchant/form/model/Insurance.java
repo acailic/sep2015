@@ -2,11 +2,16 @@ package org.sep.merchant.form.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -21,21 +26,44 @@ public class Insurance implements Serializable{
 	private Integer id;
 	
 	@Column (name = "duration", nullable = false)
-	//@Size(min=2, max=50, message="{validation.user.duration}")
-	//@UnicodePattern(pattern=UnicodePattern.FIRST_NAME_PATTERN, message="{validation.FIRST_NAME_PATTERN.format.message}")
 	private String duration;
 	
 	@Column (name = "basic_price", nullable = false)
-	//@Size(min=2, max=50, message="{validation.user.username}")
 	private BigDecimal basicPrice;
 	
 	@Column (name = "total_price", nullable = false)
-	//@Size(min=2, max=50, message="{validation.user.username}")
 	private BigDecimal totalPrice;
 	
 	@Column (name = "num_of_people", nullable = false)
-	//@Size(min=2, max=50, message="{validation.user.username}")
 	private Integer numOfPeople;
+	
+	@OneToMany(mappedBy = "insurance")  
+	private Set<PriceListItem> priceListItems;
+	
+	@OneToMany(mappedBy = "insurance")  
+	private Set<Order> orders;
+	
+	@ManyToOne
+	@JoinColumn(name="id_ins_owner")
+	private InsuranceOwner insuranceOwner;
+	
+	/*@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @JoinTable(name="risk_item", 
+        joinColumns={@JoinColumn(name="id_insurance")},
+        inverseJoinColumns={@JoinColumn(name="id_risk_item")})
+	private Set<RiskItem> riskItems = new HashSet<RiskItem>();
+	
+	@ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @JoinTable(name="traveler", 
+        joinColumns={@JoinColumn(name="id_insurance")},
+        inverseJoinColumns={@JoinColumn(name="id_traveler")})
+	private Set<Traveler> travelers = new HashSet<Traveler>();*/
+	
+	@OneToMany(mappedBy = "insurance")  
+	private Set<RiskItemInsurance> riskItemInsurances = new HashSet<RiskItemInsurance>();
+	
+	@OneToMany(mappedBy = "insurance")  
+	private Set<TravelerInsurance> travelerInsurances = new HashSet<TravelerInsurance>();
 
 	public Insurance(Integer id, String duration, BigDecimal basicPrice,
 			BigDecimal totalPrice, Integer numOfPeople) {
@@ -83,5 +111,28 @@ public class Insurance implements Serializable{
 		this.numOfPeople = numOfPeople;
 	}
 
+	public Set<PriceListItem> getPriceListItems() {
+		return priceListItems;
+	}
+
+	public void setPriceListItems(Set<PriceListItem> priceListItems) {
+		this.priceListItems = priceListItems;
+	}
+
+	public InsuranceOwner getInsuranceOwner() {
+		return insuranceOwner;
+	}
+
+	public void setInsuranceOwner(InsuranceOwner insuranceOwner) {
+		this.insuranceOwner = insuranceOwner;
+	}
+
+	public Set<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(Set<Order> orders) {
+		this.orders = orders;
+	}
 	
 }

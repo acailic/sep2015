@@ -1,11 +1,19 @@
 package org.sep.merchant.form.model;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -36,6 +44,12 @@ public class Traveler implements Serializable{
 	
 	@Column (name = "telephone_num_traveler", nullable = false)
 	private String telephoneNumber;
+	
+	/*@ManyToMany(fetch = FetchType.LAZY, mappedBy = "travelers")
+	private Set<Insurance> insurances = new HashSet<Insurance>();*/
+	
+	@OneToMany(mappedBy = "traveler")  
+	private Set<TravelerInsurance> travelerInsurances = new HashSet<TravelerInsurance>();
 
 	public Traveler(Integer id, String firstName, String lastName,
 			String passportNumber, String jmbg, String address,
@@ -101,7 +115,5 @@ public class Traveler implements Serializable{
 	public void setTelephoneNumber(String telephoneNumber) {
 		this.telephoneNumber = telephoneNumber;
 	}
-
-	
 
 }
