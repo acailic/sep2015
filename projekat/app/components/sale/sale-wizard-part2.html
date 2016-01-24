@@ -1,152 +1,168 @@
 <md-card>
+<form name="slc.saleWizardPart2" novalidate  ng-submit="slc.test2()">
   <div layout="column" class="layout-column flex">
-
     <section class="demo-container md-whiteframe-z1">
 
-      <md-toolbar class="demo-toolbar md-primary" ng-click="content = !content" style="cursor:pointer">
-        <div class="md-toolbar-tools">
-          <h3 class="ng-binding">Osoba 1</h3>
-          <span flex="" class="flex"></span>
-          <!-- <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="content = !content">
-              <md-icon md-svg-src="./assets/images/angular-material/icons/ic_code_24px.svg" class="ng-scope ng-isolate-scope" aria-hidden="true"></md-icon>
-          </button> -->
-        </div>
-        <md-tooltip md-direction="top">
-           Unesite podatke o osiguranicima.
-        </md-tooltip>
-      </md-toolbar>
-
-      <md-content ng-show="content = !content">
+      <md-content>
         <br/>
+        <table>
+          <thead>
+            <th>#</th>
+            <th>Ime</th>
+            <th>Prezime</th>
+            <th>Starost</th>
+            <th>JMBG</th>
+            <th>Br. pasosa</th>
+            <th>Br. tel</th>
+            <th>Adresa</th>
+            <th>Grad</th>
+          </thead>
+          <tbody>
+            <tr ng-repeat="traveller in slc.insurance.travellers">
+                <th>{{$index+1}}</th>
+                <td>{{traveller.first_name}}</td>
+                <td>{{traveller.last_name}}</td>
+                <td>{{traveller.human_age_id}}</td>
+                <td>{{traveller.jmbg}}</td>
+                <td>{{traveller.passport_num}}</td>
+                <td>{{traveller.tel_num}}</td>
+                <td>{{traveller.address}}</td>
+                <td>{{traveller.city_id}}</td>
+            </tr>
+          </tbody>
+        </table>
+
+  <br/>
+
         <fieldset style="border: 1px solid rgb(255, 98, 21)">
           <legend style="color:rgb(255, 98, 21)">Podaci</legend>
 
-          <div layout="row">
+          <div layout="gt-xs-row">
             <md-input-container md-no-float="" class="md-block md-input-has-placeholder md-has-icon">
               <md-icon md-svg-src="./assets/images/angular-material/icons/profile29.svg" class="name ng-isolate-scope" aria-hidden="true"></md-icon>
-              <input placeholder="Ime" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="100">
+              <input name="first_name" ng-model="slc.insurance.traveller.first_name" placeholder="Ime" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" aria-invalid="false" flex-gt-xs ng-required="true">
+              <div ng-messages="slc.saleWizardPart2.first_name.$error" ng-show="slc.saleWizardPart2.first_name.$touched || slc.invalidForm">
+                <div ng-message="required">
+                  Obavezno ime putnika.
+                </div>
+              </div>
             </md-input-container>
              <md-input-container flex-offset="5" md-no-float="" class="md-block md-input-has-placeholder md-has-icon">
-              <input placeholder="Prezime"class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="100">
+              <input name="last_name" ng-model="slc.insurance.traveller.last_name" placeholder="Prezime"class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" aria-invalid="false" flex-gt-xs ng-required="true">
+              <div ng-messages="slc.saleWizardPart2.last_name.$error"  ng-show="slc.saleWizardPart2.last_name.$touched || slc.invalidForm">
+                <div ng-message="required">
+                  Obavezno prezime putnika.
+                </div>
+              </div>
             </md-input-container>
             <md-input-container layout="column" layout-align="left center"  flex-offset="5" md-no-float="" class="md-block md-input-has-placeholder md-has-icon">
-              <md-select ng-model="age" aria-label="Starost" placeholder="Starost" >
-                <md-option>do 18</md-option>
-                <md-option>od 18-60</md-option>
-                <md-option>preko 60</md-option>
+              <md-select name="age" ng-model="slc.insurance.traveller.human_age_id" aria-label="Starost" placeholder="Starost" ng-required="true">
+                <md-option ng-repeat="age in slc.data_init.human_ages" ng-value="age.id">{{age.name}}</md-option>
               </md-select>
+              <div ng-messages="slc.saleWizardPart2.age.$error" ng-show="slc.saleWizardPart2.age.$touched || slc.invalidForm">
+                <div ng-message="required">
+                  Obavezna starost putnika.
+                </div>
+              </div> 
             </md-input-container>
           </div>
 
-          <div layout="row">
-            <md-input-container md-no-float="" class="md-block md-input-has-placeholder md-has-icon">
-              <md-icon md-svg-src="./assets/images/angular-material/icons/home10.svg" class="name ng-isolate-scope" aria-hidden="true"></md-icon>
-              <input placeholder="Mesto stanovanja" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="100">
-            </md-input-container>
-            <md-input-container flex-offset="5" md-no-float="" class="md-block md-input-has-placeholder md-has-icon">
-              <input placeholder="Ulica" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="100">
-            </md-input-container>
-            <md-input-container flex-offset="5" md-no-float=""  class="md-block md-input-has-placeholder md-has-icon">
-              <input placeholder="Broj" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="50">
-            </md-input-container>
-          </div>
-
-          <div layout="row">
+          <div layout="gt-sm-row">
             <md-input-container md-no-float="" class="md-block md-input-has-placeholder md-has-icon">
               <md-icon md-svg-src="./assets/images/angular-material/icons/identification58.svg" class="name ng-isolate-scope" aria-hidden="true"></md-icon>
-              <input placeholder="Jmbg" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="100">
+              <input name="jmbg" ng-model="slc.insurance.traveller.jmbg" placeholder="Jmbg" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="100" onkeypress='return event.charCode >= 48 && event.charCode <= 57' minlength="13" maxlength="13" ng-required="true">
+              <div ng-messages="slc.saleWizardPart2.jmbg.$error" ng-show="slc.saleWizardPart2.jmbg.$touched || slc.invalidForm">
+                <div ng-message="required">
+                  Obavezan JMBG.
+                </div>
+                <div ng-message="minlength, maxlength">
+                      JMBG se sastoji od 13 karaktera
+                  </div>
+              </div>
             </md-input-container>
             <md-input-container flex-offset="5" md-no-float="" class="md-block md-input-has-placeholder md-has-icon">
-              <input placeholder="Broj pasoša" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="100">
+              <input name="pass_num" ng-model="slc.insurance.traveller.passport_num" placeholder="Broj pasoša" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" onkeypress='return event.charCode >= 48 && event.charCode <= 57' id="input_203" aria-invalid="false" flex="100"  minlength="9" maxlength="9" ng-required="true">
+             <div ng-messages="slc.saleWizardPart2.pass_num.$error" ng-show="slc.saleWizardPart2.pass_num.$touched || slc.invalidForm">
+                <div ng-message="required">
+                  Obavezan broj pasosa.
+                </div>
+                <div ng-message="minlength, maxlength">
+                  Broj pasosa se sastoji od 9 karaktera.
+                </div>
+              </div> 
             </md-input-container>
             <md-input-container flex-offset="5" md-no-float="" class="md-block md-input-has-placeholder md-has-icon">
-              <input placeholder="Broj telefona" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="100">
+              <input name="tel_num" ng-model="slc.insurance.traveller.tel_num" placeholder="Broj telefona" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="100" onkeypress='return event.charCode >= 48 && event.charCode <= 57' minlength="9" maxlength="10" ng-required="true">
+              <div ng-messages="slc.saleWizardPart2.tel_num.$error" ng-show="slc.saleWizardPart2.tel_num.$touched || slc.invalidForm">
+                <div ng-message="required">
+                  Obavezan broj telefona putnika.
+                </div>
+                <div ng-message="minlength">
+                  Broj telefona se sastoji od minimalno 9 karaktera.
+                </div>
+                <div ng-message="minlength, maxlength">
+                  Broj telefona se sastoji od maksimalno 10 karaktera.
+                </div>
+              </div>
             </md-input-container>
           </div>
 
+          <div layout="gt-sm-row">
+            <md-input-container md-no-float="" class="md-block md-input-has-placeholder md-has-icon">
+              <md-icon md-svg-src="./assets/images/angular-material/icons/home10.svg" class="name ng-isolate-scope" aria-hidden="true"></md-icon>
+              <input name="address" ng-model="slc.insurance.traveller.address" placeholder="Ulica i broj" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="100" ng-required="true">
+              <div ng-messages="slc.saleWizardPart2.address.$error" ng-show="slc.saleWizardPart2.address.$touched || slc.invalidForm">
+                <div ng-message="required">
+                  Obavezan unos ulice i broja.
+                </div>
+              </div>
+            </md-input-container>
+
+             <md-input-container layout="column" layout-align="left center"  flex-offset="5" md-no-float="" class="md-block md-input-has-placeholder md-has-icon">
+              <md-select name="city" ng-model="slc.insurance.traveller.city_id" aria-label="Mesto stanovanja" placeholder="Mesto stanovanja" ng-required="true">
+                <md-option ng-repeat="city in slc.data_init.cities" ng-value="city.id">{{city.name}}</md-option>
+              </md-select>
+              <div ng-messages="slc.saleWizardPart2.city.$error" ng-show="slc.saleWizardPart2.city.$touched || slc.invalidForm">
+                <div ng-message="required">
+                  Obavezan grad.
+                </div>
+              </div> 
+            </md-input-container>
+
+          </div>
         </fieldset>
+
+        <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+           <md-button type="submit" class="md-raised md-primary" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);">Sačuvaj podatke putnika</md-button>
+          </section> 
         <br/>
       </md-content>
+      <br/>
     </section>
   </div>
-
-  <br/>
-  <div layout="column" class="layout-column">
-      <section class="demo-container md-whiteframe-z1">
-
-        <md-toolbar class="demo-toolbar md-primary" ng-click="content1 = !content1"  style="cursor:pointer">
-          <div class="md-toolbar-tools">
-            <h3 class="ng-binding">Osoba 2</h3>
-            <span flex="" class="flex"></span>
-            <!-- <button class="md-icon-button md-button md-ink-ripple" type="button" ng-click="content1 = !content1">
-                <md-icon md-svg-src="./assets/images/angular-material/icons/ic_code_24px.svg" class="ng-scope ng-isolate-scope" aria-hidden="true"></md-icon>
-            </button> -->
-          </div>
-          <md-tooltip md-direction="top">
-           Unesite podatke o osiguranicima.
-        </md-tooltip>
-        </md-toolbar>
-
-        <md-content ng-show="content1 = !content1">
-          <br/>
-          <fieldset style="border: 1px solid rgb(255, 98, 21)">
-            <legend style="color:rgb(255, 98, 21)">Podaci</legend>
-
-              <div layout="row">
-                <md-input-container md-no-float="" class="md-block md-input-has-placeholder md-has-icon">
-                  <md-icon md-svg-src="./assets/images/angular-material/icons/profile29.svg" class="name ng-isolate-scope" aria-hidden="true"></md-icon>
-                  <input placeholder="Ime" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="100">
-                </md-input-container>
-                 <md-input-container flex-offset="5" md-no-float="" class="md-block md-input-has-placeholder md-has-icon">
-                  <input placeholder="Prezime"class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="100">
-                </md-input-container>
-                <md-input-container layout="column" layout-align="left center" flex-offset="5" md-no-float="" class="md-block md-input-has-placeholder md-has-icon">
-                  <md-select ng-model="age" aria-label="Starost" placeholder="Starost">
-                    <md-option>do 18</md-option>
-                    <md-option>od 18-60</md-option>
-                    <md-option>preko 60</md-option>
-                  </md-select>
-                </md-input-container>
-              </div>
-
-              <div layout="row">
-                <md-input-container md-no-float="" class="md-block md-input-has-placeholder md-has-icon">
-                  <md-icon md-svg-src="./assets/images/angular-material/icons/home10.svg" style="display:inline-block;" class="name ng-isolate-scope" aria-hidden="true"></md-icon>
-                  <input placeholder="Mesto stanovanja" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="100">
-                </md-input-container>
-                <md-input-container flex-offset="5" md-no-float="" class="md-block md-input-has-placeholder md-has-icon">
-                  <input placeholder="Ulica" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="100">
-                </md-input-container>
-                 <md-input-container flex-offset="5" md-no-float=""  class="md-block md-input-has-placeholder md-has-icon">
-                  <input placeholder="Broj" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="50">
-                </md-input-container>
-              </div>
-
-              <div layout="row">
-                <md-input-container md-no-float="" class="md-block md-input-has-placeholder md-has-icon">
-                  <md-icon md-svg-src="./assets/images/angular-material/icons/identification58.svg" class="name ng-isolate-scope" aria-hidden="true"></md-icon>
-                  <input placeholder="Jmbg" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="100">
-                </md-input-container>
-                <md-input-container flex-offset="5" md-no-float="" class="md-block md-input-has-placeholder md-has-icon">
-                  <input placeholder="Broj pasoša" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="100">
-                </md-input-container>
-                <md-input-container flex-offset="5" md-no-float="" class="md-block md-input-has-placeholder md-has-icon">
-                  <input placeholder="Broj telefona" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="100">
-                </md-input-container>
-              </div>
-          </fieldset>
-          <br/>
-        </md-content>
-
-    </section>
-   
-  </div>
-
+  
   <br/>
   <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
     <md-button class="md-raised md-primary" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);" ui-sref="main.sale.wizard1">Povratak</md-button>
-   <md-button class="md-raised md-primary" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);" ui-sref="main.sale.wizard3">Nastavi</md-button>
+   <md-button type="submit" class="md-raised md-primary" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);">Nastavi</md-button>
   </section> 
+  
   <br/>
-
+</form>
 </md-card>
+
+<style>
+  table, td, th {    
+      border: 1px solid #ddd;
+      text-align: left;
+  }
+
+  table {
+      border-collapse: collapse;
+      width: 100%;
+  }
+
+  th, td {
+      padding: 15px;
+  }
+</style>
