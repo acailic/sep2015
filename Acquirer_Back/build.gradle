@@ -1,0 +1,80 @@
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'eclipse-wtp'
+apply from: 'https://raw.github.com/akhikhl/gretty/master/pluginScripts/gretty.plugin'
+
+// JDK 7
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+ 
+	compile 'ch.qos.logback:logback-classic:1.1.3'
+	compile 'org.springframework:spring-aop:3.2.4.RELEASE'
+	compile 'org.springframework:spring-beans:3.2.4.RELEASE'
+	compile 'org.springframework:spring-context:3.2.4.RELEASE'
+	compile 'org.springframework:spring-core:3.2.4.RELEASE'
+	compile 'org.springframework:spring-expression:3.2.4.RELEASE'
+	compile 'org.springframework:spring-jdbc:3.2.4.RELEASE'
+	compile 'org.springframework:spring-orm:3.2.4.RELEASE'
+	compile 'org.springframework:spring-test:3.2.4.RELEASE'
+	compile 'org.springframework:spring-tx:3.2.4.RELEASE'
+	compile 'org.springframework:spring-web:3.2.4.RELEASE'
+	compile 'org.springframework:spring-webmvc:3.2.4.RELEASE'
+	compile 'javax.inject:javax.inject:1'
+	compile 'org.hibernate:hibernate-entitymanager:4.2.6.Final'
+	compile 'org.hibernate:hibernate-envers:4.2.6.Final'
+	compile 'org.hibernate:hibernate-osgi:4.2.6.Final'
+	compile 'org.hibernate.common:hibernate-commons-annotations:4.0.2.Final'
+	compile 'org.hibernate:hibernate-core:4.2.6.Final'
+	compile 'org.hibernate.javax.persistence:hibernate-jpa-2.0-api:1.0.1.Final'
+	compile 'org.hibernate:hibernate-validator:4.3.1.Final'
+	compile 'org.hibernate:hibernate-validator-annotation-processor:4.3.1.Final'
+	compile 'javax.validation:validation-api:1.0.0.GA'
+	compile 'org.osgi:org.osgi.core:4.3.1'
+	compile 'org.javassist:javassist:3.15.0-GA'
+	compile 'org.jboss.logging:jboss-logging:3.1.0.GA'
+	compile 'org.jboss.spec.javax.transaction:jboss-transaction-api_1.1_spec:1.0.1.Final'
+	compile 'mysql:mysql-connector-java:5.1.26'
+	compile 'javax.servlet:jstl:1.2'
+	compile 'javax.servlet:javax.servlet-api:3.1.0'
+	
+}
+
+// Embeded Jetty for testing
+//jettyRun{
+//	contextPath = "Acquirer_back"
+//	httpPort = 8080
+//}
+
+//jettyRunWar{
+//	contextPath = "Acquirer_back"
+//	httpPort = 8080
+//}
+
+//For Eclipse IDE only
+eclipse {
+
+  wtp {
+    component {
+      
+      //define context path, default to project folder name
+      contextPath = 'Acquirer_back'
+      
+    }
+    
+  }
+}
+
+
+gretty {
+  port = 8080
+  contextPath = 'Acquirer_back'
+  interactiveMode = 'restartOnKeyPress'
+}
+
