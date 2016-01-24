@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,6 +13,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 
 @Entity
 @Table(name = "risk")
@@ -31,12 +33,11 @@ public class Risk implements Serializable{
 	@JoinColumn(name="id_risk_type")
 	private RiskType type;
 	
-	@OneToMany(mappedBy = "risk")  
+	@OneToMany(mappedBy = "risk", cascade = {CascadeType.ALL})  
 	private Set<RiskItem> riskItems = new HashSet<RiskItem>();
 
-	public Risk(Integer id, String riskName, RiskType type) {
+	public Risk(String riskName, RiskType type) {
 		super();
-		this.id = id;
 		this.riskName = riskName;
 		this.type = type;
 	}

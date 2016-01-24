@@ -45,6 +45,10 @@ public class InsuranceOwner implements Serializable{
 	
 	@OneToMany(mappedBy = "insuranceOwner")  
 	private Set<Insurance> insurances = new HashSet<Insurance>();
+	
+	public InsuranceOwner(){
+		super();
+	}
 
 	public InsuranceOwner(Integer id, String firstName, String lastName,
 			String passportNumber, String jmbg, String address,

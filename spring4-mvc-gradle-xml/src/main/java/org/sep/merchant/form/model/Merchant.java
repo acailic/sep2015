@@ -27,6 +27,10 @@ public class Merchant implements Serializable{
 	
 	@OneToMany(mappedBy = "merchant")  
 	private Set<Order> orders = new HashSet<Order>();
+	
+	public Merchant(){
+		super();
+	}
 
 	public Merchant(Integer id, String password, Set<Order> orders) {
 		super();

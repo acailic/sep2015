@@ -30,7 +30,7 @@ public class RiskType implements Serializable{
 	@Column (name = "name_risk_type", nullable = false)
 	private String name;
 	
-	@OneToMany(mappedBy = "type")  
+	@OneToMany(mappedBy = "type", cascade = {CascadeType.ALL})  
 	private Set<Risk> risks = new HashSet<Risk>();
 	
 	@OneToMany(mappedBy = "type")  
@@ -47,13 +47,14 @@ public class RiskType implements Serializable{
 	
 	@OneToMany(mappedBy = "riskType")  
 	private Set<RiskTypeVehicle> riskTypeVehicles = new HashSet<RiskTypeVehicle>();
-
-	public RiskType(Integer id, String name, Set<Risk> risks, Set<RiskTypeInfo> riskTypeInfos) {
+	
+	public RiskType(){
 		super();
-		this.id = id;
+	}
+
+	public RiskType(String name) {
+		super();
 		this.name = name;
-		this.risks = risks;
-		this.riskTypeInfos = riskTypeInfos;
 	}
 
 	public Integer getId() {

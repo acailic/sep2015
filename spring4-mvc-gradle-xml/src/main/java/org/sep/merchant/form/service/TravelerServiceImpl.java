@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service("travelerService")
-@Transactional(readOnly = true)
+@Transactional
 public class TravelerServiceImpl extends GenericServiceImpl<Traveler> implements TravelerService{
 
 	@Inject

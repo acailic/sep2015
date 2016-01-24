@@ -48,11 +48,13 @@ public class RiskItem implements Serializable{
 	
 	@OneToMany(mappedBy = "riskItem")  
 	private Set<RiskItemInsurance> riskItemInsurances = new HashSet<RiskItemInsurance>();
-
-	public RiskItem(Integer id, String name, Double factor, Risk risk,
-			Set<Insurance> insurances) {
+	
+	public RiskItem(){
 		super();
-		this.id = id;
+	}
+
+	public RiskItem(String name, Double factor, Risk risk) {
+		super();
 		this.name = name;
 		this.factor = factor;
 		this.risk = risk;

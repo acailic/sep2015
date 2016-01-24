@@ -46,7 +46,10 @@ public class Home  implements Serializable{
 	@OneToMany(mappedBy = "home")  
 	private Set<RiskTypeHome> riskTypeHomes = new HashSet<RiskTypeHome>();
 	
-
+	public Home(){
+		super();
+	}
+	
 	public Home(Integer id, Double floorArea, Integer flatAge,
 			BigDecimal estimatedValue) {
 		super();

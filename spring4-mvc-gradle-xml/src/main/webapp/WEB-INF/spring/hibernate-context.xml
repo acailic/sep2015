@@ -18,7 +18,7 @@
       			<value>WEB-INF/conf/database.properties</value>
     		</list>
   		</property>
-  		<property name="localOverride" value="true"/>
+  		<property name="localOverride" value="false"/>
     </bean>
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -49,11 +49,11 @@
         <property name="jpaProperties">
             <props>
                 <!-- for test config only -->
-                <prop key="hibernate.hbm2ddl.auto">create-drop</prop> 
+                <prop key="hibernate.hbm2ddl.auto">update</prop> 
                  <!-- <prop key="hibernate.dialect">${jdbc.dialect}</prop>-->
                 <prop key="hibernate.show_sql">true</prop>
                 <prop key="hibernate.format_sql">true</prop>
-                <prop key="hibernate.hbm2ddl.auto">create</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop>
                 <prop key="hibernate.query.substitutions">true 1, false 0</prop>
             </props>
         </property>

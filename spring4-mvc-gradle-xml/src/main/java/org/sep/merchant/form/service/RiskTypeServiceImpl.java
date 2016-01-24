@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service("riskTypeService")
-@Transactional(readOnly = true)
+@Transactional
 public class RiskTypeServiceImpl extends GenericServiceImpl<RiskType> implements RiskTypeService{
 	
 	@Inject
