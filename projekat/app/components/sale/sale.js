@@ -65,7 +65,6 @@
 		    	slc.insurance.travellers.push(slc.insurance.traveller);
 		    	slc.insurance.traveller = {};
 		    	slc.saleWizardPart2.$setPristine();
-		    	slc.saleWizardPart2.$setValidity();
 			    slc.saleWizardPart2.$setUntouched();
 			    slc.number_of_travellers = slc.insurance.travellers.length;
 			    if(slc.insurance.travellers.length === slc.number_of_people){
