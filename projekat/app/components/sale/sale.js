@@ -32,11 +32,14 @@
 		slc.number_of_travellers = 0;
 
 
-		slc.someSelected = function (object) { 
+		slc.someSelected = function (object) {
+			if (slc.flat) { 
 				return object && Object.keys(object).some(function (key) { 
 					return object[key]; 
 				}); 
-			};
+			}else
+			 	return true;
+		};
 
 
  		slc.showModalPayment = function(ev) {
@@ -48,18 +51,17 @@
 		    });
 		 };
 
-	  	slc.test = function() {
+	  	slc.saveInsurances = function() {
 		  	if(slc.saleWizardPart1.$valid){
 		    	slc.invalidForm = false;
 		    	$state.go("main.sale.wizard2");
 			}
 		    else{
 		    	slc.invalidForm = true;
-		    	console.log("nevalidna forma");
 			}
 	  	};
 
-	   	slc.test2 = function() {
+	   	slc.saveTravellers = function() {
 		    if(slc.saleWizardPart2.$valid){
 		    	slc.invalidForm = false;
 		    	slc.insurance.travellers.push(slc.insurance.traveller);
@@ -75,8 +77,6 @@
 			}
 		     else{
 		    	slc.invalidForm = true;
-		    	console.log("nevalidna forma");
-
 
 		    	if(!slc.towing){
           				slc.validTowing= false;
@@ -106,14 +106,30 @@
 
 	 	$scope.$watch('slc.number_of_people', function (newValue, oldValue) {
 	 	  slc.finalView = false;
-		  if(oldValue > newValue){
-		  	alert('modalni: uneli ste manji broj; Izbrisace se svi podaci o putnicima');
-		  	slc.insurance.travellers = [];
-		  	slc.number_of_travellers = 0;
-		  	slc.addTravellerForm = true;
-		  }else{
-		  	slc.addTravellerForm = true;
-		  	slc.checkTravellers = true;
+	 	  if(slc.insurance.travellers.length != 0){
+			  if(oldValue > newValue){
+			    $mdDialog.show({
+				    	controller: ModalController,
+				      	controllerAs: 'mdc',
+					    templateUrl: 'app/components/modal/modalTravellerNumber.html',
+					    parent: angular.element(document.body),
+					    fullscreen: $mdMedia('sm') && isc.customFullscreen,
+					    controller: function($scope) {
+				        $scope.response = function(value){
+					          if(value === true){
+					          	slc.insurance.travellers = [];
+			  					slc.number_of_travellers = 0;
+					          }else
+					          	slc.number_of_people = oldValue;
+					          slc.addTravellerForm = true;
+					          $mdDialog.hide();
+					        }
+				   		}
+				    });
+			  }else{
+			  	slc.addTravellerForm = true;
+			  	slc.checkTravellers = true;
+			  }
 		  }
 		});
  	}

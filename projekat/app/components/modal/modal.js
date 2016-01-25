@@ -15,8 +15,8 @@
 		mdc.cancel = function() {
 		    $mdDialog.cancel();
 		};
-		mdc.answer = function(answer) {
-		    $mdDialog.hide(answer);
+		mdc.hide = function() {
+		    $mdDialog.hide();
 		};
 	}
  })();

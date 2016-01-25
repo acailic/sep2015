@@ -1,0 +1,23 @@
+<md-dialog aria-label="Kalkulacije"  ng-cloak>
+  <form>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>Obaveštenje</h2>
+        <span flex></span>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content">
+
+        Prilikom unosa manjeg broja putnika od trenutno unetog broja gube se podaci o putnicima.<br/>
+        Da li ste sigurni da želite da smanjite broj?
+
+        <br/> <br/> <br/>
+        <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+            <md-button class="md-raised md-primary" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);" ng-click="response(true)">Da</md-button>
+            <md-button class="md-raised md-primary" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);" ng-click="response(false)">Ne</md-button>
+        </section>
+      </div>
+    </md-dialog-content>
+  </form>
+</md-dialog>
