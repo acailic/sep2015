@@ -2,6 +2,7 @@ package org.sep.merchant.form.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -27,6 +28,12 @@ public class Insurance implements Serializable{
 	
 	@Column (name = "duration", nullable = false)
 	private String duration;
+	
+	@Column (name = "start_date", nullable = false)
+	private Date startDate;
+	
+	@Column (name = "end_date", nullable = false)
+	private Date endDate;
 	
 	@Column (name = "basic_price", nullable = false)
 	private BigDecimal basicPrice;
@@ -69,11 +76,13 @@ public class Insurance implements Serializable{
 		super();
 	}
 
-	public Insurance(Integer id, String duration, BigDecimal basicPrice,
+	public Insurance(Integer id, String duration, Date startDate, Date endDate, BigDecimal basicPrice,
 			BigDecimal totalPrice, Integer numOfPeople) {
 		super();
 		this.id = id;
 		this.duration = duration;
+		this.startDate = startDate;
+		this.endDate = endDate;
 		this.basicPrice = basicPrice;
 		this.totalPrice = totalPrice;
 		this.numOfPeople = numOfPeople;
@@ -89,6 +98,22 @@ public class Insurance implements Serializable{
 
 	public void setDuration(String duration) {
 		this.duration = duration;
+	}
+	
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
 	}
 
 	public BigDecimal getBasicPrice() {

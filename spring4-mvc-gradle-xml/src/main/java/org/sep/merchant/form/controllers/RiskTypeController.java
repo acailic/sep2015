@@ -1,12 +1,17 @@
 package org.sep.merchant.form.controllers;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+import org.sep.merchant.form.dto.DataInitDTO;
+import org.sep.merchant.form.dto.RiskItemDTO;
 import org.sep.merchant.form.model.Risk;
 import org.sep.merchant.form.model.RiskItem;
-import org.sep.merchant.form.model.RiskType;
-import org.sep.merchant.form.model.Traveler;
 import org.sep.merchant.form.service.RiskItemService;
 import org.sep.merchant.form.service.RiskService;
 import org.sep.merchant.form.service.RiskTypeService;
+import org.sep.merchant.form.util.DTOConversion;
 import org.sep.merchant.form.util.HeaderUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,10 +33,40 @@ public class RiskTypeController {
 	RiskItemService riskItemService;
 	
 	@RequestMapping(value = "/data_init", method = RequestMethod.GET)
-    public ResponseEntity<String> populateData() {
-		String response = "OK";
-        
-        RiskType homeRiskType = new RiskType("home");
+    public ResponseEntity<DataInitDTO> populateData() {
+		
+		DataInitDTO data_init = new DataInitDTO();
+		
+		List<RiskItemDTO> regions = new ArrayList<RiskItemDTO>();
+		regions = DTOConversion.getRiskItemDTOs(riskService.find(2).getRiskItems()); //region ima u bazi ID 2
+		data_init.setRegions(regions);
+		
+		List<RiskItemDTO> max_values = new ArrayList<RiskItemDTO>();
+		max_values = DTOConversion.getRiskItemDTOs(riskService.find(3).getRiskItems()); //max_value ima u bazi ID 3
+		data_init.setMax_values(max_values);
+		
+		List<RiskItemDTO> sports = new ArrayList<RiskItemDTO>();
+		sports = DTOConversion.getRiskItemDTOs(riskService.find(1).getRiskItems()); //sport ima u bazi ID 2
+		data_init.setSports(sports);
+		
+		//List<RiskItemDTO> casualties = new ArrayList<RiskItemDTO>();
+		
+		List<RiskItemDTO> towing = new ArrayList<RiskItemDTO>();
+		towing = DTOConversion.getRiskItemDTOs(riskService.find(4).getRiskItems()); 
+		data_init.setTowing(towing);
+		
+		List<RiskItemDTO> repair = new ArrayList<RiskItemDTO>();
+		repair = DTOConversion.getRiskItemDTOs(riskService.find(5).getRiskItems()); 
+		data_init.setRepair(repair);
+		
+		/*List<RiskItemDTO> accomodation = new ArrayList<RiskItemDTO>();
+		List<RiskItemDTO> alternative = new ArrayList<RiskItemDTO>();
+		List<RiskItemDTO> brands = new ArrayList<RiskItemDTO>();
+		List<RiskItemDTO> cities = new ArrayList<RiskItemDTO>();*/
+		
+		//popunjavanje baze
+		
+        /*RiskType homeRiskType = new RiskType("home");
         RiskType vehicleRiskType = new RiskType("vehicle"); //ili package?
         RiskType travelRiskType = new RiskType("travel");
         riskTypeService.save(homeRiskType);
@@ -85,11 +120,10 @@ public class RiskTypeController {
         riskItemService.save(repair800RI);
         riskItemService.save(repair1000RI);
         
-        Risk brandRisk = new Risk("brand", vehicleRiskType);
-        
+        Risk brandRisk = new Risk("brand", vehicleRiskType);*/
         
         System.out.println("Usao u RiskTypeController");
-        return new ResponseEntity<String>(response, HeaderUtil.getHeader(), HttpStatus.OK);
+        return new ResponseEntity<DataInitDTO>(data_init, HeaderUtil.getHeader(), HttpStatus.OK);
     }
 
 }

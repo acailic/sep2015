@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -43,18 +44,17 @@ public class Traveler implements Serializable{
 	/*@ManyToMany(fetch = FetchType.LAZY, mappedBy = "travelers")
 	private Set<Insurance> insurances = new HashSet<Insurance>();*/
 	
-	@OneToMany(mappedBy = "traveler")  
+	@OneToMany(mappedBy = "traveler", cascade = {CascadeType.MERGE})  
 	private Set<TravelerInsurance> travelerInsurances = new HashSet<TravelerInsurance>();
 	
 	public Traveler(){
 		super();
 	}
 
-	public Traveler(Integer id, String firstName, String lastName,
+	public Traveler(String firstName, String lastName,
 			String passportNumber, String jmbg, String address,
 			String telephoneNumber) {
 		super();
-		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.passportNumber = passportNumber;

@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -33,8 +34,12 @@ public class Risk implements Serializable{
 	@JoinColumn(name="id_risk_type")
 	private RiskType type;
 	
-	@OneToMany(mappedBy = "risk", cascade = {CascadeType.ALL})  
+	@OneToMany(mappedBy = "risk", cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)  
 	private Set<RiskItem> riskItems = new HashSet<RiskItem>();
+	
+	public Risk(){
+		
+	}
 
 	public Risk(String riskName, RiskType type) {
 		super();
