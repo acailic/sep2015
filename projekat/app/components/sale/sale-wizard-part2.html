@@ -1,9 +1,10 @@
 <md-card>
-<form name="slc.saleWizardPart2" novalidate  ng-submit="slc.test2()">
   <div layout="column" class="layout-column flex">
     <section class="demo-container md-whiteframe-z1">
 
       <md-content>
+        <br/>
+        <div>Broj putnika: {{slc.number_of_travellers}}/{{slc.number_of_people}}</div>
         <br/>
         <table>
           <thead>
@@ -33,14 +34,14 @@
         </table>
 
   <br/>
-
-        <fieldset style="border: 1px solid rgb(255, 98, 21)">
+      <form name="slc.saleWizardPart2" novalidate  ng-submit="slc.test2()" ng-show="slc.addTravellerForm">
+        <fieldset style="border: 1px solid rgb(255, 98, 21)" >
           <legend style="color:rgb(255, 98, 21)">Podaci</legend>
-
+          
           <div layout="gt-xs-row">
             <md-input-container md-no-float="" class="md-block md-input-has-placeholder md-has-icon">
               <md-icon md-svg-src="./assets/images/angular-material/icons/profile29.svg" class="name ng-isolate-scope" aria-hidden="true"></md-icon>
-              <input name="first_name" ng-model="slc.insurance.traveller.first_name" placeholder="Ime" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" aria-invalid="false" flex-gt-xs ng-required="true">
+              <input name="first_name" ng-model="slc.insurance.traveller.first_name" placeholder="Ime" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" aria-invalid="false" flex-gt-xs ng-required="slc.checkTravellers">
               <div ng-messages="slc.saleWizardPart2.first_name.$error" ng-show="slc.saleWizardPart2.first_name.$touched || slc.invalidForm">
                 <div ng-message="required">
                   Obavezno ime putnika.
@@ -48,7 +49,7 @@
               </div>
             </md-input-container>
              <md-input-container flex-offset="5" md-no-float="" class="md-block md-input-has-placeholder md-has-icon">
-              <input name="last_name" ng-model="slc.insurance.traveller.last_name" placeholder="Prezime"class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" aria-invalid="false" flex-gt-xs ng-required="true">
+              <input name="last_name" ng-model="slc.insurance.traveller.last_name" placeholder="Prezime"class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" aria-invalid="false" flex-gt-xs ng-required="slc.checkTravellers">
               <div ng-messages="slc.saleWizardPart2.last_name.$error"  ng-show="slc.saleWizardPart2.last_name.$touched || slc.invalidForm">
                 <div ng-message="required">
                   Obavezno prezime putnika.
@@ -56,7 +57,7 @@
               </div>
             </md-input-container>
             <md-input-container layout="column" layout-align="left center"  flex-offset="5" md-no-float="" class="md-block md-input-has-placeholder md-has-icon">
-              <md-select name="age" ng-model="slc.insurance.traveller.human_age_id" aria-label="Starost" placeholder="Starost" ng-required="true">
+              <md-select name="age" ng-model="slc.insurance.traveller.human_age_id" aria-label="Starost" placeholder="Starost" ng-required="slc.checkTravellers">
                 <md-option ng-repeat="age in slc.data_init.human_ages" ng-value="age.id">{{age.name}}</md-option>
               </md-select>
               <div ng-messages="slc.saleWizardPart2.age.$error" ng-show="slc.saleWizardPart2.age.$touched || slc.invalidForm">
@@ -70,7 +71,7 @@
           <div layout="gt-sm-row">
             <md-input-container md-no-float="" class="md-block md-input-has-placeholder md-has-icon">
               <md-icon md-svg-src="./assets/images/angular-material/icons/identification58.svg" class="name ng-isolate-scope" aria-hidden="true"></md-icon>
-              <input name="jmbg" ng-model="slc.insurance.traveller.jmbg" placeholder="Jmbg" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="100" onkeypress='return event.charCode >= 48 && event.charCode <= 57' minlength="13" maxlength="13" ng-required="true">
+              <input name="jmbg" ng-model="slc.insurance.traveller.jmbg" placeholder="Jmbg" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="100" onkeypress='return event.charCode >= 48 && event.charCode <= 57' minlength="13" maxlength="13" ng-required="slc.checkTravellers">
               <div ng-messages="slc.saleWizardPart2.jmbg.$error" ng-show="slc.saleWizardPart2.jmbg.$touched || slc.invalidForm">
                 <div ng-message="required">
                   Obavezan JMBG.
@@ -81,7 +82,7 @@
               </div>
             </md-input-container>
             <md-input-container flex-offset="5" md-no-float="" class="md-block md-input-has-placeholder md-has-icon">
-              <input name="pass_num" ng-model="slc.insurance.traveller.passport_num" placeholder="Broj pasoša" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" onkeypress='return event.charCode >= 48 && event.charCode <= 57' id="input_203" aria-invalid="false" flex="100"  minlength="9" maxlength="9" ng-required="true">
+              <input name="pass_num" ng-model="slc.insurance.traveller.passport_num" placeholder="Broj pasoša" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" onkeypress='return event.charCode >= 48 && event.charCode <= 57' id="input_203" aria-invalid="false" flex="100"  minlength="9" maxlength="9" ng-required="slc.checkTravellers">
              <div ng-messages="slc.saleWizardPart2.pass_num.$error" ng-show="slc.saleWizardPart2.pass_num.$touched || slc.invalidForm">
                 <div ng-message="required">
                   Obavezan broj pasosa.
@@ -92,7 +93,7 @@
               </div> 
             </md-input-container>
             <md-input-container flex-offset="5" md-no-float="" class="md-block md-input-has-placeholder md-has-icon">
-              <input name="tel_num" ng-model="slc.insurance.traveller.tel_num" placeholder="Broj telefona" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="100" onkeypress='return event.charCode >= 48 && event.charCode <= 57' minlength="9" maxlength="10" ng-required="true">
+              <input name="tel_num" ng-model="slc.insurance.traveller.tel_num" placeholder="Broj telefona" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="100" onkeypress='return event.charCode >= 48 && event.charCode <= 57' minlength="9" maxlength="10" ng-required="slc.checkTravellers">
               <div ng-messages="slc.saleWizardPart2.tel_num.$error" ng-show="slc.saleWizardPart2.tel_num.$touched || slc.invalidForm">
                 <div ng-message="required">
                   Obavezan broj telefona putnika.
@@ -110,7 +111,7 @@
           <div layout="gt-sm-row">
             <md-input-container md-no-float="" class="md-block md-input-has-placeholder md-has-icon">
               <md-icon md-svg-src="./assets/images/angular-material/icons/home10.svg" class="name ng-isolate-scope" aria-hidden="true"></md-icon>
-              <input name="address" ng-model="slc.insurance.traveller.address" placeholder="Ulica i broj" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="100" ng-required="true">
+              <input name="address" ng-model="slc.insurance.traveller.address" placeholder="Ulica i broj" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="100" ng-required="slc.checkTravellers">
               <div ng-messages="slc.saleWizardPart2.address.$error" ng-show="slc.saleWizardPart2.address.$touched || slc.invalidForm">
                 <div ng-message="required">
                   Obavezan unos ulice i broja.
@@ -119,7 +120,7 @@
             </md-input-container>
 
              <md-input-container layout="column" layout-align="left center"  flex-offset="5" md-no-float="" class="md-block md-input-has-placeholder md-has-icon">
-              <md-select name="city" ng-model="slc.insurance.traveller.city_id" aria-label="Mesto stanovanja" placeholder="Mesto stanovanja" ng-required="true">
+              <md-select name="city" ng-model="slc.insurance.traveller.city_id" aria-label="Mesto stanovanja" placeholder="Mesto stanovanja" ng-required="slc.checkTravellers">
                 <md-option ng-repeat="city in slc.data_init.cities" ng-value="city.id">{{city.name}}</md-option>
               </md-select>
               <div ng-messages="slc.saleWizardPart2.city.$error" ng-show="slc.saleWizardPart2.city.$touched || slc.invalidForm">
@@ -130,25 +131,30 @@
             </md-input-container>
 
           </div>
+
+
         </fieldset>
 
         <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
            <md-button type="submit" class="md-raised md-primary" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);">Sačuvaj podatke putnika</md-button>
           </section> 
         <br/>
+      </form>
+      <div ng-show="!slc.addTravellerForm">Uspešno uneti podaci o svim putnicima.</div>
       </md-content>
       <br/>
     </section>
   </div>
   
-  <br/>
+ 
+
+ <br/>
   <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
     <md-button class="md-raised md-primary" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);" ui-sref="main.sale.wizard1">Povratak</md-button>
-   <md-button type="submit" class="md-raised md-primary" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);">Nastavi</md-button>
+   <md-button class="md-raised md-primary" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);" ng-disabled="!slc.finalView" ui-sref="main.sale.wizard3">Nastavi</md-button>
   </section> 
   
   <br/>
-</form>
 </md-card>
 
 <style>
