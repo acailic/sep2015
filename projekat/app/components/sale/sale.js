@@ -28,6 +28,15 @@
 		slc.insurance.travellers = [];
 		slc.resetedForm = false;
 
+
+		slc.someSelected = function (object) { 
+				return object && Object.keys(object).some(function (key) { 
+					return object[key]; 
+				}); 
+			};
+
+
+
  		slc.showModalPayment = function(ev) {
 		    $mdDialog.show({
 		      templateUrl: 'app/components/modal/modalPayment.html',
@@ -60,7 +69,35 @@
 		    else{
 		    	slc.invalidForm = true;
 		    	console.log("nevalidna forma");
+
+
+		    	if(!slc.towing){
+          				slc.validTowing= false;
+          			}else{
+          				slc.validTowing= true;
+          			}
+
+          			if(!slc.repair){
+          				slc.validRepair= false;
+          			}else{
+          				slc.validRepair= true;
+          			}
+
+          			if(!slc.accommodation){
+          				slc.validAccommodation= false;
+          			}else{
+          				slc.validAccommodation= true;
+          			}
+
+          			if(!slc.alternative){
+          				slc.validAlternative= false;
+          			}else{
+          				slc.validAlternative= true;
+          			}
 			}
 		  };
+
+
+
  	}
  })();

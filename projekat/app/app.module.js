@@ -1,8 +1,17 @@
 (function() {
 	angular
-		.module('merchant', ['ngMaterial','merchant.core', 'merchant.insurance', 'merchant.modal', 
+		.module('merchant', ['ngMaterial', 'ngMessages', 'merchant.core', 'merchant.insurance', 'merchant.modal', 
 			'merchant.sale', 'merchant.calculator'])
-		.config(function($mdThemingProvider) {
+		.config(function($sceDelegateProvider, $mdThemingProvider) {
+
+
+
+
+			//Allow CORS requests to these urls:
+			$sceDelegateProvider.resourceUrlWhitelist([
+   			'self',
+   			'http://localhost:8080/**'
+			]);
 		    
 		    $mdThemingProvider.theme('default');
 		    var customBlueMap = $mdThemingProvider.extendPalette('light-blue', {

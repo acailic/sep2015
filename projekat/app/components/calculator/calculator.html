@@ -1,335 +1,327 @@
 <md-content class="md-padding" layout="row">
-    <fieldset flex="30" style="border: 1px solid rgb(255, 98, 21)">
-        <legend style="color:rgb(255, 98, 21)">
-            
-            <img ng-src="\assets\images\angular-material\icons\travel.png" alt="Washed Out">Putno</legend>
-        <md-input-container layout="column" layout-align="left center">
+   <fieldset flex="30" style="border: 1px solid rgb(255, 98, 21)">
+      <legend style="color:rgb(255, 98, 21)">
+         <img ng-src="\assets\images\angular-material\icons\travel.png" alt="Washed Out">Putno
+      </legend>
+      <form name="calc.travelForm" id="travelForm" novalidate ng-submit="calc.calculateTravel()">
+         <md-input-container layout="column" layout-align="left center">
             <label for="input_203">Trajanje</label>
-            <input class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false">
-        </md-input-container>
-        <md-input-container layout="column" layout-align="left center">
+            <input name="duration"  class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" type= "number" min="1" onkeypress='return event.charCode >= 48 && event.charCode <= 57' ng-model="calc.insurance.travel.duration"  id="input_203" ng-required="true" aria-invalid="false">
+            <div ng-messages="calc.travelForm.duration.$error" ng-show="calc.travelForm.duration.$touched || calc.invalidTravelForm">
+               <div ng-message="required">Potrebno je da popunite ovo polje.</div>
+            </div>
+         </md-input-container>
+         <md-input-container layout="column" layout-align="left center">
             <label>Region</label>
-            <md-select ng-model="state">
-                <md-option>Austrija</md-option>
-                <md-option>Francuska</md-option>
-                <md-option>Italija</md-option>
+            <md-select name="region" ng-model="calc.insurance.travel.region_id" ng-required= "true" >
+               <md-option ng-repeat="region in calc.data_init.regions" 
+                  ng-value="{{region.id}}"> {{region.name}} </md-option>
             </md-select>
-        </md-input-container>
-        
-        <md-input-container layout="column" layout-align="left center">
+            <div ng-messages="calc.travelForm.region.$error" ng-show="calc.travelForm.region.$touched || calc.invalidTravelForm">
+               <div ng-message="required">Potrebno je da popunite ovo polje.</div>
+            </div>
+         </md-input-container>
+         <md-input-container layout="column" layout-align="left center">
             <label>Broj osoba do 18 god</label>
-            <md-select ng-model="people1">
-                <md-option>1</md-option>
-                <md-option>2</md-option>
-                <md-option>3</md-option>
-                <md-option>4</md-option>
-                <md-option>5</md-option>
-                <md-option>6</md-option>
-                <md-option>7</md-option>
-                <md-option>8</md-option>
-                <md-option>9</md-option>
-            </md-select>
-        </md-input-container>
-        <md-input-container layout="column" layout-align="left center">
+            <input name="age1" type="number" min="1" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+               ng-model="calc.age_number.number18" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" required>
+            <div ng-messages="calc.travelForm.age1.$error" ng-show="calc.travelForm.age1.$touched || calc.invalidTravelForm">
+               <div ng-message="required">Potrebno je da popunite ovo polje.</div>
+            </div>
+         </md-input-container>
+         <md-input-container layout="column" layout-align="left center">
             <label>Broj osoba od 18 do 60 god</label>
-            <md-select ng-model="people2">
-                <md-option>1</md-option>
-                <md-option>2</md-option>
-                <md-option>3</md-option>
-                <md-option>4</md-option>
-                <md-option>5</md-option>
-                <md-option>6</md-option>
-                <md-option>7</md-option>
-                <md-option>8</md-option>
-                <md-option>9</md-option>
-            </md-select>
-        </md-input-container>
-        <md-input-container layout="column" layout-align="left center">
-            <label>Broj osoba preko 60 godina</label>
-            <md-select ng-model="people3">
-                <md-option>1</md-option>
-                <md-option>2</md-option>
-                <md-option>3</md-option>
-                <md-option>4</md-option>
-                <md-option>5</md-option>
-                <md-option>6</md-option>
-                <md-option>7</md-option>
-                <md-option>8</md-option>
-                <md-option>9</md-option>
-            </md-select>
-        </md-input-container>
-
-        
-        <md-input-container layout="column" layout-align="left center">
+            <input  name= "age2" type="number" min="1" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+               ng-model="calc.age_number.number18_60" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" required>
+            <div ng-messages="calc.travelForm.age2.$error" ng-show="calc.travelForm.age2.$touched || calc.invalidTravelForm">
+               <div ng-message="required">Potrebno je da popunite ovo polje.</div>
+            </div>
+         </md-input-container>
+         <md-input-container layout="column" layout-align="left center">
+            <label>Broj osoba preko 60 godina</label> 
+            <input name="age3" type="number" min="1" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+               ng-model="calc.age_number.number60" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" required>
+            <div ng-messages="calc.travelForm.age3.$error" ng-show="calc.travelForm.age3.$touched || calc.invalidTravelForm">
+               <div ng-message="required">Potrebno je da popunite ovo polje.</div>
+            </div>
+         </md-input-container>
+         <md-input-container layout="column" layout-align="left center">
             <label>Max. iznos osiguranja</label>
-            <md-select ng-model="premium">
-                <md-option>10000</md-option>
-                <md-option>20000</md-option>
-                <md-option>30000</md-option>
+            <md-select name="max_value" ng-model="calc.insurance.travel.max_value_id" ng-required= "true" >
+               <md-option ng-repeat="max_value in calc.insurance.travel.max_values" 
+                  ng-value="{{max_value.id}}"> {{max_value.name}} </md-option>
             </md-select>
-        </md-input-container>
-
-        <div flex="60">
-        <md-checkbox aria-label="Checkbox 1" class="md-primary" ng-model="activity">
-            Bavljenje sportom
-        </md-checkbox>
-        <md-tooltip md-direction="right">
+            <div ng-messages="calc.travelForm.max_value.$error" ng-show="calc.travelForm.max_value.$touched || calc.invalidTravelForm">
+               <div ng-message="required">Potrebno je da popunite ovo polje.</div>
+            </div>
+         </md-input-container>
+         <div flex="60">
+            <md-checkbox aria-label="Checkbox 1" class="md-primary" ng-model="activity">
+               Bavljenje sportom
+            </md-checkbox>
+            <md-tooltip md-direction="right">
                Da li ćete se baviti sportom?
-         </md-tooltip>
-        </div>
-
-        <md-input-container layout="column" layout-align="left center" ng-show="activity = !activity">
+            </md-tooltip>
+         </div>
+         <md-input-container layout="column" layout-align="left center" ng-show="activity = !activity">
             <label>Sport</label>
-            <md-select ng-model="sport">
-                <md-option>Plivanje</md-option>
-                <md-option>Skijanje</md-option>
-                <md-option>Klizanje</md-option>
+            <md-select name="sport" ng-model="calc.insurance.travel.sport_id" ng-required= "activity"  >
+               <md-option ng-repeat="sport in calc.insurance.travel.sports" 
+                  ng-value="{{sport.id}}"> {{sport.name}} </md-option>
             </md-select>
-        </md-input-container>
-
-        <fieldset flex="100" style="border: 1px dotted rgb(3,169,244)">
+            <div ng-messages="calc.travelForm.sport.$error" ng-show="calc.travelForm.sport.$touched || calc.invalidTravelForm">
+               <div ng-message="required">Potrebno je da popunite ovo polje.</div>
+            </div>
+         </md-input-container>
+         <fieldset flex="100" style="border: 1px dotted rgb(3,169,244)">
             <legend style="color:rgb(3,169,244)">Dodatno</legend>
             <div>
-                <div flex= "40">
-                    <md-checkbox aria-label="Checkbox 1" class="md-primary" ng-model="flat">
-                        Stambeno
-                    </md-checkbox>
-                    <md-tooltip md-direction="right">
-                         Da li želite i osiguranje stana/kuće dok ste na putu?
-                    </md-tooltip>
-                </div>
-                 <div flex= "35">
-                <md-checkbox aria-label="Checkbox 1" class="md-primary" ng-model="car">
-                    Auto
-                </md-checkbox>
-                <md-tooltip md-direction="right">
-                         Da li želite i osiguranje "Pomoć na putu" dok ste na putu?
-                    </md-tooltip>
-                </div>
+               <div flex="40">
+                  <md-checkbox aria-label="Checkbox 1" class="md-primary" ng-model="flat">
+                     Stambeno
+                  </md-checkbox>
+                  <md-tooltip md-direction="right">
+                     Da li želite i osiguranje stana/kuće dok ste na putu?
+                  </md-tooltip>
+               </div>
+               <div flex="35">
+                  <md-checkbox aria-label="Checkbox 1" class="md-primary" ng-model="car">
+                     Auto
+                  </md-checkbox>
+                  <md-tooltip md-direction="right">
+                     Da li želite i osiguranje "Pomoć na putu" dok ste na putu?
+                  </md-tooltip>
+               </div>
             </div>
-        </fieldset>
+         </fieldset>
 
-    </fieldset>
-
-    <div flex-offset="10" layout="row" layout-align="center center" ng-show="!flat && !car">
-
-        <img ng-src="./assets/images/insurance-app/dolarBlue.jpg" width="500" height="400" class="md-card-image" alt="Washed Out">
-    </div>
-
-    <div flex="5" style="border: 1px rgb(255, 98, 21)" layout="row" layout-align="center center" ng-show="flat = !flat">
-        <md-icon md-svg-icon="\assets\images\angular-material\icons\add182.svg" style="color:rgb(255, 98, 21)" aria-label="Plus"></md-icon>
-    </div>
-
-
-    <fieldset flex="30" style="border: 1px solid rgb(255, 98, 21)" ng-show="flat = !flat">
-        <legend style="color:rgb(255, 98, 21)">
-            <md-icon md-svg-icon="\assets\images\angular-material\icons\home.svg" style="color:rgb(255, 98, 21)" aria-label="Home"></md-icon> 
-            Stambeno</legend>
-
-
-
-        <md-input-container layout="column" layout-align="left center">
+         
+      
+      </form>
+   </fieldset>
+   <div flex-offset="10" layout="row" layout-align="center center" ng-show="!flat && !car">
+      <img ng-src="./assets/images/insurance-app/dolarBlue.jpg" width="500" height="400" class="md-card-image" alt="Washed Out">
+   </div>
+   <div flex="5" style="border: 1px rgb(255, 98, 21)" layout="row" layout-align="center center" ng-show="flat = !flat">
+      <md-icon md-svg-icon="\assets\images\angular-material\icons\add182.svg" style="color:rgb(255, 98, 21)" aria-label="Plus"></md-icon>
+   </div>
+   <fieldset flex="30" style="border: 1px solid rgb(255, 98, 21)" ng-show="flat = !flat">
+      <legend style="color:rgb(255, 98, 21)">
+         <md-icon md-svg-icon="\assets\images\angular-material\icons\home.svg" style="color:rgb(255, 98, 21)" aria-label="Home"></md-icon>
+         Stambeno
+      </legend>
+      <form id="homeForm" name="calc.homeForm" ng-submit="calc.calculateHome()" novalidate>
+         <md-input-container layout="column" layout-align="left center">
             <label for="input_203">Trajanje</label>
-            <input class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10">
-        </md-input-container>
-        <md-input-container layout="column" layout-align="left center">
+            <input type="number" min= "1" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
+               name="duration" ng-model="calc.insurance.home.duration" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched"  aria-invalid="false" flex="10" ng-required="flat">
+            <div ng-messages="calc.homeForm.duration.$error" ng-show="calc.homeForm.duration.$touched || calc.invalidHomeForm">
+               <div ng-message="required">Potrebno je da popunite ovo polje.</div>
+            </div>
+         </md-input-container>
+         <md-input-container layout="column" layout-align="left center">
             <label for="input_203">Površina stana</label>
-            <input class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10">
-        </md-input-container>
-        <md-input-container layout="column" layout-align="left center">
+            <input name="floor_area" ng-model="calc.insurance.home.floor_area" flex="10" ng-required="flat"
+               ng-pattern="/^[1-9]\d*(.|,)?\d+$/" >
+            <div ng-messages="calc.homeForm.floor_area.$error" ng-show="calc.homeForm.floor_area.$touched || calc.invalidHomeForm">
+               <div ng-message="required">Potrebno je da popunite ovo polje.</div>
+               <div ng-message="pattern">Niste upisali validan broj.</div>
+            </div>
+         </md-input-container>
+         <md-input-container layout="column" layout-align="left center">
             <label for="input_203">Starost stana</label>
-            <input class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10">
-        </md-input-container>
-        <md-input-container layout="column" layout-align="left center">
+            <input name="flat_age" ng-model="calc.insurance.home.flat_age" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10" ng-required= "flat"
+               ng-pattern="/^[1-9]\d*(.|,)?\d+$/">
+            <div ng-messages="calc.homeForm.flat_age.$error" ng-show="calc.homeForm.flat_age.$touched || calc.invalidHomeForm">
+               <div ng-message="required">Potrebno je da popunite ovo polje.</div>
+               <div ng-message="pattern">Niste upisali validan broj.</div>
+            </div>
+         </md-input-container>
+         <md-input-container layout="column" layout-align="left center">
             <label for="input_203">Procenjene vrednosti stana</label>
-            <input class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10">
-        </md-input-container>
-    </br>
-
-        <div>
-
+            <input name="est_value" ng-model="calc.insurance.home.est_value" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10" 
+               ng-required="flat" ng-pattern="/^[1-9]\d*(.|,)?\d+$/" >
+            <div ng-messages="calc.homeForm.est_value.$error" ng-show="calc.homeForm.est_value.$touched || calc.invalidHomeForm">
+               <div ng-message="required">Potrebno je da popunite ovo polje.</div>
+               <div ng-message="pattern">Niste upisali validan broj.</div>
+            </div>
+         </md-input-container>
+         </br>
+         <div>
             <label>Izaberite od čega osiguravate stan/kuću:</label>
-            <div>
-            <md-checkbox aria-label="Checkbox 1" class="md-primary" >
-                Poplava
-            </md-checkbox>
-            <md-checkbox aria-label="Checkbox 1" class="md-primary" >
-                Krađa
-            </md-checkbox>
-            <md-checkbox aria-label="Checkbox 1" class="md-primary" >
-                Požar
-            </md-checkbox>
+               <md-input-container>
+                  <span ng-repeat="cause in calc.causalties" >
+                     <md-checkbox name="casualty" ng-model="calc.selectedCause[cause.id]" ng-value="{{cause.id}}" aria-label="Checkbox 1" class="md-primary"  ng-required="!calc.someSelected(calc.selectedCause)">
+                        {{cause.name}}
+                     </md-checkbox>
+                  </span>
+                  <div ng-messages="calc.homeForm.casualty.$error" ng-show="calc.invalidHomeForm">
+                           <div ng-message="required">Potrebno je da izaberete jedan ili više uzroka osiguranja.</div>   
+                  </div>
+               </md-input-container>
+         </div>
 
-                </div>
-       </div>
-
-
-    </fieldset>
-
-    <div flex="5" style="border: 1px rgb(255, 98, 21)" layout="row" layout-align="center center" ng-show="car = !car">
-        <md-icon md-svg-icon="\assets\images\angular-material\icons\add182.svg" style="color:rgb(255, 98, 21)" aria-label="Plus"></md-icon>
-    </div>
-
-    <fieldset flex="30" style="border: 1px solid rgb(255, 98, 21)" ng-show="car = !car">
-        <legend style="color:rgb(255, 98, 21)">
-            <md-icon md-svg-icon="\assets\images\angular-material\icons\craner.svg" height="24" width="24" style="color:rgb(255, 98, 21)" aria-label="Travel"></md-icon> 
-            Auto</legend>
-        <md-input-container layout="column" layout-align="left center">
+         
+      </form>
+   </fieldset>
+   <div flex="5" style="border: 1px rgb(255, 98, 21)" layout="row" layout-align="center center" ng-show="car = !car">
+      <md-icon md-svg-icon="\assets\images\angular-material\icons\add182.svg" style="color:rgb(255, 98, 21)" aria-label="Plus"></md-icon>
+   </div>
+   <fieldset flex="30" style="border: 1px solid rgb(255, 98, 21)" ng-show="car = !car">
+      <legend style="color:rgb(255, 98, 21)">
+         <md-icon md-svg-icon="\assets\images\angular-material\icons\craner.svg" height="24" width="24" style="color:rgb(255, 98, 21)" aria-label="Travel"></md-icon>
+         Auto
+      </legend>
+      <form id="vehicleForm" name="calc.vehicleForm" ng-submit="calc.calculateVehicle()"  novalidate>
+         <md-input-container layout="column" layout-align="left center">
             <label for="input_203">Trajanje</label>
-            <input class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10">
-        </md-input-container>
+            <input name="duration" type="number" min="1" onkeypress='return event.charCode >= 48 && event.charCode <= 57' ng-model="calc.insurance.vehicle.duration" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10" ng-required="car">
+             <div ng-messages="calc.vehicleForm.duration.$error" ng-show="calc.vehicleForm.duration.$touched || calc.invalidVehicleForm">
+               <div ng-message="required">Potrebno je da popunite ovo polje.</div>
+            </div>
+         </md-input-container>
+         <div>
 
-        <div>
-        <md-checkbox aria-label="Checkbox 1" class="md-primary" ng-model="towing">
-            Šlepovanje do određene kilometraže
-        </md-checkbox>
-        <md-tooltip md-direction="top">
-            Odabirom ove stavke uključujete u osiguranje i šlepovanje do izabrane kilometraže.
-        </md-tooltip>
-        </div>
 
-        <md-input-container layout="column" layout-align="left center" ng-show="towing = !towing">
-            <label>Šlepovanje:</label>
-            <md-select ng-model="shlepovanje">
-                <md-option>10km</md-option>
-                <md-option>50km</md-option>
-                <md-option>100km</md-option>
-            </md-select>
-        </md-input-container>
-
-        <div>
-            <md-checkbox aria-label="Checkbox 1" class="md-primary" ng-model="repair">
-                Popravka do određene cene
+        
+            <md-checkbox aria-label="Checkbox 1" class="md-primary" ng-model="calc.towing">
+               Šlepovanje do određene kilometraže
             </md-checkbox>
             <md-tooltip md-direction="top">
-                Odabirom ove stavke uključujete u osiguranje i popravku do izabranog iznosa.
+               Odabirom ove stavke uključujete u osiguranje i šlepovanje do izabrane kilometraže.
             </md-tooltip>
-        </div>
-        <md-input-container layout="column" layout-align="left center" ng-show="repair = !repair">
+         </div>
+         <md-input-container layout="column" layout-align="left center" ng-show="calc.towing = !calc.towing" >
+            <label>Šlepovanje:</label>
+            <md-select name="towing" ng-model="calc.insurance.vehicle.towing_id" ng-required="calc.towing">
+               <md-option ng-repeat="towing in calc.insurance.vehicle.towing" 
+                  ng-value="{{towing.id}}"> {{towing.name}} </md-option>
+            </md-select>
+             <div ng-messages="calc.vehicleForm.towing.$error" ng-show="calc.vehicleForm.towing.$touched || (calc.invalidVehicleForm && calc.validTowing)">
+               <div ng-message="required">Potrebno je da popunite ovo polje.</div>
+            </div>
+         </md-input-container>
+         <div>
+            <md-checkbox aria-label="Checkbox 1" class="md-primary" ng-model="calc.repair">
+               Popravka do određene cene
+            </md-checkbox>
+            <md-tooltip md-direction="top">
+               Odabirom ove stavke uključujete u osiguranje i popravku do izabranog iznosa.
+            </md-tooltip>
+         </div>
+         <md-input-container layout="column" layout-align="left center" ng-show="calc.repair = !calc.repair">
             <label>Popravka:</label>
-            <md-select ng-model="popravka">
-                <md-option>1 000 din</md-option>
-                <md-option>5 000 din</md-option>
-                <md-option>10 000 din</md-option>
+            <md-select name="repair" ng-model="calc.insurance.vehicle.repair_id" ng-required="calc.repair">
+               <md-option ng-repeat="repair in calc.insurance.vehicle.repair" 
+                  ng-value="{{repair.id}}"> {{repair.name}} </md-option>
             </md-select>
-     
-        </md-input-container>
+             <div ng-messages="calc.vehicleForm.repair.$error" ng-show="calc.vehicleForm.repair.$touched || calc.invalidVehicleForm && calc.validRepair">
+               <div ng-message="required">Potrebno je da popunite ovo polje.</div>
+            </div>
+         </md-input-container>
+        
 
-        <div>
-        <md-checkbox aria-label="Checkbox 1" class="md-primary" ng-model="accommodation">
-            Smeštaj u hotelu do određenog broja dana
-        </md-checkbox>
-        <md-tooltip md-direction="top">
-            Odabirom ove stavke uključujete u osiguranje i smeštaj u trajanju do izabranog broja dana.
-        </md-tooltip>
-        </div>
-
-        <md-input-container layout="column" layout-align="left center" ng-show="accommodation = !accommodation">
+         <div>
+            <md-checkbox aria-label="Checkbox 1" class="md-primary" ng-model="calc.accommodation">
+               Smeštaj u hotelu do određenog broja dana
+            </md-checkbox>
+            <md-tooltip md-direction="top">
+               Odabirom ove stavke uključujete u osiguranje i smeštaj u trajanju do izabranog broja dana.
+            </md-tooltip>
+         </div>
+         <md-input-container layout="column" layout-align="left center" ng-show="calc.accommodation = !calc.accommodation">
             <label>Smeštaj:</label>
-            <md-select ng-model="smeshtaj">
-                <md-option>3 dana</md-option>
-                <md-option>5 dana</md-option>
-                <md-option>10 dana</md-option>
+            <md-select name="accommodation" ng-model="calc.insurance.vehicle.accomodation_id" ng-required="calc.accommodation">
+               <md-option ng-repeat="accommdation in calc.insurance.vehicle.accommodation" 
+                  ng-value="{{accommodation.id}}"> {{accommodation.name}} </md-option>
             </md-select>
-        </md-input-container>
-
-
-        <div>
-        <md-checkbox aria-label="Checkbox 1" class="md-primary" ng-model="alternative">
-            Alternativni prevoz
-        </md-checkbox>
-        <md-tooltip md-direction="top">
-            Odabirom ove stavke uključujete u osiguranje i željeni alternativni prevoz u slučaju nezgode na putu.
-        </md-tooltip>
-        </div>
-        <md-input-container layout="column" layout-align="left center" ng-show="alternative = !alternative">
+            <div ng-messages="calc.vehicleForm.accommodation.$error" ng-show="calc.vehicleForm.accommodation.$touched || calc.invalidVehicleForm && calc.validAccommodation">
+               <div ng-message="required">Potrebno je da popunite ovo polje.</div>
+            </div>
+         </md-input-container>
+         <div>
+            <md-checkbox aria-label="Checkbox 1" class="md-primary" ng-model="calc.alternative">
+               Alternativni prevoz
+            </md-checkbox>
+            <md-tooltip md-direction="top">
+               Odabirom ove stavke uključujete u osiguranje i željeni alternativni prevoz u slučaju nezgode na putu.
+            </md-tooltip>
+         </div>
+         <md-input-container layout="column" layout-align="left center" ng-show="calc.alternative = !calc.alternative">
             <label> Alternativni prevoz:</label>
-            <md-select ng-model="alternativni_prevoz">
-                <md-option>Prijevoz1</md-option>
-                <md-option>Prijevoz2</md-option>
-                <md-option>Prijevoz3</md-option>
+            <md-select name="alternative" ng-model="calc.insurance.vehicle.alternative_id" ng-required="calc.alternative">
+               <md-option ng-repeat="alternative in calc.insurance.vehicle.alternative" 
+                  ng-value="{{alternative.id}}"> {{alternative.name}} </md-option>
             </md-select>
-        </md-input-container>
+            <div ng-messages="calc.vehicleForm.alternative.$error" ng-show="calc.vehicleForm.alternative.$touched || calc.invalidVehicleForm && calc.validAlternative">
+               <div ng-message="required">Potrebno je da popunite ovo polje.</div>
+            </div>
+         </md-input-container>
 
 
-    </fieldset>
-
+         <div style="font-size: 12px; color: rgb(244,67,54); font-family: Roboto, 'Helvetica Neue' sans-serif;" ng-show="!calc.towing  && !calc.repair && !calc.accommodation && !calc.alternative && calc.invalidVehicleForm">
+               Potrebno je da izaberete bar jednu od stavki.
+         </div>
+          
+      </form>
+   </fieldset>
 </md-content>
-
-
-
 <md-content class="md-padding" layout="row">
-
-    <div flex="30" layout="row" layout-align="center start">
-        <div flex-offset="2">
-            <md-button class="md-raised md-primary" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);" ng-click = "calc.sale()">Izračunajte</md-button>
-            <md-button class="md-raised md-primary" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);">Reset</md-button>
-        </div>
-    </div>
-
-    <div flex="35" layout="row" layout-align="center start" ng-show="flat = !flat">
-        <div flex-offset="15">
-            <md-button class="md-raised md-primary" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);">Izračunajte</md-button>
-            <md-button class="md-raised md-primary" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);">Reset</md-button>
-        </div>
-    </div>
-
-    <div flex="35" layout="row" layout-align="center start" ng-show="car = !car">
-        <div flex-offset="15">
-            <md-button class="md-raised md-primary" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);">Izračunajte</md-button>
-            <md-button class="md-raised md-primary" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);">Reset</md-button>
-        </div>
-    </div>
-
-
+   <div flex="30" layout="row" layout-align="center start">
+      <div flex-offset="2">
+         <md-button type="submit" form="travelForm" class="md-raised md-primary" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);" ng-click="calc.calculate()">Izračunajte</md-button>
+         <md-button class="md-raised md-primary" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);"
+         ng-click="calc.resetTravel()" >Reset</md-button>
+      </div>
+   </div>
+   <div flex="35" layout="row" layout-align="center start" ng-show="flat = !flat">
+      <div flex-offset="15">
+         <md-button type="submit" form="homeForm" class="md-raised md-primary" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);">Izračunajte</md-button>
+         <md-button class="md-raised md-primary" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);" ng-click="calc.resetHome()">Reset</md-button>
+      </div>
+   </div>
+   <div flex="35" layout="row" layout-align="center start" ng-show="car = !car">
+      <div flex-offset="15">
+         <md-button type="submit" form="vehicleForm" class="md-raised md-primary" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);">Izračunajte</md-button>
+         <md-button class="md-raised md-primary" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);" ng-click="calc.resetVehicle()">Reset</md-button>
+      </div>
+   </div>
 </md-content>
-
-
 <md-content class="md-padding" layout="row">
-
-    <div flex="30" layout="row" layout-align="center start">
-        <md-chips>
-            <md-chip>= Iznos1</md-chip>
-        </md-chips>
-    </div>
-
-    <div flex="35" layout="row" layout-align="center start" ng-show="flat = !flat">
-        <div flex-offset="15">
-            <md-chips>
-                <md-chip>= Iznos2</md-chip>
-            </md-chips>
-        </div>
-    </div>
-
-    <div flex="35" layout="row" layout-align="center start" ng-show="car = !car">
-        <div flex-offset="15">
-            <md-chips>
-                <md-chip>= Iznos3</md-chip>
-            </md-chips>
-        </div>
-    </div>
-
+   <div flex="30" layout="row" layout-align="center start">
+      <md-chips>
+         <md-chip>= {{calc.price.travel}}</md-chip>
+      </md-chips>
+   </div>
+   <div flex="35" layout="row" layout-align="center start" ng-show="flat = !flat">
+      <div flex-offset="15">
+         <md-chips>
+            <md-chip>= {{calc.price.home}}</md-chip>
+         </md-chips>
+      </div>
+   </div>
+   <div flex="35" layout="row" layout-align="center start" ng-show="car = !car">
+      <div flex-offset="15">
+         <md-chips>
+            <md-chip>= {{calc.price.vehicle}}</md-chip>
+         </md-chips>
+      </div>
+   </div>
 </md-content>
-
-
 <md-divider></md-divider>
 <div layout="row" layout-align="center center" ng-show="flat || car">
-    <md-chips>
-        <md-chip>Ukupno = </md-chip>
-        <md-icon md-svg-icon="\assets\images\angular-material\icons\right-arrow.svg" style="color:rgb(255, 98, 21)" aria-label="Plus"></md-icon>
-    </md-chips>
-
+   <md-chips>
+      <md-chip>Ukupno = {{calc.price.travel + calc.price.home + calc.price.vehicle}} </md-chip>
+      <md-icon md-svg-icon="\assets\images\angular-material\icons\right-arrow.svg" style="color:rgb(255, 98, 21)" aria-label="Plus"></md-icon>
+   </md-chips>
+   <md-button class="md-raised md-primary" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);" ng-click="calc.sale()">Kupite </md-button>
 </div>
 
 
-
-
-
-
 <style>
-    md-chips.md-default-theme,
-    md-chips .md-chip {
-        background: rgb(169, 230, 230);
-        color: rgb(0, 0, 0);
-    }
+   md-chips.md-default-theme,
+   md-chips .md-chip {
+   background: rgb(169, 230, 230);
+   color: rgb(0, 0, 0);
+   }
 </style>
