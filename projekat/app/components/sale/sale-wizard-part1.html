@@ -236,12 +236,29 @@
                   </div>
                 </md-input-container>
                 <div>
-                  <label>Izaberite od čega osiguravate stan/kuću:</label>
+                  <!-- <label>Izaberite od čega osiguravate stan/kuću:</label>
                   <span ng-repeat="cause in slc.data_init.causalties" >
                       <md-checkbox ng-model="slc.casualty.cause[cause.id]" ng-value="{{cause.id}}" class="md-primary">
                           {{cause.name}}
                       </md-checkbox>
+                  </span> -->
+
+
+            <label>Izaberite od čega osiguravate stan/kuću:</label>
+               <md-input-container>
+                  <span ng-repeat="cause in slc.data_init.causalties" >
+                     <md-checkbox name="casualty" ng-model="slc.selectedCause[cause.id]" ng-value="{{cause.id}}" aria-label="Checkbox 1" class="md-primary"  ng-required="!slc.someSelected(slc.selectedCause)">
+                        {{cause.name}}
+                     </md-checkbox>
                   </span>
+                  <div ng-messages="slc.saleWizardPart1.casualty.$error" ng-show="slc.invalidForm">
+                           <div ng-message="required">Potrebno je da izaberete jedan ili više uzroka osiguranja.</div>   
+                  </div>
+               </md-input-container>
+     
+
+
+
                 </div>
           </fieldset>
         </div>
@@ -348,57 +365,62 @@
         </div>
         <br/>
         <div layout-gt-sm="column">
-            <md-checkbox aria-label="Checkbox 1" class="md-primary" ng-model="towing">
+            <md-checkbox aria-label="Checkbox 1" class="md-primary" ng-model="slc.towing">
                 Šlepovanje do određene kilometraže
                 <md-tooltip md-direction="right">
                    Odabirom ove stavke uključujete u osiguranje i šlepovanje do izabrane kilometraže.
                 </md-tooltip>
             </md-checkbox>
-            <md-input-container layout="column" layout-align="left center" ng-show="towing = !towing">
+            <md-input-container layout="column" layout-align="left center" ng-show="slc.towing = !slc.towing">
               <label>Šlepovanje</label>
               <md-select ng-model="slc.insurance.vehicle.towing_id">
                 <md-option ng-repeat="towing in slc.data_init.towing" ng-value="towing.id">{{towing.name}}</md-option>
               </md-select>
             </md-input-container>
 
-            <md-checkbox aria-label="Checkbox 1"  class="md-primary" ng-model="repair">
+            <md-checkbox aria-label="Checkbox 1"  class="md-primary" ng-model="slc.repair">
                 Popravka do određene cene
                 <md-tooltip md-direction="right">
                    Odabirom ove stavke uključujete u osiguranje i popravku do izabrane iznosa.
                 </md-tooltip>
             </md-checkbox>
-            <md-input-container layout="column" layout-align="left center" ng-show="repair = !repair">
+            <md-input-container layout="column" layout-align="left center" ng-show="slc.repair = !slc.repair">
               <label>Popravka</label>
               <md-select ng-model="slc.insurance.vehicle.repair_id">
                 <md-option ng-repeat="repair in slc.data_init.repair" ng-value="repair.id">{{repair.name}}</md-option>
               </md-select>
             </md-input-container>
 
-            <md-checkbox aria-label="Checkbox 1"  class="md-primary" ng-model="accommodation">
+            <md-checkbox aria-label="Checkbox 1"  class="md-primary" ng-model="slc.accommodation">
                 Smeštaj u hotelu do određenog broja dana
                 <md-tooltip md-direction="right">
                    Odabirom ove stavke uključujete u osiguranje i smeštaj u trajanju do izabranog broja dana.
                 </md-tooltip>
             </md-checkbox>
-            <md-input-container layout="column" layout-align="left center" ng-show="accommodation = !accommodation">
+            <md-input-container layout="column" layout-align="left center" ng-show="slc.accommodation = !slc.accommodation">
               <label>Smeštaj</label>
               <md-select ng-model="slc.insurance.vehicle.accomodation_id">
                 <md-option ng-repeat="accomodation in slc.data_init.accomodation" ng-value="accomodation.id">{{accomodation.name}}</md-option>
               </md-select>
             </md-input-container>
 
-            <md-checkbox aria-label="Checkbox 1"  class="md-primary" ng-model="alternative">
+            <md-checkbox aria-label="Checkbox 1"  class="md-primary" ng-model="slc.alternative">
                 Alternativni prevoz
                 <md-tooltip md-direction="right">
                    Odabirom ove stavke uključujete u osiguranje i željeni alternativni prevoz u slučaju nezgode na putu.
                  </md-tooltip>
             </md-checkbox>
-            <md-input-container layout="column" layout-align="left center" ng-show="alternative = !alternative">
+            <md-input-container layout="column" layout-align="left center" ng-show="slc.alternative = !slc.alternative">
               <label> Alternativni prevoz</label>
               <md-select ng-model="slc.insurance.vehicle.alternative_id">
                 <md-option ng-repeat="alternative in slc.data_init.alternative" ng-value="alternative.id">{{alternative.name}}</md-option>
               </md-select>
             </md-input-container>
+
+            <div style="font-size: 12px; color: rgb(244,67,54); font-family: Roboto, 'Helvetica Neue', sans-serif;" ng-show="!slc.towing  && !slc.repair && !slc.accommodation && !slc.alternative && slc.invalidForm">
+               Potrebno je da izaberete bar jednu od stavki.
+         </div>
+
           </div>
        </div>
      </section>

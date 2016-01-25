@@ -14,7 +14,7 @@
  				
 			var deferred = $q.defer();
 			$http({
-				url: "http://localhost:8000/merchant/data_init", 
+				url: "http://localhost:8080/spring4/data_init", 
 				method: "GET"
 
 			}).success(function (data) {
@@ -30,7 +30,7 @@
 
 			var deferred = $q.defer();
 			$http({
-				url: "http://localhost:8000/merchant/calculate", 
+				url: "http://localhost:8080/merchant/calculate", 
 				method: "GET",
 				data : insurance
 			}).success(function (data) {
