@@ -48,7 +48,7 @@
          <md-input-container layout="column" layout-align="left center">
             <label>Max. iznos osiguranja</label>
             <md-select name="max_value" ng-model="calc.insurance.travel.max_value_id" ng-required= "true" >
-               <md-option ng-repeat="max_value in calc.insurance.travel.max_values" 
+               <md-option ng-repeat="max_value in calc.data_init.max_values" 
                   ng-value="{{max_value.id}}"> {{max_value.name}} </md-option>
             </md-select>
             <div ng-messages="calc.travelForm.max_value.$error" ng-show="calc.travelForm.max_value.$touched || calc.invalidTravelForm">
@@ -66,7 +66,7 @@
          <md-input-container layout="column" layout-align="left center" ng-show="activity = !activity">
             <label>Sport</label>
             <md-select name="sport" ng-model="calc.insurance.travel.sport_id" ng-required= "activity"  >
-               <md-option ng-repeat="sport in calc.insurance.travel.sports" 
+               <md-option ng-repeat="sport in calc.data_init.sports" 
                   ng-value="{{sport.id}}"> {{sport.name}} </md-option>
             </md-select>
             <div ng-messages="calc.travelForm.sport.$error" ng-show="calc.travelForm.sport.$touched || calc.invalidTravelForm">
@@ -194,7 +194,7 @@
          <md-input-container layout="column" layout-align="left center" ng-show="calc.towing = !calc.towing" >
             <label>Šlepovanje:</label>
             <md-select name="towing" ng-model="calc.insurance.vehicle.towing_id" ng-required="calc.towing">
-               <md-option ng-repeat="towing in calc.insurance.vehicle.towing" 
+               <md-option ng-repeat="towing in calc.data_init.towing" 
                   ng-value="{{towing.id}}"> {{towing.name}} </md-option>
             </md-select>
              <div ng-messages="calc.vehicleForm.towing.$error" ng-show="calc.vehicleForm.towing.$touched || (calc.invalidVehicleForm && calc.validTowing)">
@@ -212,7 +212,7 @@
          <md-input-container layout="column" layout-align="left center" ng-show="calc.repair = !calc.repair">
             <label>Popravka:</label>
             <md-select name="repair" ng-model="calc.insurance.vehicle.repair_id" ng-required="calc.repair">
-               <md-option ng-repeat="repair in calc.insurance.vehicle.repair" 
+               <md-option ng-repeat="repair in calc.data_init.repair" 
                   ng-value="{{repair.id}}"> {{repair.name}} </md-option>
             </md-select>
              <div ng-messages="calc.vehicleForm.repair.$error" ng-show="calc.vehicleForm.repair.$touched || calc.invalidVehicleForm && calc.validRepair">
@@ -232,7 +232,7 @@
          <md-input-container layout="column" layout-align="left center" ng-show="calc.accommodation = !calc.accommodation">
             <label>Smeštaj:</label>
             <md-select name="accommodation" ng-model="calc.insurance.vehicle.accomodation_id" ng-required="calc.accommodation">
-               <md-option ng-repeat="accommdation in calc.insurance.vehicle.accommodation" 
+               <md-option ng-repeat="accommodation in calc.data_init.accomodation" 
                   ng-value="{{accommodation.id}}"> {{accommodation.name}} </md-option>
             </md-select>
             <div ng-messages="calc.vehicleForm.accommodation.$error" ng-show="calc.vehicleForm.accommodation.$touched || calc.invalidVehicleForm && calc.validAccommodation">
@@ -250,7 +250,7 @@
          <md-input-container layout="column" layout-align="left center" ng-show="calc.alternative = !calc.alternative">
             <label> Alternativni prevoz:</label>
             <md-select name="alternative" ng-model="calc.insurance.vehicle.alternative_id" ng-required="calc.alternative">
-               <md-option ng-repeat="alternative in calc.insurance.vehicle.alternative" 
+               <md-option ng-repeat="alternative in calc.data_init.alternative" 
                   ng-value="{{alternative.id}}"> {{alternative.name}} </md-option>
             </md-select>
             <div ng-messages="calc.vehicleForm.alternative.$error" ng-show="calc.vehicleForm.alternative.$touched || calc.invalidVehicleForm && calc.validAlternative">
