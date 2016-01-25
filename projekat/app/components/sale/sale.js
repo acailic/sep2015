@@ -1,12 +1,12 @@
- (function() {
+(function() {
  	"use strict";
 	
  	angular
  		.module('merchant.sale')
  		.controller('SaleController', SaleController);
 
- 	SaleController.$inject = ['$mdDialog', '$mdMedia', 'SharedObject', '$timeout'];
- 	function SaleController($mdDialog, $mdMedia, SharedObject, $timeout) {
+ 	SaleController.$inject = ['$mdDialog', '$mdMedia', 'SharedObject', '$state', '$scope'];
+ 	function SaleController($mdDialog, $mdMedia, SharedObject, $state, $scope) {
  		var slc = this;
  		//slc.insurance = SharedObject.getInsurance();
 
@@ -26,7 +26,10 @@
 
 		slc.insurance = {};
 		slc.insurance.travellers = [];
-		slc.resetedForm = false;
+		slc.finalView = false;
+		slc.addTravellerForm = true;
+		slc.checkTravellers = true;
+		slc.number_of_travellers = 0;
 
 
 		slc.someSelected = function (object) { 
@@ -36,7 +39,6 @@
 			};
 
 
-
  		slc.showModalPayment = function(ev) {
 		    $mdDialog.show({
 		      templateUrl: 'app/components/modal/modalPayment.html',
@@ -44,29 +46,34 @@
 		      targetEvent: ev,
 		      fullscreen: $mdMedia('sm') && isc.customFullscreen
 		    });
-		  };
+		 };
 
-		  slc.test = function() {
-		    if(slc.saleWizardPart1.$valid){
+	  	slc.test = function() {
+		  	if(slc.saleWizardPart1.$valid){
 		    	slc.invalidForm = false;
-		    	console.log("validna forma");
+		    	$state.go("main.sale.wizard2");
 			}
 		    else{
 		    	slc.invalidForm = true;
 		    	console.log("nevalidna forma");
 			}
-		  };
+	  	};
 
-		   slc.test2 = function() {
+	   	slc.test2 = function() {
 		    if(slc.saleWizardPart2.$valid){
 		    	slc.invalidForm = false;
 		    	slc.insurance.travellers.push(slc.insurance.traveller);
 		    	slc.insurance.traveller = {};
 		    	slc.saleWizardPart2.$setPristine();
-			    slc.saleWizardPart2.$setValidity();
 			    slc.saleWizardPart2.$setUntouched();
+			    slc.number_of_travellers = slc.insurance.travellers.length;
+			    if(slc.insurance.travellers.length === slc.number_of_people){
+			  		slc.checkTravellers = false;
+			  		slc.addTravellerForm = false;
+			  	 	slc.finalView = true;
+			  	}
 			}
-		    else{
+		     else{
 		    	slc.invalidForm = true;
 		    	console.log("nevalidna forma");
 
@@ -95,9 +102,19 @@
           				slc.validAlternative= true;
           			}
 			}
-		  };
+	  	};
 
-
-
+	 	$scope.$watch('slc.number_of_people', function (newValue, oldValue) {
+	 	  slc.finalView = false;
+		  if(oldValue > newValue){
+		  	alert('modalni: uneli ste manji broj; Izbrisace se svi podaci o putnicima');
+		  	slc.insurance.travellers = [];
+		  	slc.number_of_travellers = 0;
+		  	slc.addTravellerForm = true;
+		  }else{
+		  	slc.addTravellerForm = true;
+		  	slc.checkTravellers = true;
+		  }
+		});
  	}
  })();
