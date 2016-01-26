@@ -4,15 +4,15 @@ import java.util.List;
 
 public interface GenericService<E> {
 
-	public E save(E entity) throws Exception;
+	public E save(E entity);
 
-	public E update(E entity) throws Exception;
+	public E update(E entity);
 
 	public void delete(E entity);
 
-	public E find(Integer id);
+	public E find(Long id);
 
-	public void deleteById(final Integer entityId);
+	public void deleteById(final Long entityId);
 
 	public List<E> findAll();
 

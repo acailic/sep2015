@@ -1,7 +1,10 @@
+
+
 apply plugin: 'java'
 apply plugin: 'war'
 apply plugin: 'eclipse-wtp'
 apply from: 'https://raw.github.com/akhikhl/gretty/master/pluginScripts/gretty.plugin'
+
 
 // JDK 7
 sourceCompatibility = 1.7
@@ -43,18 +46,19 @@ dependencies {
 	compile 'mysql:mysql-connector-java:5.1.26'
 	compile 'javax.servlet:jstl:1.2'
 	compile 'javax.servlet:javax.servlet-api:3.1.0'
+	compile 'com.fasterxml.jackson.core:jackson-databind:2.0.1'
 	
 }
 
 // Embeded Jetty for testing
 //jettyRun{
 //	contextPath = "Acquirer_back"
-//	httpPort = 8080
+//	httpPort = 8081
 //}
 
 //jettyRunWar{
 //	contextPath = "Acquirer_back"
-//	httpPort = 8080
+//	httpPort = 8081
 //}
 
 //For Eclipse IDE only
@@ -73,7 +77,7 @@ eclipse {
 
 
 gretty {
-  port = 8080
+  port = 8081
   contextPath = 'Acquirer_back'
   interactiveMode = 'restartOnKeyPress'
 }

@@ -29,7 +29,7 @@ public abstract class GenericDaoImpl<E> implements GenericDao<E> {
 	}
 
 	@Override
-	public E save(E entity) throws Exception {	
+	public E save(E entity) {	
 		log.info("save entity " + entity);
 		entityManager.persist(entity);
 		log.info("saved entity " + entity);
@@ -37,7 +37,7 @@ public abstract class GenericDaoImpl<E> implements GenericDao<E> {
 	}
 
 	@Override
-	public E update(E entity) throws Exception {
+	public E update(E entity) {
 		log.info("update entity " + entity);
 		return entityManager.merge(entity);
 	}
@@ -49,14 +49,14 @@ public abstract class GenericDaoImpl<E> implements GenericDao<E> {
 	}
 
 	@Override
-	public void deleteById(final Integer entityId) {
+	public void deleteById(final Long entityId) {
 		log.info("deleteById entityId " + entityId);
 		E entity = find(entityId);
 		delete(entity);
 	}
 
 	@Override
-	public E find(Integer id) {
+	public E find(Long id) {
 		log.info("findById " + id);
 		return (E) entityManager.find(type, id);
 	}

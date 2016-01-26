@@ -44,9 +44,8 @@ public class Merchant extends AbstractEntity{
 		this.password = merc.getPassword();		
 	}
 
-	public Merchant(Integer id, String name, String pib, String address, String telNumber, String email, String password, Acquirer acquirer) {
+	public Merchant(String name, String pib, String address, String telNumber, String email, String password, Acquirer acquirer) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.pib = pib;
 		this.address = address;

@@ -10,7 +10,7 @@ public class MerchantDTO {
 	private String telNumber;
 	private String email;
 	private String password;
-	private Integer acquirerId;
+	private Long acquirerId;
 	
 	public MerchantDTO() {
 	}
@@ -63,11 +63,11 @@ public class MerchantDTO {
 		this.password = password;
 	}
 
-	public Integer getAcquirerId() {
+	public Long getAcquirerId() {
 		return acquirerId;
 	}
 
-	public void setAcquirerId(Integer acquirerId) {
+	public void setAcquirerId(Long acquirerId) {
 		this.acquirerId = acquirerId;
 	}
 	

@@ -10,6 +10,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
+import org.sep.acquirer.form.dto.PaymentDTO;
+
 @Entity
 public class Payment extends AbstractEntity {
 
@@ -36,16 +38,23 @@ public class Payment extends AbstractEntity {
 	public Payment() {
 	}
 	
-	public Payment(Integer id, Double amount, Long merchantOrderId, Date merchantTimestamp, String merchantErrorURL, Merchant merchant) {
+	public Payment(Double amount, Long merchantOrderId, Date merchantTimestamp, String merchantErrorURL, Merchant merchant) {
 		super();
-		this.id = id;
 		this.amount = amount;
 		this.merchantOrderId = merchantOrderId;
 		this.merchantTimestamp = merchantTimestamp;
 		this.merchantErrorURL = merchantErrorURL;
 		this.merchant = merchant;
 	}
-
+	
+	public Payment(PaymentDTO payment, Merchant merchant) {
+		super();
+		this.amount = payment.getAmount();
+		this.merchantOrderId = payment.getMerchantOrderId();
+		this.merchantTimestamp = payment.getMerchantTimeStamp();
+		this.merchantErrorURL = payment.getErrorUrl();
+		this.merchant = merchant;
+	}
 
 	public Merchant getMerchant() {
 		return merchant;

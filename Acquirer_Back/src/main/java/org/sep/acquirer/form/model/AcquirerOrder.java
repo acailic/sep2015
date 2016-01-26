@@ -6,6 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 
+import org.sep.acquirer.form.dto.AcquirerOrderDTO;
+
 @Entity
 public class AcquirerOrder extends AbstractEntity{
 
@@ -27,7 +29,7 @@ public class AcquirerOrder extends AbstractEntity{
 	private String cardHolderName;
 	
 	@Column(name="cardExpDate", nullable = false)
-	private String cardExpDate;
+	private Date cardExpDate;
 	
 	@Column(name="amount", nullable = false)
 	private Double amount;
@@ -42,7 +44,7 @@ public class AcquirerOrder extends AbstractEntity{
 	}
 
 	public AcquirerOrder(Date acquirerTimestamp, String pan, String cardSecCode, String cardHolderName,
-			String cardExpDate, Double amount, OrderStateEnum orderState, Payment payment) {
+			Date cardExpDate, Double amount, OrderStateEnum orderState, Payment payment) {
 		super();
 		this.acquirerTimestamp = acquirerTimestamp;
 		this.pan = pan;
@@ -51,6 +53,18 @@ public class AcquirerOrder extends AbstractEntity{
 		this.cardExpDate = cardExpDate;
 		this.amount = amount;
 		this.orderState = orderState;
+		this.payment = payment;
+	}
+	
+	public AcquirerOrder(AcquirerOrderDTO order, Payment payment, OrderStateEnum state) {
+		super();
+		this.acquirerTimestamp = order.getAcquirerTimeStamp();
+		this.pan = order.getPan();
+		this.cardSecCode = order.getCardSecCode();
+		this.cardHolderName = order.getCardHolderName();
+		this.cardExpDate = order.getCardExpDate();
+		this.amount = order.getAmount();
+		this.orderState = state;
 		this.payment = payment;
 	}
 
@@ -86,11 +100,11 @@ public class AcquirerOrder extends AbstractEntity{
 		this.cardHolderName = cardHolderName;
 	}
 
-	public String getCardExpDate() {
+	public Date getCardExpDate() {
 		return cardExpDate;
 	}
 
-	public void setCardExpDate(String cardExpDate) {
+	public void setCardExpDate(Date cardExpDate) {
 		this.cardExpDate = cardExpDate;
 	}
 

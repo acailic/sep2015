@@ -3,6 +3,8 @@ package org.sep.acquirer.form.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
+import org.sep.acquirer.form.dto.AcquirerDTO;
+
 @Entity
 public class Acquirer extends AbstractEntity {
 	
@@ -20,7 +22,7 @@ public class Acquirer extends AbstractEntity {
 	private String email;
 	
 	
-	public Acquirer(Integer id, String name, String url, String iin, String address, String telNumber, String email) {
+	public Acquirer(Long id, String name, String url, String iin, String address, String telNumber, String email) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -31,9 +33,21 @@ public class Acquirer extends AbstractEntity {
 		this.email = email;
 	}
 	
+	public Acquirer(AcquirerDTO acq) {
+		super();
+		this.name = acq.getName();
+		this.url = acq.getUrl();
+		this.iin = acq.getIin();
+		this.address = acq.getAddress();
+		this.telNumber = acq.getTelNumber();
+		this.email = acq.getEmail();
+	}
+	
 	public Acquirer() {
 		super();
 	}
+	
+	
 	
 	public String getName() {
 		return name;

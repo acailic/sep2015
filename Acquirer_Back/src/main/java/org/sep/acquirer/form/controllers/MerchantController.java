@@ -1,6 +1,5 @@
 package org.sep.acquirer.form.controllers;
 
-
 import org.sep.acquirer.form.dto.MerchantDTO;
 import org.sep.acquirer.form.model.Acquirer;
 import org.sep.acquirer.form.model.Merchant;
