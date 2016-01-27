@@ -1,16 +1,22 @@
 package org.sep.merchant.form.controllers;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 
 import org.sep.merchant.form.dto.PaymentDTO;
+import org.sep.merchant.form.dto.PriceDTO;
+import org.sep.merchant.form.dto.WholeInsuranceDTO;
 import org.sep.merchant.form.model.Insurance;
 import org.sep.merchant.form.model.Merchant;
 import org.sep.merchant.form.model.Order;
 import org.sep.merchant.form.service.MerchantService;
 import org.sep.merchant.form.service.OrderService;
+import org.sep.merchant.form.util.HeaderUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,6 +53,18 @@ public class PaymentController {
 		
 		return new ModelAndView("redirect:/myURL");
 	
+	}
+	
+	@RequestMapping(value = "/calculate", method = RequestMethod.GET)
+    public ResponseEntity<?> calculatePrice(@RequestBody WholeInsuranceDTO insurance) {
+		logger.info("Calculating price of insurance...");
+		try{
+			PriceDTO priceDTO = new PriceDTO(new BigDecimal(1), new BigDecimal(2), new BigDecimal(3));
+			return new ResponseEntity<PriceDTO>(priceDTO, HeaderUtil.getHeader(), HttpStatus.OK) ;
+		} catch(Exception e){
+			logger.error(e.toString());
+			return new ResponseEntity<Object>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 
 }
