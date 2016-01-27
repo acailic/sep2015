@@ -16,6 +16,11 @@
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
+	
+	<filter>
+        <filter-name>cors</filter-name>
+        <filter-class>org.sep.merchant.form.util.SimpleCORSFilter</filter-class>
+    </filter>
 
 	<servlet-mapping>
 		<servlet-name>hello-dispatcher</servlet-name>
