@@ -17,16 +17,21 @@
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	
-	<filter>
-        <filter-name>cors</filter-name>
-        <filter-class>org.sep.merchant.form.util.SimpleCORSFilter</filter-class>
-    </filter>
-
 	<servlet-mapping>
 		<servlet-name>hello-dispatcher</servlet-name>
 		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 	
+	<filter>
+        <filter-name>cors</filter-name>
+        <filter-class>org.sep.merchant.form.util.SimpleCORSFilter</filter-class>
+    </filter>
+    
+    <filter-mapping>
+        <filter-name>cors</filter-name>
+        <url-pattern>/register</url-pattern>
+    </filter-mapping>
+
 	<welcome-file-list>
     	<welcome-file>index.html</welcome-file>
     	<welcome-file>index.htm</welcome-file>
