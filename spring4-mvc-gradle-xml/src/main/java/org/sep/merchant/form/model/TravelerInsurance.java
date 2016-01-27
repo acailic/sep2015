@@ -29,9 +29,8 @@ public class TravelerInsurance implements Serializable{
 	@JoinColumn(name="id_insurance")
 	private Insurance insurance;
 
-	public TravelerInsurance(Integer id, Traveler traveler, Insurance insurance) {
+	public TravelerInsurance(Traveler traveler, Insurance insurance) {
 		super();
-		this.id = id;
 		this.traveler = traveler;
 		this.insurance = insurance;
 	}

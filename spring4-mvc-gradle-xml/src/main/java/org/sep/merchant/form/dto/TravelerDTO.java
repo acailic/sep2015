@@ -15,6 +15,20 @@ public class TravelerDTO implements Serializable{
 	private Integer city_id;
 	private String address;
 	
+	public TravelerDTO(String jmbg, String passport_num, String tel_num,
+			String first_name, String last_name, Integer human_age_id,
+			Integer city_id, String address) {
+		super();
+		this.jmbg = jmbg;
+		this.passport_num = passport_num;
+		this.tel_num = tel_num;
+		this.first_name = first_name;
+		this.last_name = last_name;
+		this.human_age_id = human_age_id;
+		this.city_id = city_id;
+		this.address = address;
+	}
+
 	public TravelerDTO(){
 		
 	}

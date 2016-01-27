@@ -13,6 +13,15 @@ public class WholeInsuranceDTO implements Serializable{
 	private VehicleDTO vehicle;
 	private List<TravelerDTO> travellers = new ArrayList<TravelerDTO>();
 	
+	public WholeInsuranceDTO(InsuranceDTO travel, HomeDTO home,
+			VehicleDTO vehicle, List<TravelerDTO> travellers) {
+		super();
+		this.travel = travel;
+		this.home = home;
+		this.vehicle = vehicle;
+		this.travellers = travellers;
+	}
+
 	public WholeInsuranceDTO(){
 		
 	}

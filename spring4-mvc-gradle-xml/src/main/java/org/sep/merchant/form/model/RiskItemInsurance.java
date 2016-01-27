@@ -28,10 +28,13 @@ public class RiskItemInsurance implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="id_insurance")
 	private Insurance insurance;
+	
+	public RiskItemInsurance(){
+		
+	}
 
-	public RiskItemInsurance(Integer id, RiskItem riskItem, Insurance insurance) {
+	public RiskItemInsurance(RiskItem riskItem, Insurance insurance) {
 		super();
-		this.id = id;
 		this.riskItem = riskItem;
 		this.insurance = insurance;
 	}

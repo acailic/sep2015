@@ -10,6 +10,13 @@ public class HumanAgeDTO implements Serializable{
 	private String value;
 	private Integer number_of_people;
 	
+	public HumanAgeDTO(Integer id, String value, Integer number_of_people) {
+		super();
+		this.id = id;
+		this.value = value;
+		this.number_of_people = number_of_people;
+	}
+
 	public HumanAgeDTO(){
 		
 	}

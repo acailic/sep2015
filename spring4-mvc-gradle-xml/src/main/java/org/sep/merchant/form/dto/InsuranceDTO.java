@@ -2,6 +2,8 @@ package org.sep.merchant.form.dto;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 public class InsuranceDTO implements Serializable{
 	
@@ -11,7 +13,7 @@ public class InsuranceDTO implements Serializable{
 	private Date start_date;
 	private Date end_date;
 	private Integer region_id; //RiskItem ID
-	private HumanAgeDTO human_age;
+	private List<HumanAgeDTO> human_age = new ArrayList<HumanAgeDTO>();
 	private Integer max_value_id; //RiskItem ID
 	private Integer sport_id; //RiskItem ID
 	private OwnerDTO owner;
@@ -20,6 +22,22 @@ public class InsuranceDTO implements Serializable{
 		
 	}
 	
+	public InsuranceDTO(String duration, Date start_date, Date end_date,
+			Integer region_id, List<HumanAgeDTO> human_age, Integer max_value_id,
+			Integer sport_id, OwnerDTO owner) {
+		super();
+		this.duration = duration;
+		this.start_date = start_date;
+		this.end_date = end_date;
+		this.region_id = region_id;
+		this.human_age = human_age;
+		this.max_value_id = max_value_id;
+		this.sport_id = sport_id;
+		this.owner = owner;
+	}
+
+
+
 	public String getDuration() {
 		return duration;
 	}
@@ -52,11 +70,11 @@ public class InsuranceDTO implements Serializable{
 		this.region_id = region_id;
 	}
 
-	public HumanAgeDTO getHuman_age() {
+	public List<HumanAgeDTO> getHuman_age() {
 		return human_age;
 	}
 
-	public void setHuman_age(HumanAgeDTO human_age) {
+	public void setHuman_age(List<HumanAgeDTO> human_age) {
 		this.human_age = human_age;
 	}
 

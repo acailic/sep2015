@@ -11,6 +11,14 @@ public class PriceDTO implements Serializable{
 	private BigDecimal home_price;
 	private BigDecimal vehicle_price;
 	
+	public PriceDTO(BigDecimal travel_price, BigDecimal home_price,
+			BigDecimal vehicle_price) {
+		super();
+		this.travel_price = travel_price;
+		this.home_price = home_price;
+		this.vehicle_price = vehicle_price;
+	}
+
 	public PriceDTO(){
 		
 	}

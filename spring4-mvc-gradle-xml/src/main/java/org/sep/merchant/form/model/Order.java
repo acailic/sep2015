@@ -45,6 +45,10 @@ public class Order implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="id_insurance")
 	private Insurance insurance;
+	
+	public Order(){
+		
+	}
 
 	public Order(Integer id, Double amount, Date merchantTimestamp,
 			String errorUrl, String successUrl, String failedUrl) {

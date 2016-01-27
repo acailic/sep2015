@@ -9,6 +9,12 @@ public class RiskItemDTO implements Serializable{
 	private Integer id;
 	private String name;
 	
+	public RiskItemDTO(Integer id, String name) {
+		super();
+		this.id = id;
+		this.name = name;
+	}
+
 	public RiskItemDTO(){
 		
 	}

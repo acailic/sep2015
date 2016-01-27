@@ -17,6 +17,19 @@ public class OwnerDTO implements Serializable{
 		
 	}
 	
+	public OwnerDTO(String jmbg, String first_name, String last_name,
+			String email, Integer city_id, String address) {
+		super();
+		this.jmbg = jmbg;
+		this.first_name = first_name;
+		this.last_name = last_name;
+		this.email = email;
+		this.city_id = city_id;
+		this.address = address;
+	}
+
+
+
 	public String getJmbg() {
 		return jmbg;
 	}

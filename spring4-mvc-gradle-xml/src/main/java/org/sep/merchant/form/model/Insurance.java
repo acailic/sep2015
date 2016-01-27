@@ -35,12 +35,6 @@ public class Insurance implements Serializable{
 	@Column (name = "end_date", nullable = false)
 	private Date endDate;
 	
-	@Column (name = "basic_price", nullable = false)
-	private BigDecimal basicPrice;
-	
-	@Column (name = "total_price", nullable = false)
-	private BigDecimal totalPrice;
-	
 	@Column (name = "num_of_people", nullable = false)
 	private Integer numOfPeople;
 	
@@ -76,15 +70,11 @@ public class Insurance implements Serializable{
 		super();
 	}
 
-	public Insurance(Integer id, String duration, Date startDate, Date endDate, BigDecimal basicPrice,
-			BigDecimal totalPrice, Integer numOfPeople) {
+	public Insurance(String duration, Date startDate, Date endDate, Integer numOfPeople) {
 		super();
-		this.id = id;
 		this.duration = duration;
 		this.startDate = startDate;
 		this.endDate = endDate;
-		this.basicPrice = basicPrice;
-		this.totalPrice = totalPrice;
 		this.numOfPeople = numOfPeople;
 	}
 
@@ -114,22 +104,6 @@ public class Insurance implements Serializable{
 
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
-	}
-
-	public BigDecimal getBasicPrice() {
-		return basicPrice;
-	}
-
-	public void setBasicPrice(BigDecimal basicPrice) {
-		this.basicPrice = basicPrice;
-	}
-
-	public BigDecimal getTotalPrice() {
-		return totalPrice;
-	}
-
-	public void setTotalPrice(BigDecimal totalPrice) {
-		this.totalPrice = totalPrice;
 	}
 
 	public Integer getNumOfPeople() {

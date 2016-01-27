@@ -17,6 +17,21 @@ public class VehicleDTO implements Serializable{
 	private CarDTO car;
 	private OwnerDTO owner;
 	
+	public VehicleDTO(String duration, Date start_date, Date end_date,
+			Integer towing_id, Integer repair_id, Integer accomodation_id,
+			Integer alternative_id, CarDTO car, OwnerDTO owner) {
+		super();
+		this.duration = duration;
+		this.start_date = start_date;
+		this.end_date = end_date;
+		this.towing_id = towing_id;
+		this.repair_id = repair_id;
+		this.accomodation_id = accomodation_id;
+		this.alternative_id = alternative_id;
+		this.car = car;
+		this.owner = owner;
+	}
+
 	public VehicleDTO(){
 		
 	}

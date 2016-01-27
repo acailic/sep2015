@@ -50,10 +50,9 @@ public class Home  implements Serializable{
 		super();
 	}
 	
-	public Home(Integer id, Double floorArea, Integer flatAge,
+	public Home(Double floorArea, Integer flatAge,
 			BigDecimal estimatedValue) {
 		super();
-		this.id = id;
 		this.floorArea = floorArea;
 		this.flatAge = flatAge;
 		this.estimatedValue = estimatedValue;

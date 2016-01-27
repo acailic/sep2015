@@ -37,9 +37,8 @@ public class Owner implements Serializable{
 	@OneToMany(mappedBy = "owner")  
 	private Set<Vehicle> vehicles = new HashSet<Vehicle>();
 
-	public Owner(Integer id, String firstName, String lastName, String jmbg) {
+	public Owner(String firstName, String lastName, String jmbg) {
 		super();
-		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.jmbg = jmbg;

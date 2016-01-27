@@ -17,6 +17,20 @@ public class HomeDTO implements Serializable{
 	private Integer casualty_id;
 	private OwnerDTO owner;
 	
+	public HomeDTO(String duration, Date start_date, Date end_date,
+			Double floor_area, Integer flat_age, BigDecimal est_value,
+			Integer casualty_id, OwnerDTO owner) {
+		super();
+		this.duration = duration;
+		this.start_date = start_date;
+		this.end_date = end_date;
+		this.floor_area = floor_area;
+		this.flat_age = flat_age;
+		this.est_value = est_value;
+		this.casualty_id = casualty_id;
+		this.owner = owner;
+	}
+
 	public HomeDTO(){
 		
 	}

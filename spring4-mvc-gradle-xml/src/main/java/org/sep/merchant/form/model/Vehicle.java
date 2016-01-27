@@ -53,10 +53,9 @@ public class Vehicle implements Serializable{
 	@OneToMany(mappedBy = "vehicle")  
 	private Set<RiskTypeVehicle> riskTypeVehicles = new HashSet<RiskTypeVehicle>();
 
-	public Vehicle(Integer id, String vehicleType, String manufactureYear,
+	public Vehicle(String vehicleType, String manufactureYear,
 			String registrationNumber, String chassisNumber) {
 		super();
-		this.id = id;
 		this.vehicleType = vehicleType;
 		this.manufactureYear = manufactureYear;
 		this.registrationNumber = registrationNumber;

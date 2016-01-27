@@ -50,11 +50,10 @@ public class InsuranceOwner implements Serializable{
 		super();
 	}
 
-	public InsuranceOwner(Integer id, String firstName, String lastName,
+	public InsuranceOwner(String firstName, String lastName,
 			String passportNumber, String jmbg, String address,
 			String telephoneNumber, String email) {
 		super();
-		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.passportNumber = passportNumber;
