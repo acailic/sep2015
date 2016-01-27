@@ -9,14 +9,14 @@
 
  		function CalculatorController(Insurance, SharedObject, $state, $timeout) {
  			var calc= this;
- 		//  	var promise_idata = Insurance.data_init();	
+ 		 	var promise_idata = Insurance.data_init();	
 
 
 
 
-			// promise_idata.then(function (data) {
-			// calc.data_init = data;
-			// });
+			promise_idata.then(function (data) {
+			calc.data_init = data;
+			});
 
 			 calc.insurance = {};
 			 calc.insurance.travel = {};
@@ -25,18 +25,18 @@
 		     calc.age_number = {};
 			 calc.price = {travel:1, home:2, vehicle:3};
 
-			calc.data_init = {};
-	 		calc.data_init.human_ages = [{id:1, name:"Do 18"}, {id:2, name:"Od 18-60"}, {id:3, name:"Preko 60"}];
-	 		calc.data_init.sports = [{id:1, name:"Do 18"}, {id:2, name:"Od 18-60"}, {id:3, name:"Preko 60"}];
-	 		calc.data_init.cities = [{id:1, name:"Ns"}, {id:2, name:"Bg"}, {id:3, name:"Pg"}];
-			calc.data_init.max_values = [{id:1, name:"10.000"}, {id:2, name:"20.0000"}, {id:3, name:"30.0000"}];
-			calc.data_init.regions = [{id:1, name:"Amerika"}, {id:2, name:"Evropa"}];
-			calc.data_init.brands = [{id:1, name:"Brand1"}, {id:2, name:"Brand2"}, {id:3, name:"Brand3"}];
-			calc.data_init.towing = [{id:1, name:"Tow1"}, {id:2, name:"Tow2"}, {id:3, name:"Tow3"}];
-			calc.data_init.repair = [{id:1, name:"Rep1"}, {id:2, name:"Rep2"}, {id:3, name:"Rep3"}];
-			calc.data_init.accomodation = [{id:1, name:"Acc1"}, {id:2, name:"Acc2"}, {id:3, name:"Acc3"}];
-			calc.data_init.alternative = [{id:1, name:"Alt1"}, {id:2, name:"Alt2"}, {id:3, name:"Alt3"}];
-			calc.data_init.casualties = [{id:1, name:"Cas1"}, {id:2, name:"Cas2"}, {id:3, name:"Cas3"}];
+			// calc.data_init = {};
+	 	// 	calc.data_init.human_ages = [{id:1, name:"Do 18"}, {id:2, name:"Od 18-60"}, {id:3, name:"Preko 60"}];
+	 	// 	calc.data_init.sports = [{id:1, name:"Do 18"}, {id:2, name:"Od 18-60"}, {id:3, name:"Preko 60"}];
+	 	// 	calc.data_init.cities = [{id:1, name:"Ns"}, {id:2, name:"Bg"}, {id:3, name:"Pg"}];
+			// calc.data_init.max_values = [{id:1, name:"10.000"}, {id:2, name:"20.0000"}, {id:3, name:"30.0000"}];
+			// calc.data_init.regions = [{id:1, name:"Amerika"}, {id:2, name:"Evropa"}];
+			// calc.data_init.brands = [{id:1, name:"Brand1"}, {id:2, name:"Brand2"}, {id:3, name:"Brand3"}];
+			// calc.data_init.towing = [{id:1, name:"Tow1"}, {id:2, name:"Tow2"}, {id:3, name:"Tow3"}];
+			// calc.data_init.repair = [{id:1, name:"Rep1"}, {id:2, name:"Rep2"}, {id:3, name:"Rep3"}];
+			// calc.data_init.accomodation = [{id:1, name:"Acc1"}, {id:2, name:"Acc2"}, {id:3, name:"Acc3"}];
+			// calc.data_init.alternative = [{id:1, name:"Alt1"}, {id:2, name:"Alt2"}, {id:3, name:"Alt3"}];
+			// calc.data_init.casualties = [{id:1, name:"Cas1"}, {id:2, name:"Cas2"}, {id:3, name:"Cas3"}];
 			
 
 			 calc.calculate = function () {
