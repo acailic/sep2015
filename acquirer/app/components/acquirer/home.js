@@ -9,7 +9,7 @@
 	 
  	function HomeController() {
  		
- 		 
+ 		 console.log("HOMEEEEEEEEEEEEEEEEEEE");
 	}
 
  	/*angular.module('acquirer').filter('currency', function() {

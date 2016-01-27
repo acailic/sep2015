@@ -7,27 +7,45 @@
    
 
    
-  InputController.$inject = ['$mdDialog', '$mdMedia','Transaction',  '$routeParams' ];
- 	function InputController($mdDialog, $mdMedia, Transaction,  $routeParams ) {
+  InputController.$inject = ['$mdDialog', '$mdMedia','Transaction', 'Payment' ,  '$routeParams' ];
+ 	function InputController($mdDialog, $mdMedia, Transaction, Payment,  $routeParams ) {
  		 
+      console.log("USAO JE U KONTROLOER");
+      console.log("id paymenta:"+$routeParams.id_payment );
       
+
     var inc = this; 
-     //  OVDE BI TREBAO LINK NAZAD DO MERCHANTA
-    inc.returnUrl= 'http://google.com'; 
-    inc.url_payment = $routeParams.url_payment;
-    inc.id_payment = $routeParams.id_payment;
-    //inc.transaction = transaction;
       inc.transaction = {
-           value: 0,
+           id: 0,
+           amount: 0,
            cardholdername: '',
            cardholderlastname: '',
            cardtype: '',
            cardnum:  '' ,
            seccode:  '' ,
            expmonth: '',
+           expyear: '',
            expyear: '', 
     }; 
     inc.transaction.value = 1000;
+     //  OVDE BI TREBAO LINK NAZAD DO MERCHANTA
+    inc.returnUrl= 'http://google.com'; 
+    //inc.url_payment = $routeParams.url_payment;
+    inc.id_payment = $routeParams.id_payment;
+
+
+
+    //inc.sendingPayment= function(value){
+     var returned_value=Payment.send(inc.id_payment);
+    //var returned_value;
+    //inc.transaction.id=returned_value.id;
+    //inc.transaction.amount=returned_value.amount;
+    //inc.transaction.token=returned_value.token;
+    
+
+
+    //inc.transaction = transaction;
+     
 
     inc.generatingTransaction = function(value) {
        Transaction.generate(inc.transaction);

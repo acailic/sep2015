@@ -7,7 +7,7 @@
 
 	config.$inject = ['$stateProvider', '$urlRouterProvider'];
 	function config($stateProvider, $urlRouterProvider) {
-		$urlRouterProvider.otherwise('/home');
+		 
 
 		$stateProvider
 			.state('main', {
@@ -30,7 +30,9 @@
 				url: '/home',
 				views: {
 					'content@': {
-						templateUrl: 'app/components/acquirer/home.html'
+						templateUrl: 'app/components/acquirer/home.html',
+						controller: 'HomeController',
+						controllerAs: 'hoc'
 					}
 				}
 			})
@@ -39,6 +41,27 @@
 				views: {
 					'content@': {
 						templateUrl: 'app/components/acquirer/about.html'
+					}
+				}
+			})
+			
+			.state('main.transactions', {
+				url: '/transactions',
+				views: {
+					'content@': {
+						templateUrl: 'app/components/transactions/transactions-list2.html',
+						controller: 'TransactionsListController',
+						controllerAs: 'tlc'
+					}
+				}
+			})
+			.state('main.inputarg', {
+				url: '/input/id_payment/:id_payment',
+				views: {
+					'content@': {
+						templateUrl: 'app/components/input/input.html',
+						controller: 'InputController',
+						controllerAs: 'inc'
 					}
 				}
 			})
@@ -51,27 +74,8 @@
 						controllerAs: 'inc'
 					}
 				}
-			})
-			.state('main.transactions', {
-				url: '/transactions',
-				views: {
-					'content@': {
-						templateUrl: 'app/components/transactions/transactions-list2.html',
-						controller: 'TransactionsListController',
-						controllerAs: 'tlc'
-					}
-				}
-			})
-			.state('main.inputarg', {
-				url: '/input/url_payment/:url_payment/id_payment/:id_payment',
-				views: {
-					'content@': {
-						templateUrl: 'app/components/input/input.html',
-						controller: 'InputController',
-						controllerAs: 'inc'
-					}
-				}
 			});
+			$urlRouterProvider.otherwise('/home');
 		 
 	}
 })();
