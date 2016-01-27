@@ -34,7 +34,7 @@ public class PaymentController {
 	@Autowired
 	MerchantService merchantService;
 	
-	@RequestMapping(value = "/confirm", method = RequestMethod.GET)
+	@RequestMapping(value = "/confirm", method = RequestMethod.GET, consumes = "application/json", produces = "application/json")
     public ModelAndView confirmInsurance(@RequestBody Insurance insurance) {
 		
 		logger.info("Confirming insurance...");
