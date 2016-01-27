@@ -3,6 +3,8 @@ package org.sep.merchant.form.controllers;
 import java.math.BigDecimal;
 import java.sql.Date;
 
+import org.sep.merchant.form.dto.HumanAgeDTO;
+import org.sep.merchant.form.dto.InsuranceDTO;
 import org.sep.merchant.form.dto.PaymentDTO;
 import org.sep.merchant.form.dto.PriceDTO;
 import org.sep.merchant.form.dto.WholeInsuranceDTO;

@@ -40,7 +40,7 @@ public class RiskTypeController {
 		
 		DataInitDTO data_init = new DataInitDTO();
 		/*List<Risk> allRisks = new ArrayList<Risk>();
-		allRisks = riskService.findAll();*/ //da li ih odmah uzeti sve iz baze, ili jedno po jedno se obracati servisu?
+		allRisks = riskService.findAll(); *///da li ih odmah uzeti sve iz baze, ili jedno po jedno se obracati servisu?
 		
 		try {
 			List<RiskItemDTO> regions = new ArrayList<RiskItemDTO>();
@@ -80,11 +80,11 @@ public class RiskTypeController {
 		/*List<RiskItemDTO> accomodation = new ArrayList<RiskItemDTO>();
 		List<RiskItemDTO> alternative = new ArrayList<RiskItemDTO>();
 		List<RiskItemDTO> brands = new ArrayList<RiskItemDTO>();
-		List<RiskItemDTO> cities = new ArrayList<RiskItemDTO>();*/
-		
+		List<RiskItemDTO> cities = new ArrayList<RiskItemDTO>();
+	
 		//popunjavanje baze
 		
-        /*RiskType homeRiskType = new RiskType("home");
+        RiskType homeRiskType = new RiskType("home");
         RiskType vehicleRiskType = new RiskType("vehicle"); //ili package?
         RiskType travelRiskType = new RiskType("travel");
         riskTypeService.save(homeRiskType);
@@ -138,7 +138,10 @@ public class RiskTypeController {
         riskItemService.save(repair800RI);
         riskItemService.save(repair1000RI);
         
-        Risk brandRisk = new Risk("brand", vehicleRiskType);*/
+        Risk brandRisk = new Risk("brand", vehicleRiskType);
+        
+        return new ResponseEntity<String>("ОК", HeaderUtil.getHeader(), HttpStatus.OK);*/
+        
     }
 
 }

@@ -29,7 +29,7 @@
     
     <filter-mapping>
         <filter-name>cors</filter-name>
-        <url-pattern>/register</url-pattern>
+        <url-pattern>/calculate</url-pattern>
     </filter-mapping>
 
 	<welcome-file-list>
