@@ -3,8 +3,7 @@ package org.sep.merchant.form.controllers;
 import java.math.BigDecimal;
 import java.sql.Date;
 
-import org.sep.merchant.form.dto.HumanAgeDTO;
-import org.sep.merchant.form.dto.InsuranceDTO;
+import org.sep.merchant.form.dto.MerchantResponseDTO;
 import org.sep.merchant.form.dto.PaymentDTO;
 import org.sep.merchant.form.dto.PriceDTO;
 import org.sep.merchant.form.dto.WholeInsuranceDTO;
@@ -13,7 +12,6 @@ import org.sep.merchant.form.model.Merchant;
 import org.sep.merchant.form.model.Order;
 import org.sep.merchant.form.service.MerchantService;
 import org.sep.merchant.form.service.OrderService;
-import org.sep.merchant.form.util.HeaderUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +22,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.client.DefaultResponseErrorHandler;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 public class PaymentController {
@@ -47,7 +49,21 @@ public class PaymentController {
 			PaymentDTO paymentDTO = new PaymentDTO(new Long(merchant.getId()), merchant.getPassword(), new Double(12000.23), 
 					new Long(1), new Date(2,2,2015), "error");
 			
-			
+			RestTemplate temp = new RestTemplate();
+	        temp.setErrorHandler(new DefaultResponseErrorHandler(){
+	            protected boolean hasError(HttpStatus statusCode) {
+	                return false;
+	            }
+	        });
+
+	        ObjectMapper mapper = new ObjectMapper();
+
+	        ResponseEntity<String> response = temp.postForEntity("http://localhost:8081/Acquirer_back/payment",
+	                                                    mapper.writeValueAsString(paymentDTO), String.class);
+
+	        MerchantResponseDTO responseDto = mapper.readValue(response.getBody(), MerchantResponseDTO.class);
+	
+	
 		
 		} catch (Exception e){
 			logger.error(e.toString());
