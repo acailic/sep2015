@@ -55,7 +55,7 @@ public class PaymentController {
 	
 	}
 	
-	@RequestMapping(value = "/calculate", method = RequestMethod.GET)
+	@RequestMapping(value = "/calculate", method = RequestMethod.GET, consumes = "application/json", produces = "application/json")
     public ResponseEntity<?> calculatePrice(@RequestBody WholeInsuranceDTO insurance) {
 		logger.info("Calculating price of insurance...");
 		try{
