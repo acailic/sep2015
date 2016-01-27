@@ -1,0 +1,84 @@
+<div ng-controller="TransactionsListController">
+    <h3 translate>{{'LABELS.LIST'|translate}}</h3>
+	<table class="table table-hover table-bordered">
+		<thead>
+		 <tr class="active">
+            <td><input class="form-control" id="id" name="id" placeholder="PIB" ng-model="tlc.search.id" ng-model-options="{ updateOn: 'default blur', debounce: {'default':500, 'blur':0 } }"></td>
+            <td><input class="form-control" id="acqid" name="acqid" placeholder="acqid" ng-model="tlc.search.acqid" ng-model-options="{ updateOn: 'default blur', debounce: {'default':500, 'blur':0 } }"></td>
+            <td><input class="form-control" id="issuerordid" name="issuerordid" placeholder="issuerordid" ng-model="tlc.search.issuerordid" ng-model-options="{ updateOn: 'default blur', debounce: {'default':500, 'blur':0 } }"></td>
+            <td><input class="form-control" id="amount" name="amount" placeholder="amount" ng-model="tlc.search.amount" ng-model-options="{ updateOn: 'default blur', debounce: {'default':500, 'blur':0 } }"></td>
+        </tr> 
+		<tr class="active">
+			<th>
+				<a class="link" ng-href ng-click="tlc.tableChanged('id')">
+                    ID
+                    <i class="fa fa-sort disabled" ng-hide="tlc.sort == 'id'"></i>
+                    <i class="fa fa-sort-desc" ng-show="tlc.sort == 'id' && tlc.sortDirection == '+'"></i>     
+                    <i class="fa fa-sort-asc" ng-show="tlc.sort == 'id' && tlc.sortDirection == '-'"></i>
+                </a>
+			</th>
+			<th>
+				<a class="link" ng-href ng-click="tlc.tableChanged('acqid')">
+                   ACQUIRER ID
+                    <i class="fa fa-sort disabled" ng-hide="tlc.sort == 'acqid'"></i>
+                    <i class="fa fa-sort-desc" ng-show="tlc.sort == 'acqid' && tlc.sortDirection == '+'"></i>     
+                    <i class="fa fa-sort-asc" ng-show="tlc.sort == 'acqid' && tlc.sortDirection == '-'"></i>
+                </a>
+			</th>
+			<th>
+				<a class="link" ng-href ng-click="tlc.tableChanged('issuerordid')">
+                    ISSUER ORDER ID 
+                    <i class="fa fa-sort disabled" ng-hide="tlc.sort == 'issuerordid'"></i>
+                    <i class="fa fa-sort-desc" ng-show="tlc.sort == 'issuerordid' && tlc.sortDirection == '+'"></i>     
+                    <i class="fa fa-sort-asc" ng-show="tlc.sort == 'issuerordid' && tlc.sortDirection == '-'"></i>
+                </a>
+			</th>
+			<th>
+				<a class="link" ng-href ng-click="tlc.tableChanged('amount')">
+                     AMOUNT 
+                    <i class="fa fa-sort disabled" ng-hide="tlc.sort == 'amount'"></i>
+                    <i class="fa fa-sort-desc" ng-show="tlc.sort == 'amount' && tlc.sortDirection == '+'"></i>     
+                    <i class="fa fa-sort-asc" ng-show="tlc.sort == 'amount' && tlc.sortDirection == '-'"></i>
+                </a>
+			</th>
+            <th>
+                <a class="link" ng-href ng-click="tlc.tableChanged('state')">
+                     STATE 
+                    <i class="fa fa-sort disabled" ng-hide="tlc.sort == 'state'"></i>
+                    <i class="fa fa-sort-desc" ng-show="tlc.sort == 'state' && tlc.sortDirection == '+'"></i>     
+                    <i class="fa fa-sort-asc" ng-show="tlc.sort == 'state' && tlc.sortDirection == '-'"></i>
+                </a>
+            </th>
+		</tr>
+		</thead>
+		<tbody>
+           <tr ng-repeat="transaction in tlc.data.transactions">
+                <td>{{transaction.id}}</td>
+                <td>{{transaction.acqid}}</td>
+                <td>{{transaction.issuerordid}}</td>
+                <td>{{transaction.amount}}</td>
+                <td>{{transaction.state}}</td>
+         </tr>
+		 
+		</tbody>
+	</table>
+
+
+	<ul class="pagination">
+        <li ng-class="{'disabled': tlc.pagination.currentPage == 1}">
+            <a class="link" ng-href aria-label="Previous" ng-click="tlc.pagination.changePage(pagination.currentPage - 1)">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <li ng-repeat="page in tlc.pagination.pages track by $index" ng-class="{'active':($index+1) == tlc.pagination.currentPage}">
+            <a class="link" ng-href ng-click="tlc.pagination.changePage($index+1)">{{$index+1}}</a>
+        </li>
+        <li ng-class="{'disabled': tlc.pagination.currentPage == tlc.pagination.pages.length}">
+            <a class="link" ng-href aria-label="Next" ng-click="tlc.pagination.changePage(tlc.pagination.currentPage + 1)">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+    <hr>
+    
+</div>

@@ -13,8 +13,9 @@
 
                     var deferred = $q.defer();
                     $http({
-                        url: "http://localhost:8000/acquirer/transaction", 
-                        method: "GET",
+                        //url: "http://localhost:8000/acquirer/transaction", 
+                        url:"host:8081/Acquirer_back/payment/confirm ",
+                        method: "POST",
                         data : transaction
                     }).success(function (data) {
                         deferred.resolve(data);

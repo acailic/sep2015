@@ -52,6 +52,26 @@
 					}
 				}
 			})
+			.state('main.transactions', {
+				url: '/transactions',
+				views: {
+					'content@': {
+						templateUrl: 'app/components/transactions/transactions-list2.html',
+						controller: 'TransactionsListController',
+						controllerAs: 'tlc'
+					}
+				}
+			})
+			.state('main.inputarg', {
+				url: '/input/url_payment/:url_payment/id_payment/:id_payment',
+				views: {
+					'content@': {
+						templateUrl: 'app/components/input/input.html',
+						controller: 'InputController',
+						controllerAs: 'inc'
+					}
+				}
+			});
 		 
 	}
 })();

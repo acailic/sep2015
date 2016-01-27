@@ -7,11 +7,15 @@
    
 
    
-   InputController.$inject = ['$mdDialog', '$mdMedia','Transaction'  ];
- 	function InputController($mdDialog, $mdMedia, Transaction ) {
+  InputController.$inject = ['$mdDialog', '$mdMedia','Transaction',  '$routeParams' ];
+ 	function InputController($mdDialog, $mdMedia, Transaction,  $routeParams ) {
  		 
       
     var inc = this; 
+     //  OVDE BI TREBAO LINK NAZAD DO MERCHANTA
+    inc.returnUrl= 'http://google.com'; 
+    inc.url_payment = $routeParams.url_payment;
+    inc.id_payment = $routeParams.id_payment;
     //inc.transaction = transaction;
       inc.transaction = {
            value: 0,
@@ -26,12 +30,13 @@
     inc.transaction.value = 1000;
 
     inc.generatingTransaction = function(value) {
-       inc.transaction.$saveOrUpdate(success);
+       Transaction.generate(inc.transaction);
     };
     
     inc.showModalPayment = function(ev) {
 
         $mdDialog.show({
+          animate: true,
           controller: ModalController,
           controllerAs: 'mdc',
           templateUrl: 'app/components/modal/success-modal.html',
@@ -45,9 +50,10 @@
     inc.showModalProgress = function(ev) {
 
         $mdDialog.show({
+          animate: true,
           controller: ModalController,
           controllerAs: 'mdc',
-          templateUrl: 'app/components/modal/progress-modal/inprogress.html',
+          templateUrl: 'app/components/modal/progress-modal.html',
           parent: angular.element(document.body),
           targetEvent: ev,
           clickOutsideToClose:true,
@@ -60,7 +66,7 @@
  
  } )();
  
- function ModalController($mdDialog) {
+  function ModalController($mdDialog) {
   var mdc = this;
 
   mdc.hide = function() {
@@ -71,8 +77,8 @@
   };
   mdc.answer = function(answer) {
       $mdDialog.hide(answer);
-  };
-}
+  }; 
+}  
 
 
   

@@ -1,4 +1,4 @@
-<!-- <md-content class="md-padding"><div>Home</div> -->
+<md-content class="md-padding"><h1> {{'LABELS.PLATFORM'|translate}}</h1>  
 <div ng-controller="HomeController" div class="home" ng-cloak="">
 <md-content class="md-padding" layout="row" layout-wrap="" layout-align="center start">
     <div flex="50" layout="column">
@@ -11,10 +11,11 @@
         </md-card-title>
         <md-card-content>
           <p>
-            Make payments your platform's strength
+             
+            {{'LABELS.PLATFORM'|translate}}
           </p>
-          <p>
-             Discover how you can generate more revenue while helping users get paid effortlessly, all without overhead or fraud.
+          <p> 
+             {{'LABELS.DISCOVER'|translate}}
           </p>
           
         </md-card-content>
@@ -46,16 +47,17 @@
       </md-card>
     </div>
     <div flex="50" layout="column">
+       <!-- --asdas -->
       <md-card>
-        <img ng-src="./images/payment2.jpg" class="md-card-image" alt="Washed Out">
+        <img ng-src="./images/business.jpg" class="md-card-image" alt="Washed Out">
         <md-card-title>
           <md-card-title-text>
-            <span class="md-headline"></span>
+            <span class="md-headline">{{'LABELS.PARTNER'|translate}}</span>
           </md-card-title-text>
         </md-card-title>
         <md-card-content>
           <p>
-             
+             {{'LABELS.SECURITY'|translate}}
           </p>
         </md-card-content>
         <md-card-actions layout="row" layout-align="end center">
@@ -70,6 +72,8 @@
           </md-button>
         </md-card-actions>
       </md-card>
+
+     <!-- --asdas -->
       <md-card>
         <img ng-src="./images/payment3.jpg" class="md-card-image" alt="Washed Out">
         <md-card-actions layout="row" layout-align="end center">
@@ -88,11 +92,11 @@
       <md-card>
         <md-card-header>
           <md-card-avatar>
-            <img src="/assets/images/angular-material/logo.svg">
+            <img src="./images/payment2.jpg">
           </md-card-avatar>
           <md-card-header-text>
-            <span class="md-title">Angular</span>
-            <span class="md-subhead">Material</span>
+            <span class="md-title"> {{'LABELS.PARTNER'|translate}}</span>
+            <span class="md-subhead"> {{'LABELS.SECURITY'|translate}}</span>
           </md-card-header-text>
         </md-card-header>
         <img ng-src="./images/paymentimage.jpg" class="md-card-image" alt="Washed Out">
@@ -112,4 +116,4 @@
   </md-content>
  </div>
 
-<!-- </md-content> -->
+<!-- </md-content>

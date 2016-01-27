@@ -2,16 +2,20 @@
   <form>
     <md-toolbar>
       <div class="md-toolbar-tools">
-        <h2> Placanje u toku</h2>
+        <h2> {{'LABELS.WORKINPROG'|translate}}</h2>
         <span flex></span>
         
       </div>
     </md-toolbar>
     <md-dialog-content>
       <div class="md-dialog-content">
-        <h4>Indeterminate</h4>
-      <p>For operations where the user is asked to wait a moment while something finishes up, and it's not necessary to
-    expose what's happening behind the scenes and how long it will take, use an indeterminate indicator.</p>
+        <h4> 
+            {{'LABELS.WORKINPROG2'|translate}}
+        </h4>
+      <p>
+
+        {{'LABELS.PLEASEWAIT'|translate}}
+        </p>
  
     
 
@@ -21,7 +25,7 @@
 
     <md-dialog-actions layout="row" layout-sm="column" layout-align="end end"  >
         <md-button>
-         Thank you.
+          {{'LABELS.THANKYOU'|translate}}
       </md-button>
      </md-dialog-actions>
   </form>

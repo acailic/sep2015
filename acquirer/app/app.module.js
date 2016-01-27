@@ -1,6 +1,6 @@
 (function() {
 	angular
-		.module('acquirer', ['acquirer.core','acquirer.modal', 'acquirer.input','acquirer.shared'])
+		.module('acquirer', ['acquirer.core','acquirer.input','acquirer.modal', 'acquirer.transactions', 'acquirer.shared'])
 		.config(function($mdThemingProvider) {
 		    
 		    $mdThemingProvider.theme('default')

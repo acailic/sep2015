@@ -6,11 +6,13 @@
 			"LABELS": {
 				"VALUTA":"USD$",
 				"HOME":"Home",
+				"DISCOVER":"The most complete payments solution for platforms.",
 				"INPUT":"Input",
+				"PLATFORM": "Payments designed for your unique needs",
 				"ABOUT":"About",
 				"PAYMENT":"Payment",
 				"ORDERSUMMARY":"Order summary:",
-				"ACTIONBUT":"Action button",
+				"ACTIONBUT":"Request consultation",
 				"ORDERTOTAL":"Order total:",
 				"BUYERPROTECTION":"Buyer protection by ",
 				"PAYWITHCARD":"Pay with card",
@@ -30,10 +32,16 @@
 				"CARDNUMM":"Card number has to be at lest 8 digits long.",
 				"SECCODEM":"Security code has to be at lest 4 digits long.",
 				"EXPMONTHM":"Write a month when your card expire.",
-				"EXPYEARM":"Write a year when your card expire." 
-					
+				"EXPYEARM":"Write a year when your card expire.", 
+				"PARTNER":"Meet your true partner in payments" ,
+				"SECURITY":"Every transaction processed by CoaPayment is secured by our industry-leading risk technology." ,
+				"WORKINPROG":"Work in progress..", 
+				"WORKINPROG2":"Thank you for your payment..",	
+				"LIST":"List of transactions",
+				"PLEASEWAIT":"Wait a moment while operations finishes up..",
+				"THANKYOU":"Thank you."
 			},
-
+			 	
 			"NOTE":"Note:Your payment is secured with VeriSign SSL encryption, the highest commercially available encryption technology. Please be assured that your credit/debit card details will not be exposed.Import duties, taxes and other customs related charges are not included. Buyers bear all responsibility for all extra charges incurred (if any).",
 			"LANGUAGE": "English"
 		},
@@ -42,10 +50,12 @@
 			"LABELS": {
 				"VALUTA":"din",
 				"HOME":"Pocetna strana",
+				"DISCOVER":" Kompletno rešenje za platforme plaćanja.",
 				"INPUT":"Unos",
+				"PLATFORM": "Plaćanje prilagodjeno Vašim jedinstvenim potrebama.",
 				"ABOUT":"O nama",
 				"PAYMENT":"Placanje",
-				"ACTIONBUT":"Akcija dugme",
+				"ACTIONBUT":"Zatražite pomoć konsultanta",
 				"ORDERTOTAL":"Ukupna cena:",
 				"ORDERSUMMARY":"Detalji transakcije:",
 				"BUYERPROTECTION":"Zastita potrosaca od strane", 
@@ -64,13 +74,21 @@
 				"ORDERSUMMARYTEXT":"Ovo je rezime transakcije. Popunite formu placanja.", 
 				"LETTERS":"Ovo polje treba da sadrzi samo slova.",
 				"CARDNUMM":"Broj kartice se sastoji od 8 cifara.",
+				"LETTERS":"Polje treba da sadrži samo slova.", 
 				"SECCODEM":"Sigurnosni kod se sastoji od 4 cifre.",
 				"EXPMONTHM":"Napisite mesec kada kartice istice.",
-				"EXPYEARM":"Napisite godinu isticanja kartice." 	
+				"EXPYEARM":"Napisite godinu isticanja kartice." ,
+				"PARTNER":"Pronadjite pravog partnera za plaćanja." ,
+				"SECURITY":"Svaka transakcija je osigurana vodećom tehnologijom kojom brinemo o riziku.",
+				"WORKINPROG":"Obrada je u toku..",
+				"WORKINPROG2":"Hvala vam na placanju..",	
+				"PLEASEWAIT":"Molimo sačekajte momenat dok se operacije završe..",
+				"LIST":"Lista transakcija",	
+				"THANKYOU":"Hvala."	 	
 			},
  			
  			"NOTE":"Note:",
-			
+			 
 			"LANGUAGE": "Srpski"
 		},
 	};
