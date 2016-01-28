@@ -17,6 +17,7 @@ public class DataInitDTO implements Serializable{
 	private List<RiskItemDTO> alternative;
 	private List<RiskItemDTO> brands;
 	private List<RiskItemDTO> cities;
+	private List<RiskItemDTO> ages;
 	
 	public DataInitDTO(){
 		
@@ -81,6 +82,14 @@ public class DataInitDTO implements Serializable{
 	}
 	public void setCities(List<RiskItemDTO> cities) {
 		this.cities = cities;
+	}
+
+	public List<RiskItemDTO> getAges() {
+		return ages;
+	}
+
+	public void setAges(List<RiskItemDTO> ages) {
+		this.ages = ages;
 	}
 	
 	

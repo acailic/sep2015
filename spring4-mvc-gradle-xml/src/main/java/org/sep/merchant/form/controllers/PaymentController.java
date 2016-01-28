@@ -39,9 +39,8 @@ public class PaymentController {
 	@Autowired
 	MerchantService merchantService;
 	
-	@RequestMapping(value = "/confirm", method = RequestMethod.GET, consumes = "application/json", produces = "application/json")
-    public ModelAndView confirmInsurance(@RequestBody Insurance insurance) {
-		
+	@RequestMapping(value = "/confirm", method = RequestMethod.GET)
+    public ModelAndView confirmInsurance() {
 		logger.info("Confirming insurance...");
 		try{
 			Merchant merchant = merchantService.findAll().get(0); //preuzimanje merchanta iz baze

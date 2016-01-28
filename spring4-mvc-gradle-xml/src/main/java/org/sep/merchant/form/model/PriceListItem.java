@@ -39,11 +39,14 @@ public class PriceListItem implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="id_insurance")
 	private Insurance insurance;
+	
+	public PriceListItem(){
+		
+	}
 
-	public PriceListItem(Integer id, BigDecimal price, RiskItem riskItem,
+	public PriceListItem(BigDecimal price, RiskItem riskItem,
 			PriceList priceList, Insurance insurance) {
 		super();
-		this.id = id;
 		this.price = price;
 		this.riskItem = riskItem;
 		this.priceList = priceList;

@@ -31,6 +31,10 @@ public class PriceList implements Serializable{
 	
 	@OneToMany(mappedBy = "priceList")  
 	private Set<PriceListItem> priceListItems = new HashSet<PriceListItem>();
+	
+	public PriceList(){
+		
+	}
 
 	public PriceList(Integer id, Date validFrom, Date validTo) {
 		super();
