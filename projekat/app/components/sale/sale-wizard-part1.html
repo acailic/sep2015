@@ -9,7 +9,7 @@
           <section layout="column" >
             <label flex-offset="15">Od:</label>
             <md-datepicker name="travel_start_date" ng-model="slc.insurance.travel.start_date" id="datapicker_travel_start"  md-placeholder="Početak"
-             md-min-date="minDate" md-max-date="maxDate" ng-required="true"></md-datepicker>   
+             md-min-date="slc.travelStartDateMin" ng-required="true"></md-datepicker>   
              <md-tooltip md-direction="right">
               Odaberite datum početka putovanja.
             </md-tooltip>  
@@ -23,7 +23,7 @@
           <section layout="column" >
             <label flex-offset="15">Do:</label>
             <md-datepicker name="travel_end_date" ng-model="slc.insurance.travel.end_date" id="datapicker_travel_end" md-placeholder="Kraj"
-            md-min-date="minDate" md-max-date="maxDate" ng-required="true"></md-datepicker>
+            md-min-date="slc.travelEndDateMin" ng-required="true"></md-datepicker>
             <md-tooltip md-direction="right">
               Odaberite datum kraja putovanja.
             </md-tooltip> 
@@ -135,7 +135,7 @@
       <legend style="color:rgb(3,169,244)">Dodatno</legend>
       <div>
         <div flex="15">
-          <md-checkbox aria-label="Checkbox 1"  class="md-primary" ng-model="slc.flat">
+          <md-checkbox aria-label="Checkbox 1"  class="md-primary" ng-model="slc.flat" ng-change="slc.checkFlat()">
               Stambeno
           </md-checkbox>
           <md-tooltip md-direction="right">
@@ -143,7 +143,7 @@
           </md-tooltip>
         </div>
         <div flex="15">
-          <md-checkbox aria-label="Checkbox 1"  class="md-primary" ng-model="car">
+          <md-checkbox aria-label="Checkbox 1"  class="md-primary" ng-model="slc.car" ng-change="slc.checkCar()">
               Pomoć na putu
           </md-checkbox>
           <md-tooltip md-direction="right">
@@ -167,7 +167,7 @@
                   <section layout="column" flex-gt-sm>
                     <label flex-offset="15">Od:</label>
                     <md-datepicker name="home_start_date" ng-model="slc.insurance.home.start_date" id="datapicker_travel_start"  md-placeholder="Početak"
-                     md-min-date="minDate" md-max-date="maxDate" ng-required="slc.flat"></md-datepicker>   
+                     md-min-date="slc.insurance.travel.start_date" md-max-date="slc.homeStartDateMax" ng-required="slc.flat"></md-datepicker>   
                      <md-tooltip md-direction="right">
                       Odaberite datum od kad želite da osigurate stan/kuću.
                     </md-tooltip>     
@@ -181,7 +181,7 @@
                   <section layout="column" flex-gt-sm>
                     <label flex-offset="15">Do:</label>
                     <md-datepicker name="home_end_date" ng-model="slc.insurance.home.end_date" id="datapicker_travel_start"  md-placeholder="Kraj"
-                    md-min-date="minDate" md-max-date="maxDate" ng-required="slc.flat"></md-datepicker>
+                    md-min-date="slc.homeEndDateMin" md-max-date="slc.insurance.travel.end_date" ng-required="slc.flat"></md-datepicker>
                     <md-tooltip md-direction="right">
                       Odaberite datum do kad želite da osigurate stan/kuću.
                     </md-tooltip>
@@ -239,7 +239,7 @@
                   
             <label>Izaberite od čega osiguravate stan/kuću:</label>
                <md-input-container>
-                  <span ng-repeat="cause in slc.data_init.causalties" >
+                  <span ng-repeat="cause in slc.data_init.casualties" >
                      <md-checkbox name="casualty" ng-model="slc.selectedCause[cause.id]" ng-value="{{cause.id}}" aria-label="Checkbox 1" class="md-primary"  ng-required="!slc.someSelected(slc.selectedCause)">
                         {{cause.name}}
                      </md-checkbox>
@@ -319,7 +319,7 @@
 <!-- Kraj forme za stan -->
 <br/>
 <!-- Pocetak forme za auto -->
-  <fieldset style="border: 1px solid rgb(255, 98, 21)" ng-show="car = !car">
+  <fieldset style="border: 1px solid rgb(255, 98, 21)" ng-show="slc.car = !slc.car">
     <legend  style="color:rgb(255, 98, 21)">Pomoć na putu</legend>
     <br/>
 
@@ -331,7 +331,7 @@
             <section layout="column" flex-gt-sm>
               <label flex-offset="15">Od:</label>
               <md-datepicker name="vehicle_start_date" ng-model="slc.insurance.vehicle.start_date" id="datapicker_travel_start" md-placeholder="Početak"
-               md-min-date="minDate" md-max-date="maxDate" ng-required="car"></md-datepicker>   
+               md-min-date="slc.insurance.travel.start_date" md-max-date="slc.vehicleStartDateMax" ng-required="slc.car"></md-datepicker>   
                <md-tooltip md-direction="right">
                 Odaberite datum od kad želite osiguranje "Pomoć na putu".
               </md-tooltip>
@@ -345,7 +345,7 @@
             <section layout="column" flex-gt-sm>
               <label flex-offset="15">Do:</label>
               <md-datepicker name="vehicle_end_date" ng-model="slc.insurance.vehicle.end_date" id="datapicker_travel_start" md-placeholder="Kraj"
-              md-min-date="minDate" md-max-date="maxDate" ng-required="car"></md-datepicker>
+              md-min-date="slc.vehicleEndDateMin" md-max-date="slc.insurance.travel.end_date" ng-required="slc.car"></md-datepicker>
               <md-tooltip md-direction="right">
                 Odaberite datum do kad želite osiguranje "Pomoć na putu".
               </md-tooltip>   
@@ -424,7 +424,7 @@
             <legend style="color:rgb(255, 98, 21)">Podaci o vozilu</legend>
             <md-input-container layout="column" layout-align="left center">
               <label for="input_203">Marka</label>
-              <md-select name="vehicle_brand" ng-model="slc.insurance.vehicle.brand_id" ng-required="car">
+              <md-select name="vehicle_brand" ng-model="slc.insurance.vehicle.brand_id" ng-required="slc.car">
                 <md-option ng-repeat="brand in slc.data_init.brands" ng-value="brand.id">{{brand.name}}</md-option>
               </md-select>
               <div ng-messages="slc.saleWizardPart1.vehicle_brand.$error" ng-show="slc.saleWizardPart1.vehicle_brand.$touched || slc.invalidForm">
@@ -435,7 +435,7 @@
             </md-input-container>
             <md-input-container layout="column" layout-align="left center">
               <label for="input_203">Tip</label>
-              <input name="vehicle_type" ng-model="slc.insurance.vehicle.type" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10" ng-required="car">
+              <input name="vehicle_type" ng-model="slc.insurance.vehicle.type" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10" ng-required="slc.car">
               <div ng-messages="slc.saleWizardPart1.vehicle_type.$error" ng-show="slc.saleWizardPart1.vehicle_type.$touched || slc.invalidForm">
                <div ng-message="required">
                   Obavezan tip auta.
@@ -444,7 +444,7 @@
             </md-input-container>
             <md-input-container layout="column" layout-align="left center">
               <label for="input_203">Godina proizvodnje</label>
-              <input name="vehicle_year" ng-model="slc.insurance.vehicle.man_year" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57' minlength="4" maxlength="4" ng-required="car">
+              <input name="vehicle_year" ng-model="slc.insurance.vehicle.man_year" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57' minlength="4" maxlength="4" ng-required="slc.car">
               <div ng-messages="slc.saleWizardPart1.vehicle_year.$error" ng-show="slc.saleWizardPart1.vehicle_year.$touched || slc.invalidForm">
                <div ng-message="required">
                   Obavezna godina proizvodnje.
@@ -456,7 +456,7 @@
             </md-input-container>
              <md-input-container layout="column" layout-align="left center">
               <label for="input_203">Broj reg. tablice</label>
-              <input name="vehicle_reg_num" ng-model="slc.insurance.vehicle.reg_num" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10" ng-pattern="/^[A-Z|a-z]{2}\d{3}-[A-Z|a-z]{2}$/" placeholder="AA000-AA" ng-required="car">
+              <input name="vehicle_reg_num" ng-model="slc.insurance.vehicle.reg_num" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10" ng-pattern="/^[A-Z|a-z]{2}\d{3}-[A-Z|a-z]{2}$/" placeholder="AA000-AA" ng-required="slc.car">
               <div ng-messages="slc.saleWizardPart1.vehicle_reg_num.$error" ng-show="slc.saleWizardPart1.vehicle_reg_num.$touched || slc.invalidForm">
                <div ng-message="required">
                   Obavezna registarska tablica.
@@ -468,7 +468,7 @@
             </md-input-container>
             <md-input-container layout="column" layout-align="left center">
               <label for="input_203">Broj šasije</label>
-              <input name="vehicle_chassis_num" ng-model="slc.insurance.vehicle.chassis_num" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57' ng-required="car">
+              <input name="vehicle_chassis_num" ng-model="slc.insurance.vehicle.chassis_num" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57' ng-required="slc.car">
               <div ng-messages="slc.saleWizardPart1.vehicle_chassis_num.$error" ng-show="slc.saleWizardPart1.vehicle_chassis_num.$touched || slc.invalidForm">
                <div ng-message="required">
                   Obavezan br sasije
@@ -485,7 +485,7 @@
             <legend style="color:rgb(255, 98, 21)">Podaci o vlasniku</legend>
             <md-input-container layout="column" layout-align="left center">
               <label for="input_203">Ime</label>
-              <input name="vehicle_owner_first_name" ng-model="slc.insurance.vehicle.owner.first_name" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10" ng-required="car">
+              <input name="vehicle_owner_first_name" ng-model="slc.insurance.vehicle.owner.first_name" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10" ng-required="slc.car">
               <div ng-messages="slc.saleWizardPart1.vehicle_owner_first_name.$error" ng-show="slc.saleWizardPart1.vehicle_owner_first_name.$touched || slc.invalidForm">
                 <div ng-message="required">
                   Obavezno ime vlasnika!
@@ -494,7 +494,7 @@
             </md-input-container>
             <md-input-container layout="column" layout-align="left center">
               <label for="input_203">Prezime</label>
-              <input name="vehicle_owner_last_name" ng-model="slc.insurance.vehicle.owner.last_name" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10" ng-required="car">
+              <input name="vehicle_owner_last_name" ng-model="slc.insurance.vehicle.owner.last_name" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10" ng-required="slc.car">
               <div ng-messages="slc.saleWizardPart1.vehicle_owner_last_name.$error" ng-show="slc.saleWizardPart1.vehicle_owner_last_name.$touched || slc.invalidForm">
                 <div ng-message="required">
                   Obavezno prezime vlasnika!
@@ -503,7 +503,7 @@
             </md-input-container>
             <md-input-container layout="column" layout-align="left center">
               <label for="input_203">Jmbg</label>
-              <input name="vehicle_owner_jmbg" ng-model="slc.insurance.vehicle.owner.jmbg" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57' minlength="13" maxlength="13" ng-required="car">
+              <input name="vehicle_owner_jmbg" ng-model="slc.insurance.vehicle.owner.jmbg" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57' minlength="13" maxlength="13" ng-required="slc.car">
               <div ng-messages="slc.saleWizardPart1.vehicle_owner_jmbg.$error" ng-show="slc.saleWizardPart1.vehicle_owner_jmbg.$touched || slc.invalidForm">
                 <div ng-message="required">
                   Obavezan jmbg vlasnika!
@@ -515,7 +515,7 @@
             </md-input-container>
              <md-input-container>
                 <label>Mesto stanovanja</label>
-                <md-select name="vehicle_owner_city" ng-model="slc.insurance.vehicle.owner.city_id" ng-required="car">
+                <md-select name="vehicle_owner_city" ng-model="slc.insurance.vehicle.owner.city_id" ng-required="slc.car">
                   <md-option ng-repeat="city in slc.data_init.cities" ng-value="city.id">{{city.name}}</md-option>
                 </md-select>
                 <div ng-messages="slc.saleWizardPart1.vehicle_owner_city.$error" ng-show="slc.saleWizardPart1.vehicle_owner_city.$touched || slc.invalidForm">
@@ -526,7 +526,7 @@
               </md-input-container>
              <md-input-container layout="column" layout-align="left center">
               <label for="input_203">Ulica i broj</label>
-              <input name="vehicle_owner_address" ng-model="slc.insurance.vehicle.owner.address" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10" ng-required="car">
+              <input name="vehicle_owner_address" ng-model="slc.insurance.vehicle.owner.address" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10" ng-required="slc.car">
               <div ng-messages="slc.saleWizardPart1.vehicle_owner_address.$error" ng-show="slc.saleWizardPart1.vehicle_owner_address.$touched || slc.invalidForm">
                 <div ng-message="required">
                   Obavezan unos ulice i broja vlasnika.
@@ -544,7 +544,6 @@
 <br/>
 <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
    <md-button type="submit" class="md-raised md-primary" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);">Nastavi</md-button> 
-  <!-- <input type="submit" value="Nastavi" ng-click="slc.test()"> ui-sref="main.sale.wizard2" -->
 </section> 
 
 </form>

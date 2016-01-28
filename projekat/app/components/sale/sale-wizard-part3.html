@@ -1,5 +1,114 @@
 <br/>
+<md-card flex="60" flex-offset="20" style="padding:10px">
+	   <md-card-header>
+          <md-card-header-text>
+            <span class="md-title">Podaci o vlasniku</span>
+          </md-card-header-text>
+     </md-card-header>
+     <md-card-content style="border-bottom: 1px dotted #ccc; margin-bottom:10px">
+     	<table style="width:100%">
+     		<tr>
+     			<td style="width:70%; text-align:right"><strong>Ime i prezime:</strong></td>
+     			<td>{{slc.insurance.travel.owner.first_name}} {{slc.insurance.travel.owner.last_name}}</td> 
+     		</tr>
+     		<tr>
+     			<td style="text-align:right"><strong>Email:</strong></td>
+     			<td>{{slc.insurance.travel.owner.email}}</td>
+     	  </tr>
+        </table>
+     </md-card-content>
+     <md-card-header>
+          <md-card-header-text>
+            <span class="md-title">Podaci o putnom osiguranju</span>
+          </md-card-header-text>
+        </md-card-header>
+      <md-card-content style="border-bottom: 1px dotted #ccc; margin-bottom:10px">
+      <table style="width:100%">
+        <tr>
+          <td style="width:70%;text-align:right"><strong>Trajanje:</strong></td>
+          <td>{{slc.dates.travel_start_date}} - {{slc.dates.travel_end_date}}</td>
+        </tr>
+        <tr>
+          <td style="text-align:right"><strong>Region:</strong></td>
+          <td>{{slc.insurance.travel.region_id}}</td>
+        </tr>
+        <tr>
+          <td style="text-align:right"><strong>Broj osoba:</strong></td>
+          <td>{{slc.number_of_people}}</td>
+        </tr>
+        <tr>
+          <td style="text-align:right"><strong>Max. iznos osiguranja:</strong></td>
+          <td>{{slc.insurance.travel.max_value_id}}</td>
+        </tr>
+        </table>
+     </md-card-content>
+     <md-card-header ng-show="slc.flat">
+          <md-card-header-text>
+            <span class="md-title">Podaci o stambenom osiguranju</span>
+          </md-card-header-text>
+        </md-card-header>
+      <md-card-content style="border-bottom: 1px dotted #ccc; margin-bottom:10px" ng-show="slc.flat">
+      <table style="width:100%">
+        <tr>
+          <td style="width:70%;text-align:right"><strong>Trajanje:</strong></td>
+          <td>{{slc.dates.home_start_date}} - {{slc.dates.home_end_date}}</td>
+        </tr>
+        <tr>
+          <td style="text-align:right"><strong>Osigurava se od:</strong></td>
+          <td></td>
+        </tr>
+        </table>
+     </md-card-content>
+     <md-card-header ng-show="slc.car">
+          <md-card-header-text>
+            <span class="md-title">Podaci o osiguranju "Pomoć na putu"</span>
+          </md-card-header-text>
+        </md-card-header>
+      <md-card-content style="border-bottom: 1px dotted #ccc; margin-bottom:10px" ng-show="slc.car">
+      <table style="width:100%">
+        <tr>
+          <td style="width:70%;text-align:right"><strong>Trajanje:</strong></td>
+          <td>{{slc.dates.vehicle_start_date}} - {{slc.dates.vehicle_end_date}}</td>
+        </tr>
+        <tr>
+          <td style="text-align:right"><strong>Vrsta:</strong></td>
+          <td></td>
+        </tr>
+        </table>
+     </md-card-content style="border-bottom: 1px dotted #ccc; margin-bottom:10px">
+     <md-card-header>
+          <md-card-header-text>
+            <span class="md-title">Proračuni</span>
+          </md-card-header-text>
+        </md-card-header>
+        <md-card-content style="border-bottom: 1px dotted #ccc; margin-bottom:10px">
+      <table style="width:100%">
+          <tr>
+            <td style="width:70%;text-align:right"><strong>Iznos putnog osiguranja:</strong></td>
+            <!-- <td>{{}}</td> -->
+            <td>0,00 din</td>
+          </tr>
+          <tr ng-show="slc.flat">
+            <td style="text-align:right"><strong>Iznos stambenog osiguranja:</strong></td>
+            <td>0,00 din</td>
+            <!-- <td>{{}}</td> -->
+          </tr>
+          <tr ng-show="slc.car">
+            <td style="text-align:right"><strong>Iznos osiguranja "Pomoć na putu":</strong></td>
+            <td>0,00 din</td>
+            <!-- <td>{{}}</td> -->
+          </tr>
+          <tr>
+            <td style="text-align:right"><strong>Ukupan iznos:</strong></td>
+            <td>0,00 din</td>
+            <!-- <td>{{}}</td> -->
+          </tr>
+        </table>
+     </md-card-content>
+</md-card>
+<br/>
+
 <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
-	<md-button class="md-raised md-primary" ui-sref="main.sale.wizard2" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);">Povratak</md-button>
-	<md-button class="md-raised md-primary" ng-click="slc.showModalPayment($event)" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);">Potvrdi</md-button>
+	<md-button class="md-raised md-primary" ng-click="slc.selectedIndex = 1" ui-sref="main.sale.wizard2" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);">Povratak</md-button>
+	<md-button class="md-raised md-primary" ng-click="slc.createInsurance()" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);">Potvrdi</md-button>
 </section> 
