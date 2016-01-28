@@ -290,20 +290,20 @@
 <md-content class="md-padding" layout="row">
    <div flex="30" layout="row" layout-align="center start">
       <md-chips>
-         <md-chip>= {{calc.price.travel}}</md-chip>
+         <md-chip>= {{calc.price.travel_price}}</md-chip>
       </md-chips>
    </div>
    <div flex="35" layout="row" layout-align="center start" ng-show="flat = !flat">
       <div flex-offset="15">
          <md-chips>
-            <md-chip>= {{calc.price.home}}</md-chip>
+            <md-chip>= {{calc.price.home_price}}</md-chip>
          </md-chips>
       </div>
    </div>
    <div flex="35" layout="row" layout-align="center start" ng-show="car = !car">
       <div flex-offset="15">
          <md-chips>
-            <md-chip>= {{calc.price.vehicle}}</md-chip>
+            <md-chip>= {{calc.price.vehicle_price}}</md-chip>
          </md-chips>
       </div>
    </div>

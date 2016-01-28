@@ -1,4 +1,4 @@
- (function() {
+(function() {
  	"use strict";
 	//ubaciti zavisnost Insurance
  	angular
@@ -10,20 +10,36 @@
  		function CalculatorController(Insurance, SharedObject, $state, $timeout) {
  			var calc= this;
  		 	var promise_idata = Insurance.data_init();	
-
-
-
-
 			promise_idata.then(function (data) {
 			calc.data_init = data;
 			});
 
 			 calc.insurance = {};
 			 calc.insurance.travel = {};
-		     calc.insurance.home = {};
-		     calc.insurance.vehicle = {};
-		     calc.age_number = {};
-			 calc.price = {travel:1, home:2, vehicle:3};
+			 calc.insurance.travel.human_age = {};
+			 calc.insurance.travel.start_date = null;
+			 calc.insurance.travel.end_date = null;
+			 calc.insurance.travel.sport_id = null;
+			 calc.insurance.travel.owner = null;
+		     calc.insurance.home = null;
+		     calc.insurance.vehicle = null;
+		     calc.insurance.travellers = null;
+		     calc.age_number = null;
+		     var promise_price = {};
+
+
+			// private String duration;
+			// private Date start_date;
+			// private Date end_date;
+			// private Integer region_id; //RiskItem ID
+			// private List<HumanAgeDTO> human_age = new ArrayList<HumanAgeDTO>();
+			// private Integer max_value_id; //RiskItem ID
+			// private Integer sport_id; //RiskItem ID
+			// private OwnerDTO owner;
+	
+
+
+			// calc.price = {travel:1, home:2, vehicle:3};
 
 			// calc.data_init = {};
 	 	// 	calc.data_init.human_ages = [{id:1, name:"Do 18"}, {id:2, name:"Od 18-60"}, {id:3, name:"Preko 60"}];
@@ -54,6 +70,12 @@
 			//calc.casualty.cause[cause.id]
 			calc.checked_required = false;
 
+			calc.insurance.travel.human_age.value ="Do 18";
+			calc.insurance.travel.human_age.id = 1;
+			calc.insurance.travel.human_age.number_of_people = 1;
+
+
+
 		
 			calc.someSelected = function (object) { 
 				return object && Object.keys(object).some(function (key) { 
@@ -67,7 +89,7 @@
 				calc.insurance.travel = {};
 				calc.age_number = {};
 				calc.travelForm.$setPristine();
-			   // calc.travelForm.$setValidity();
+			    calc.travelForm.$setValidity();
 			    calc.travelForm.$setUntouched();
 
 			};
@@ -85,8 +107,7 @@
 
 			calc.resetVehicle = function(){
 
-				calc.insurance.vehicle = {};
-			
+				calc.insurance.vehicle = {};			
 				calc.vehicleForm.$setPristine();
 			    calc.vehicleForm.$setValidity();
 			    calc.vehicleForm.$setUntouched();
@@ -129,12 +150,18 @@
 				if(calc.travelForm.$valid){
             		
             		calc.invalidTravelForm= false;
+            		console.log(calc.insurance);
+          			promise_price= Insurance.calculate(calc.insurance.travel.human_age);
+			 		promise_price.then(function (data) {
+			 		calc.price = data;
+
+			 		console.log(calc.price);
+			 	});
+
          		}else{
           			
           			calc.invalidTravelForm= true;
           		}
-
-          	//	insurance.travel.human_age.value =calc.age_number
 
 			};
 
@@ -144,6 +171,13 @@
 				if(calc.homeForm.$valid){
             		
             		calc.invalidHomeForm= false;
+            		console.log(calc.insurance);
+          			promise_price= Insurance.calculate(calc.insurance.travel.human_age);
+			 		promise_price.then(function (data) {
+			 		calc.price = data;
+
+			 		console.log(calc.price);
+			 		});
          		}else{
           			
           			calc.invalidHomeForm= true;
@@ -158,6 +192,12 @@
 				if(calc.vehicleForm.$valid){
             		
             		calc.invalidVehicleForm= false;
+            		console.log(calc.insurance);
+          			promise_price= Insurance.calculate(calc.insurance.travel.human_age);
+			 		promise_price.then(function (data) {
+			 		calc.price = data;
+			 		console.log(calc.price);
+			 		});
          		}else{
           			
           			calc.invalidVehicleForm= true;
@@ -191,10 +231,11 @@
 
 			calc.sale = function(){
 				//SharedObject.setInsurance(insurance);
-				//$state.go("main.sale.wizard1");
+				$state.go("main.sale.wizard1");
 
 			};
 		
 
  		}
  	})();
+

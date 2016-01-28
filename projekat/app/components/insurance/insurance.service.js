@@ -6,8 +6,8 @@
  		.factory('Insurance', Insurance);
 
 
- 	Insurance.$inject = ['$http'];
- 	function Insurance($http){
+ 	Insurance.$inject = ['$http', '$q'];
+ 	function Insurance($http, $q){
  		var insuranceService = {
 
  			data_init: function(){
@@ -30,9 +30,13 @@
 
 			var deferred = $q.defer();
 			$http({
-				url: "http://localhost:8080/merchant/calculate", 
-				method: "GET",
-				data : insurance
+				url: "http://localhost:8080/spring4/calculate", 
+				method: "POST",				
+				data : insurance, 
+				headers: {
+                    'Content-Type': 'application/json'
+         		}
+
 			}).success(function (data) {
 				deferred.resolve(data);
 			}).error(function () {

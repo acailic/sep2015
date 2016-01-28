@@ -1,12 +1,12 @@
-<md-content class="md-padding" layout="column" flex="100">
+<md-content class="md-padding" layout="column" flex="100" >
   
   <md-card>
     <div ng-cloak>
       <md-content>
-        <md-tabs md-dynamic-height md-border-bottom md-stretch-tabs="always">
-          <md-tab id="tab1" label="Putovanje"></md-tab>
-          <md-tab id="tab2" label="Putnici"></md-tab>
-          <md-tab id="tab3" label="Sumarno"></md-tab>
+        <md-tabs md-selected="slc.selectedIndex" md-dynamic-height md-border-bottom md-stretch-tabs="always" md-autoselect>
+          <md-tab ng-disabled="true" id="tab1" label="Putovanje"></md-tab>
+          <md-tab ng-disabled="true" id="tab2" label="Putnici"></md-tab>
+          <md-tab ng-disabled="true" id="tab3" label="Sumarno"></md-tab>
         </md-tabs>
       </md-content>
     </div>
