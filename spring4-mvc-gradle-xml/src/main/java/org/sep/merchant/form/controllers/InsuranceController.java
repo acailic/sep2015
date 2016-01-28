@@ -97,7 +97,7 @@ public class InsuranceController {
 	@RequestMapping(value = "/create", method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<Void> createInsurance(@RequestBody WholeInsuranceDTO insurance,
     											UriComponentsBuilder ucBuilder) {
-        System.out.println("Creating insurance.");
+        System.out.println("Creating insurance...");
         logger.info("Creating insurance...");
         
         InsuranceDTO travel = insurance.getTravel();
@@ -193,7 +193,58 @@ public class InsuranceController {
 			vehicle.setOwner(ownerCarToPersist);
 			vehicleService.save(vehicle);
 			
-			//+++ RIZICI
+			//RIZICI
+			//dodatak za slepanje vozila
+			if (vehicleDTO.getTowing_id() != null) {
+				logger.info("Computing towing price...");
+				RiskItem towingRisk = riskItemService.find(vehicleDTO
+						.getTowing_id());
+				RiskItemInsurance connectionTowing = new RiskItemInsurance(
+						towingRisk, insuranceToPersist);
+				// CENA +++++
+				PriceListItem priceListItemTowing = new PriceListItem(new BigDecimal(0), towingRisk, priceList,
+						insuranceToPersist);
+				priceListItemService.save(priceListItemTowing);
+				riskItemInsuranceService.save(connectionTowing);
+			}
+			
+			//dodatak za popravku vozila
+			if (vehicleDTO.getRepair_id() != null) {
+				logger.info("Computing repair price...");
+				RiskItem repairRisk = riskItemService.find(vehicleDTO
+						.getRepair_id());
+				RiskItemInsurance connectionRepair = new RiskItemInsurance(repairRisk, insuranceToPersist);
+				// CENA +++++
+				PriceListItem priceListItemRepair = new PriceListItem(new BigDecimal(0), repairRisk, priceList,
+						insuranceToPersist);
+				priceListItemService.save(priceListItemRepair);
+				riskItemInsuranceService.save(connectionRepair);
+			}
+			
+			//dodatak za smestaj (vozilo)
+			if (vehicleDTO.getAccomodation_id() != null) {
+				logger.info("Computing accomodation price...");
+				RiskItem accomodationRisk = riskItemService.find(vehicleDTO.getAccomodation_id());
+				RiskItemInsurance connectionAccomodation = new RiskItemInsurance(accomodationRisk, insuranceToPersist);
+				// CENA +++++
+				PriceListItem priceListItemAccomodation = new PriceListItem(
+						new BigDecimal(0), accomodationRisk, priceList,
+						insuranceToPersist);
+				priceListItemService.save(priceListItemAccomodation);
+				riskItemInsuranceService.save(connectionAccomodation);
+			}
+			
+			//dodatak za alternativni prevoz
+			if (vehicleDTO.getAlternative_id() != null) {
+				logger.info("Computing alternative car price...");
+				RiskItem alternativeRisk = riskItemService.find(vehicleDTO.getAlternative_id());
+				RiskItemInsurance connectionAlternative = new RiskItemInsurance(alternativeRisk, insuranceToPersist);
+				// CENA +++++
+				PriceListItem priceListItemAlternative = new PriceListItem(new BigDecimal(0), alternativeRisk, priceList,
+						insuranceToPersist);
+				priceListItemService.save(priceListItemAlternative);
+				riskItemInsuranceService.save(connectionAlternative);
+			}
 		}
 		
 		List<TravelerDTO> travellers = new ArrayList<TravelerDTO>();
@@ -203,6 +254,7 @@ public class InsuranceController {
 			return null;
 		
 		//zasto u traveleru ima id-ja za human age, a ima i u travel???
+		logger.info("Computing travelers...");
 		Traveler travelerToPersist;
 		for(TravelerDTO travelerDTO : travellers){
 			travelerToPersist = new Traveler(travelerDTO.getFirst_name(), travelerDTO.getLast_name(), 
@@ -210,7 +262,6 @@ public class InsuranceController {
 					travelerDTO.getTel_num());
 			travelerService.save(travelerToPersist);
 			
-			//++++ RIZICI
 			TravelerInsurance ti = new TravelerInsurance(travelerToPersist, insuranceToPersist);
 			travelerInsuranceService.save(ti);
 		}

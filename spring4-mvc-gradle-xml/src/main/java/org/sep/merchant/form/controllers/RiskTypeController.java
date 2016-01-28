@@ -58,7 +58,10 @@ public class RiskTypeController {
 					.getRiskItems()); // sport ima u bazi ID 2
 			data_init.setSports(sports);
 
-			// List<RiskItemDTO> casualties = new ArrayList<RiskItemDTO>();
+			List<RiskItemDTO> casualties = new ArrayList<RiskItemDTO>();
+			casualties = DTOConversion.getRiskItemDTOs(riskService.find(6)
+					.getRiskItems()); // sport ima u bazi ID 2
+			data_init.setCasualties(casualties);
 
 			List<RiskItemDTO> towing = new ArrayList<RiskItemDTO>();
 			towing = DTOConversion.getRiskItemDTOs(riskService.find(4)
@@ -69,6 +72,31 @@ public class RiskTypeController {
 			repair = DTOConversion.getRiskItemDTOs(riskService.find(5)
 					.getRiskItems());
 			data_init.setRepair(repair);
+			
+			List<RiskItemDTO> cities = new ArrayList<RiskItemDTO>();
+			cities = DTOConversion.getRiskItemDTOs(riskService.find(7)
+					.getRiskItems());
+			data_init.setCities(cities);
+			
+			List<RiskItemDTO> accomodation = new ArrayList<RiskItemDTO>();
+			accomodation = DTOConversion.getRiskItemDTOs(riskService.find(9)
+					.getRiskItems());
+			data_init.setAccomodation(accomodation);
+			
+			List<RiskItemDTO> alternative = new ArrayList<RiskItemDTO>();
+			alternative = DTOConversion.getRiskItemDTOs(riskService.find(10)
+					.getRiskItems());
+			data_init.setAlternative(alternative);
+			
+			List<RiskItemDTO> brands = new ArrayList<RiskItemDTO>();
+			brands = DTOConversion.getRiskItemDTOs(riskService.find(8)
+					.getRiskItems());
+			data_init.setBrands(brands);
+			
+			List<RiskItemDTO> ages = new ArrayList<RiskItemDTO>();
+			ages = DTOConversion.getRiskItemDTOs(riskService.find(11)
+					.getRiskItems());
+			data_init.setAges(ages);
 			
 			logger.info("Data populated.");
 			return new ResponseEntity<DataInitDTO>(data_init, HeaderUtil.getHeader(), HttpStatus.OK);

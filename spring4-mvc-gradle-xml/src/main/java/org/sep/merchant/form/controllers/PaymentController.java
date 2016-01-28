@@ -74,7 +74,7 @@ public class PaymentController {
 	}
 	
 	@RequestMapping(value = "/calculate", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> calculatePrice(@RequestBody WholeInsuranceDTO insurance) {
+    public ResponseEntity<?> calculatePrice(@RequestBody PriceDTO insurance) {
 		logger.info("Calculating price of insurance...");
 		try{
 			PriceDTO priceDTO = new PriceDTO(new BigDecimal(1), new BigDecimal(2), new BigDecimal(3));
