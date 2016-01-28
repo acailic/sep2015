@@ -14,9 +14,12 @@
                     var deferred = $q.defer();
                     $http({
                         //url: "http://localhost:8000/acquirer/transaction", 
-                        url:"http://192.168.1.29:8081/Acquirer_back/payment/confirm ",
+                        url:"http://localhost::8081/Acquirer_back/payment/confirm ",
                         method: "POST",
-                        data : transaction
+                        data : transaction,
+                        headers: {'Content-Type': 'application/json',
+                                   'Access-Control-Allow-Origin':'*'
+                        }
                     }).success(function (data) {
                         deferred.resolve(data);
                     }).error(function () {

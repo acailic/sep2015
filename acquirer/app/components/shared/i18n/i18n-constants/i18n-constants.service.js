@@ -72,7 +72,6 @@
 				"CARDHOLDERNAME":"Ime nosioca kartice", 
 				"CARDHOLDERLASTNAME":"Prezime nosioca kartice",   
 				"ORDERSUMMARYTEXT":"Ovo je rezime transakcije. Popunite formu placanja.", 
-				"LETTERS":"Ovo polje treba da sadrzi samo slova.",
 				"CARDNUMM":"Broj kartice se sastoji od 8 cifara.",
 				"LETTERS":"Polje treba da sadrži samo slova.", 
 				"SECCODEM":"Sigurnosni kod se sastoji od 4 cifre.",

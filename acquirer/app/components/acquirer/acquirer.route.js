@@ -5,8 +5,9 @@
 		.module('acquirer.core')
 		.config(config);
 
-	config.$inject = ['$stateProvider', '$urlRouterProvider'];
-	function config($stateProvider, $urlRouterProvider) {
+	config.$inject = ['$stateProvider', '$urlRouterProvider' ];
+	function config($stateProvider, $urlRouterProvider ) {
+		 $urlRouterProvider.otherwise('/home');
 		 
 
 		$stateProvider
@@ -55,8 +56,8 @@
 					}
 				}
 			})
-			.state('main.inputarg', {
-				url: '/input/id_payment/:id_payment',
+			.state('main.arg', {
+				url: '/input/idpayment/:idpayment',
 				views: {
 					'content@': {
 						templateUrl: 'app/components/input/input.html',
@@ -75,7 +76,7 @@
 					}
 				}
 			});
-			$urlRouterProvider.otherwise('/home');
+			 
 		 
 	}
 })();

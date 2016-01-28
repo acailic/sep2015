@@ -2,5 +2,5 @@
 	"use strict";
 	
 	angular
-		.module('acquirer.core', ['ui.router', 'ngMaterial', 'ngLocale', 'ngResource']);
+		.module('acquirer.core', ['ngRoute','ui.router', 'ngMaterial', 'ngLocale', 'ngResource' ]);
 })();

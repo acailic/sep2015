@@ -2,5 +2,5 @@
 	"use strict";
 	
 	angular
-		.module('acquirer.modal', ['ui.router', 'ngMaterial'])
+		.module('acquirer.modal', ['ui.router', 'ngMaterial']);
 })(); 
