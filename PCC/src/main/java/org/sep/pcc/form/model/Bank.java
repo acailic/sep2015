@@ -3,6 +3,8 @@ package org.sep.pcc.form.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 
+import org.sep.pcc.form.dto.BankDTO;
+
 @Entity
 public class Bank extends AbstractEntity {
 	
@@ -27,6 +29,16 @@ public class Bank extends AbstractEntity {
 		this.address = address;
 		this.telNumber = telNumber;
 		this.email = email;
+	}
+
+	public Bank(BankDTO bank) {
+		super();
+		this.name = bank.getName();
+		this.url = bank.getUrl();
+		this.iin = bank.getIin();
+		this.address = bank.getAddress();
+		this.telNumber = bank.getTelNumber();
+		this.email = bank.getEmail();
 	}
 	
 	public Bank() {

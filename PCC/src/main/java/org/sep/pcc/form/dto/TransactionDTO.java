@@ -4,8 +4,9 @@ import java.util.Date;
 
 public class TransactionDTO {
 
+	private Long acquirerId;
 	private Long acquirerOrderId;
-	private Date acquirerTimestamp;
+	private Date acquirerOrderTimestamp;
 	private String pan;
 	private String cardSecCode;
 	private String cardHolderName;
@@ -13,6 +14,14 @@ public class TransactionDTO {
 	private Double amount;
 	
 	public TransactionDTO() {
+	}
+
+	public Long getAcquirerId() {
+		return acquirerId;
+	}
+
+	public void setAcquirerId(Long acquirerId) {
+		this.acquirerId = acquirerId;
 	}
 
 	public Long getAcquirerOrderId() {
@@ -23,12 +32,12 @@ public class TransactionDTO {
 		this.acquirerOrderId = acquirerOrderId;
 	}
 
-	public Date getAcquirerTimestamp() {
-		return acquirerTimestamp;
+	public Date getAcquirerOrderTimestamp() {
+		return acquirerOrderTimestamp;
 	}
 
-	public void setAcquirerTimestamp(Date acquirerTimestamp) {
-		this.acquirerTimestamp = acquirerTimestamp;
+	public void setAcquirerOrderTimestamp(Date acquirerOrderTimestamp) {
+		this.acquirerOrderTimestamp = acquirerOrderTimestamp;
 	}
 
 	public String getPan() {

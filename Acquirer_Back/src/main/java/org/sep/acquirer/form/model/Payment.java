@@ -27,6 +27,9 @@ public class Payment extends AbstractEntity {
 	
 	@Column(name="merchantErrorURL")
 	private String merchantErrorURL;
+	
+	@Column(name="CSRFToken")
+	private String CSRFToken;
 
 	@ManyToOne
     @JoinColumn(name = "merchant")
@@ -54,6 +57,23 @@ public class Payment extends AbstractEntity {
 		this.merchantTimestamp = payment.getMerchantTimeStamp();
 		this.merchantErrorURL = payment.getErrorUrl();
 		this.merchant = merchant;
+	}
+
+	
+	public String getCSRFToken() {
+		return CSRFToken;
+	}
+
+	public void setCSRFToken(String cSRFToken) {
+		CSRFToken = cSRFToken;
+	}
+
+	public AcquirerOrder getAcquirerOrder() {
+		return acquirerOrder;
+	}
+
+	public void setAcquirerOrder(AcquirerOrder acquirerOrder) {
+		this.acquirerOrder = acquirerOrder;
 	}
 
 	public Merchant getMerchant() {

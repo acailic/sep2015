@@ -30,16 +30,12 @@ public class BankController {
 	        
 	@RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE, consumes = "application/json")
     public @ResponseBody ResponseEntity<?> registerBank(@RequestBody BankDTO bankDTO) {
-		logger.info("SetupBank called");
-		Bank newBank = new Bank();
-//		Bank newBank = new Bank(bankDTO);
+		logger.info("Register Bank called");
+		Bank newBank = new Bank(bankDTO);
 		
-		newBank.setName("IntesaBank");
-		newBank.setUrl("nekiurl");
-		newBank.setIin("006699");  
 		try{
 			newBank = bankService.save(newBank);
-			logger.info("Entity saved!");
+			logger.info("Bank registered!");
 			return new ResponseEntity<Bank>(newBank, HeaderUtil.getHeader(), HttpStatus.OK);
 		}catch(Exception ex){
 

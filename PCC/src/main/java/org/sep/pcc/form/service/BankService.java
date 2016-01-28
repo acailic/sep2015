@@ -5,4 +5,5 @@ import org.sep.pcc.jpa.GenericService;
 
 public interface BankService extends GenericService<Bank>{
 
+	public Bank findByIin(String iin);
 }

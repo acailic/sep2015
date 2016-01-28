@@ -22,4 +22,9 @@ public class BankServiceImpl extends GenericServiceImpl<Bank> implements BankSer
 		return bankDao;
 	}
 
+	@Override
+	public Bank findByIin(String iin) {
+		return bankDao.findByIin(iin);
+	}
+
 }

@@ -7,8 +7,9 @@ import org.sep.acquirer.form.model.AcquirerOrder;
 
 public class TransactionDTO implements Serializable{
 
+	private Long acquirerId;
 	private Long acquirerOrderId;
-	private Date acquirerTimestamp;
+	private Date acquirerOrderTimestamp;
 	private String pan;
 	private String cardSecCode;
 	private String cardHolderName;
@@ -19,9 +20,10 @@ public class TransactionDTO implements Serializable{
 	}
 	
 	public TransactionDTO(AcquirerOrder order) {
-		
+
+		this.acquirerId = order.getPayment().getMerchant().getAcquirer().getId();
 		this.acquirerOrderId = order.getId();
-		this.acquirerTimestamp = order.getAcquirerTimestamp();
+		this.acquirerOrderTimestamp = order.getAcquirerTimestamp();
 		this.pan = order.getPan();
 		this.cardSecCode = order.getCardSecCode();
 		this.cardHolderName = order.getCardHolderName();
@@ -30,6 +32,14 @@ public class TransactionDTO implements Serializable{
 	}
 
 	
+	public Long getAcquirerId() {
+		return acquirerId;
+	}
+
+	public void setAcquirerId(Long acquirerId) {
+		this.acquirerId = acquirerId;
+	}
+
 	public Long getAcquirerOrderId() {
 		return acquirerOrderId;
 	}
@@ -38,12 +48,12 @@ public class TransactionDTO implements Serializable{
 		this.acquirerOrderId = acquirerOrderId;
 	}
 
-	public Date getAcquirerTimestamp() {
-		return acquirerTimestamp;
+	public Date getAcquirerOrderTimestamp() {
+		return acquirerOrderTimestamp;
 	}
 
-	public void setAcquirerTimestamp(Date acquirerTimestamp) {
-		this.acquirerTimestamp = acquirerTimestamp;
+	public void setAcquirerOrderTimestamp(Date acquirerOrderTimestamp) {
+		this.acquirerOrderTimestamp = acquirerOrderTimestamp;
 	}
 
 	public String getPan() {

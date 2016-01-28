@@ -9,6 +9,7 @@ public class AcquirerOrderDTO {
 	private String pan;
 	private String cardSecCode;
 	private String cardHolderName;
+	private String CSRFToken;
 	private Date cardExpDate;
 	private Double amount;
 	
@@ -24,6 +25,15 @@ public class AcquirerOrderDTO {
 		this.cardHolderName = cardHolderName;
 		this.cardExpDate = cardExpDate;
 		this.amount = amount;
+	}
+
+	
+	public String getCSRFToken() {
+		return CSRFToken;
+	}
+
+	public void setCSRFToken(String cSRFToken) {
+		CSRFToken = cSRFToken;
 	}
 
 	public Long getPaymentId() {

@@ -4,6 +4,8 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import org.sep.pcc.form.dto.TransactionDTO;
 
@@ -13,12 +15,20 @@ public class Transaction extends AbstractEntity {
 	public enum OrderStateEnum {
 		PENDING, SUCCESSFULL, UNSUCCESSFULL
 	}
+
+	@ManyToOne
+	@JoinColumn(name="acquirer", nullable=false)
+	private Bank acquirer;
+
+	@ManyToOne
+	@JoinColumn(name="issuer")
+	private Bank issuer;
 	
 	@Column(name="acquirerOrderId", nullable=false)
 	private Long acquirerOrderId;
 	
-	@Column(name="acquirerTimestamp", nullable=false)
-	private Date acquirerTimestamp;
+	@Column(name="acquirerOrderTimestamp", nullable=false)
+	private Date acquirerOrderTimestamp;
 	
 	@Column(name="pan", nullable=false)
 	private String pan;
@@ -48,12 +58,12 @@ public class Transaction extends AbstractEntity {
 	}
 	
 	
-	public Transaction(Long acquirerOrderId, Date acquirerTimestamp, String pan, String cardSecCode,
+	public Transaction(Long acquirerOrderId, Date acquirerOrderTimestamp, String pan, String cardSecCode,
 			String cardHolderName, Date cardExpDate, Double amount, Long issuerOrderId, Date issuerTimestamp,
 			OrderStateEnum orderState) {
 		super();
 		this.acquirerOrderId = acquirerOrderId;
-		this.acquirerTimestamp = acquirerTimestamp;
+		this.acquirerOrderTimestamp = acquirerOrderTimestamp;
 		this.pan = pan;
 		this.cardSecCode = cardSecCode;
 		this.cardHolderName = cardHolderName;
@@ -67,13 +77,33 @@ public class Transaction extends AbstractEntity {
 
 	public Transaction(TransactionDTO trans) {
 		this.acquirerOrderId = trans.getAcquirerOrderId();
-		this.acquirerTimestamp = trans.getAcquirerTimestamp();
+		this.acquirerOrderTimestamp = trans.getAcquirerOrderTimestamp();
 		this.pan = trans.getPan();
 		this.cardSecCode = trans.getCardSecCode();
 		this.cardHolderName = trans.getCardHolderName();
 		this.cardExpDate = trans.getCardExpDate();
 		this.amount = trans.getAmount();
 		this.orderState = OrderStateEnum.PENDING;
+	}
+
+
+	public Bank getAcquirer() {
+		return acquirer;
+	}
+
+
+	public void setAcquirer(Bank acquirer) {
+		this.acquirer = acquirer;
+	}
+
+
+	public Bank getIssuer() {
+		return issuer;
+	}
+
+
+	public void setIssuer(Bank issuer) {
+		this.issuer = issuer;
 	}
 
 
@@ -85,12 +115,12 @@ public class Transaction extends AbstractEntity {
 		this.acquirerOrderId = acquirerOrderId;
 	}
 
-	public Date getAcquirerTimestamp() {
-		return acquirerTimestamp;
+	public Date getAcquirerOrderTimestamp() {
+		return acquirerOrderTimestamp;
 	}
 
-	public void setAcquirerTimestamp(Date acquirerTimestamp) {
-		this.acquirerTimestamp = acquirerTimestamp;
+	public void setAcquirerOrderTimestamp(Date acquirerOrderTimestamp) {
+		this.acquirerOrderTimestamp = acquirerOrderTimestamp;
 	}
 
 	public String getPan() {
