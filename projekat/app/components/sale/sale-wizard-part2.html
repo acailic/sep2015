@@ -67,7 +67,7 @@
             </md-input-container>
             <md-input-container layout="column" layout-align="left center"  flex-offset="5" md-no-float="" class="md-block md-input-has-placeholder md-has-icon">
               <md-select name="age" ng-model="slc.traveller.human_age_id" aria-label="Starost" placeholder="Starost" ng-required="slc.checkTravellers">
-                <md-option ng-repeat="age in slc.data_init.human_ages" ng-value="age.id">{{age.name}}</md-option>
+                <md-option ng-repeat="age in slc.data_init.ages" ng-value="age.id">{{age.name}}</md-option>
               </md-select>
               <div ng-messages="slc.saleWizardPart2.age.$error" ng-show="slc.saleWizardPart2.age.$touched || slc.invalidForm">
                 <div ng-message="required">

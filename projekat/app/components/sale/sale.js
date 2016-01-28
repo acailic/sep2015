@@ -5,26 +5,10 @@
  		.module('merchant.sale')
  		.controller('SaleController', SaleController);
 
- 	SaleController.$inject = ['$mdDialog', '$mdMedia', 'SharedObject', '$state', '$scope', 'Insurance'];
- 	function SaleController($mdDialog, $mdMedia, SharedObject, $state, $scope, Insurance) {
+ 	SaleController.$inject = ['$mdDialog', '$mdMedia', 'SharedObject', '$state', '$scope', 'Insurance', '$location'];
+ 	function SaleController($mdDialog, $mdMedia, SharedObject, $state, $scope, Insurance, $location) {
  		var slc = this;
  		// slc.insurance = SharedObject.getInsurance();
-
- 	// 	slc.data_init = {};
- 	// 	slc.data_init.travellers = [{id:1, name:"Do 18"}, {id:2, name:"Od 18-60"}, {id:3, name:"Preko 60"}];
- 	// 	slc.data_init.human_ages = [{id:1, name:"Do 18"}, {id:2, name:"Od 18-60"}, {id:3, name:"Preko 60"}];
- 	// 	slc.data_init.sports = [{id:1, name:"Do 18"}, {id:2, name:"Od 18-60"}, {id:3, name:"Preko 60"}];
- 	// 	slc.data_init.cities = [{id:1, name:"Ns"}, {id:2, name:"Bg"}, {id:3, name:"Pg"}];
-		// slc.data_init.max_values = [{id:1, name:"10.000"}, {id:2, name:"20.0000"}, {id:3, name:"30.0000"}];
-		// slc.data_init.regions = [{id:1, name:"Amerika"}, {id:2, name:"Evropa"}];
-		// slc.data_init.brands = [{id:1, name:"Brand1"}, {id:2, name:"Brand2"}, {id:3, name:"Brand3"}];
-		// slc.data_init.towing = [{id:1, name:"Tow1"}, {id:2, name:"Tow2"}, {id:3, name:"Tow3"}];
-		// slc.data_init.repair = [{id:1, name:"Rep1"}, {id:2, name:"Rep2"}, {id:3, name:"Rep3"}];
-		// slc.data_init.accomodation = [{id:1, name:"Acc1"}, {id:2, name:"Acc2"}, {id:3, name:"Acc3"}];
-		// slc.data_init.alternative = [{id:1, name:"Alt1"}, {id:2, name:"Alt2"}, {id:3, name:"Alt3"}];
-		// slc.data_init.causalties = [{id:1, name:"Cas1"}, {id:2, name:"Cas2"}, {id:3, name:"Cas3"}];
-
-
 
 		slc.insurance = {};
 		slc.insurance.travellers = [];
@@ -36,13 +20,13 @@
 		var indexOfEditedElement;
 		slc.dates = [];
 		slc.travelStartDateMin = new Date();
+		slc.selectedIndex = 0;
 		var promise_price = {};
 		var promise_insurance = {};
 		var promise_idata = Insurance.data_init();	
 
 		promise_idata.then(function (data) {
 			slc.data_init = data;
-			slc.data_init.human_ages = [{id:1, name:"Do 18"}, {id:2, name:"Od 18-60"}, {id:3, name:"Preko 60"}];
 			console.log(slc.data_init);
 		});
 
@@ -55,15 +39,10 @@
 			 	return true;
 		};
 
-		slc.selectedIndex = 0;
-
         $scope.$watch('slc.selectedIndex', function(current, old) {
             switch (current) {
                 case 0:
-                	
-
                     $location.url("/saleWizard1");
-
                     break;
                 case 1:
                     $location.url("/saleWizard2");
@@ -241,25 +220,103 @@
 	        slc.insurance.travel.human_age = [{id:1, name:"Do 18", number_of_people:0}, 
 	        			   {id:2, name:"Od 18-60", number_of_people:0}, 
 	        			   {id:3, name:"Preko 60", number_of_people:0}];
-	        slc.insurance.travel.duration = null;
-	        slc.insurance.home = null;
-	        slc.insurance.vehicle = null;
 	        slc.insurance.travel.owner.city_id = 1;
 	        slc.insurance.travel.owner.address = "nesto";
-	        slc.human_age = {};
-	        slc.human_age.id = 1;
-	        slc.human_age.name = "ljudi";
-	        slc.human_age.number_of_people = 2;
-	  		promise_price = Insurance.calculate(slc.human_age);
+	        slc.insurance.travel.owner.jmbg = "51458468486";
+	        slc.insurance.travellers = [];
+	        slc.insurance.home = {};
+	        slc.insurance.vehicle = {};
+	  		promise_price = Insurance.calculate(slc.insurance);
+		 	promise_price.then(function (data) {
+		 		slc.price = data;
+		 		slc.selectedIndex = 2;
+		 	    $state.go("main.sale.wizard3"); 
+		 		console.log(data);
+		 	});
+	  	};
+
+	  	slc.test = function(){
+			var testIns = {};
+			var travel = {};
+			travel.duration = "1";
+			travel.start_date = new Date();
+			travel.end_date = new Date();
+			travel.region_id = 1;
+			travel.sport_id = 1;
+			travel.max_value_id = 1;
+
+			var humanAge = {};
+			humanAge.id = 1;
+			humanAge.value = "Do 18";
+			humanAge.number_of_people = 1;
+
+			travel.human_age = [humanAge];
+			var owner = {};
+			owner.jmbg = "1254";
+			owner.first_name = "Igor";
+			owner.last_name = "Jovin";
+			owner.email = "mail";
+			owner.city_id = 1;
+			owner.address = "Adresa";
+			travel.owner = owner;
+			testIns.travel = travel;
+
+			var home = {};
+			home.duration = "1";
+			home.start_date = new Date();
+			home.end_date = new Date();
+			home.floor_area = 5;
+			home.flat_age = 1;
+			home.est_value = 1254.0;
+			home.casualty_id = 1;
+			home.owner = owner;
+			testIns.home = home;
+			var vehicle ={};
+			vehicle.duration = "1";
+			vehicle.start_date = new Date();
+			vehicle.end_date = new Date();
+			vehicle.towing_id = 1;
+			vehicle.repair_id = 1;
+			vehicle.accomodation_id = 1;
+			vehicle.alternative_id = 1;
+			vehicle.owner = owner;
+			var car = {};
+			car.brand_id = 1;
+			car.type = "tip";
+			car.man_year = 15;
+			car.reg_num = "14";
+			car.chassis_num = "1458";
+			vehicle.car = car;
+			testIns.vehicle = vehicle;
+
+			var traveller = {};
+			traveller.jmbg = "15478";
+			traveller.passport_num = "15788";
+			traveller.tel_num = "15478";
+			traveller.first_name = "Neko";
+			traveller.last_name = "Nekci";
+			traveller.human_age_id = 1;
+			traveller.city_id = 1;
+			traveller.address = "Adresa";
+			var travelers = {"lista":[ traveller]};
+
+			testIns.travellers = [traveller];
+
+			var stringovi = [];
+			stringovi.push("nesto");
+			stringovi.push("svasta");
+			var objekat = {"lista" : ["nesto", "svasta"]};
+
+			console.log(testIns);
+			promise_price = Insurance.calculate(testIns);
 		 	promise_price.then(function (data) {
 		 		slc.price = data;
 		 		// slc.selectedIndex = 2;
 		 		// $state.go("main.sale.wizard3"); 
-		 		console.log(slc.price);
+		 		console.log(data);
 		 	});
-		 	slc.selectedIndex = 2;
-		 	$state.go("main.sale.wizard3"); 
-	  	};
+				
+		};
 
 	  	slc.setDates = function() {
 	  		slc.dates.travel_start_date = slc.formatDate(slc.insurance.travel.start_date);
