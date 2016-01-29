@@ -16,62 +16,25 @@
 		slc.addTravellerForm = true;
 		slc.checkTravellers = true;
 		slc.number_of_travellers = 0;
-		var elementExists = false;
-		var indexOfEditedElement;
 		slc.dates = [];
 		slc.travelStartDateMin = new Date();
 		slc.selectedIndex = 0;
+		var elementExists = false;
+		var indexOfEditedElement;
 		var promise_price = {};
 		var promise_insurance = {};
-		var promise_idata = Insurance.data_init();	
-
+		var human_ages = [];	
+		
+		var promise_idata = Insurance.data_init();
 		promise_idata.then(function (data) {
 			slc.data_init = data;
 			console.log(slc.data_init);
+  			angular.forEach(slc.data_init.ages, function (age, index) {
+	  			human_ages[index] = {'id': age.id,'value': age.name, 'number_of_people': 0};
+	  		});
 		});
 
-		slc.someSelected = function (object) {
-			if (slc.flat) { 
-				return object && Object.keys(object).some(function (key) { 
-					return object[key]; 
-				}); 
-			}else
-			 	return true;
-		};
-
-        $scope.$watch('slc.selectedIndex', function(current, old) {
-            switch (current) {
-                case 0:
-                    $location.url("/saleWizard1");
-                    break;
-                case 1:
-                    $location.url("/saleWizard2");
-                    break;
-                case 2:
-                    $location.url("/saleWizard3");
-                    break;
-            }
-        });
-
-		slc.deleteInsurance = function(insuranceId) {
-		  	angular.forEach(slc.insurance.travellers, function (insurance, index) {
-	  			if(insurance.id === insuranceId){
-	  				slc.insurance.travellers.splice(index,1);
-	  			}
-	        });
-	  	};
-
-	  	slc.editInsurance = function(insuranceId) {
-	  		angular.forEach(slc.insurance.travellers, function (insurance, index) {
-	  			if(insurance.id === insuranceId){
-	  				slc.insuranceTravellerDeepCopy = angular.copy(insurance);
-	  				slc.traveller = slc.insuranceTravellerDeepCopy;
-	  				indexOfEditedElement = index;
-	  			}
-	        });
-	  	};
-
-	  	slc.saveInsurances = function() {
+		slc.getInsurancesDetails = function() {
 		  	if(slc.saleWizardPart1.$valid){
 		    	slc.invalidForm = false;
 		    	$state.go("main.sale.wizard2");
@@ -81,38 +44,38 @@
 		    	slc.invalidForm = true;
 
 	    		if(!slc.towing){
-      				slc.validTowing= false;
+      				slc.validTowing = false;
       			}else{
-      				slc.validTowing= true;
+      				slc.validTowing = true;
       			}
 
       			if(!slc.repair){
-      				slc.validRepair= false;
+      				slc.validRepair = false;
       			}else{
-      				slc.validRepair= true;
+      				slc.validRepair = true;
       			}
 
       			if(!slc.accommodation){
-      				slc.validAccommodation= false;
+      				slc.validAccommodation = false;
       			}else{
-      				slc.validAccommodation= true;
+      				slc.validAccommodation = true;
       			}
 
       			if(!slc.alternative){
-      				slc.validAlternative= false;
+      				slc.validAlternative = false;
       			}else{
-      				slc.validAlternative= true;
+      				slc.validAlternative = true;
       			}
 			}
 	  	};
 
-	   	slc.saveTravellers = function() {
+	   	slc.getTravellersDetails = function() {
 		    if(slc.saleWizardPart2.$valid){
 		    	slc.invalidForm = false;
 		    	elementExists = false;
 
 		    	angular.forEach(slc.insurance.travellers, function (traveller) {
-		  			if(traveller.id === slc.insurance.traveller.id){
+		  			if(traveller.id === slc.traveller.id){
 		  				elementExists = true;		  			}	
 		        });
 
@@ -140,6 +103,150 @@
 			}
 	  	};
 
+	  	slc.deleteTraveller = function(insuranceId) {
+		  	angular.forEach(slc.insurance.travellers, function (insurance, index) {
+	  			if(insurance.id === insuranceId){
+	  				slc.insurance.travellers.splice(index,1);
+	  			}
+	        });
+	  	};
+
+	  	slc.editTraveller = function(insuranceId) {
+	  		angular.forEach(slc.insurance.travellers, function (insurance, index) {
+	  			if(insurance.id === insuranceId){
+	  				slc.insuranceTravellerDeepCopy = angular.copy(insurance);
+	  				slc.traveller = slc.insuranceTravellerDeepCopy;
+	  				indexOfEditedElement = index;
+	  			}
+	        });
+	  	};
+
+	  	slc.calculate = function() {
+	  		slc.setDates();
+	  		slc.setCausualties();
+	  		slc.setRisks();
+
+	  		angular.forEach(slc.insurance.travellers, function (traveller) {
+	  			angular.forEach(human_ages, function (age) {
+		  			if(age.id === traveller.human_age_id)
+		  				age.number_of_people++;	
+		  		});
+	        });
+	        slc.insurance.travel.human_age = human_ages;
+	        if(slc.flat){
+	        	var casualty_ids = [];
+		        angular.forEach(slc.selectedCause, function (value, key) {
+		        	if(value === true)
+		  				casualty_ids.push(parseInt(key));
+		        });
+		        slc.insurance.home.casualty_ids = casualty_ids;
+	    	}
+
+	  		promise_price = Insurance.calculate(slc.insurance);
+		 	promise_price.then(function (data) {
+		 		slc.price = data;
+		 		slc.price.sum_price = slc.price.travel_price + slc.price.home_price + slc.price.vehicle_price;
+		 		slc.selectedIndex = 2;
+		 	    $state.go("main.sale.wizard3"); 
+		 	});
+	  	};
+
+	  	slc.setDates = function() {
+	  		slc.dates.travel_start_date = slc.formatDate(slc.insurance.travel.start_date);
+	  		slc.dates.travel_end_date = slc.formatDate(slc.insurance.travel.end_date);
+	  		if(slc.insurance.home !== undefined && !angular.equals({}, slc.insurance.home)){
+	  			slc.dates.home_start_date = slc.formatDate(slc.insurance.home.start_date); 
+	  			slc.dates.home_end_date = slc.formatDate(slc.insurance.home.end_date);
+	  		}
+	  		if(slc.insurance.vehicle !== undefined && !angular.equals({}, slc.insurance.vehicle)){
+	  			slc.dates.vehicle_start_date = slc.formatDate(slc.insurance.vehicle.start_date);
+	  			slc.dates.vehicle_end_date = slc.formatDate(slc.insurance.vehicle.end_date);
+	  		}
+	  	};
+
+	  	slc.setCausualties = function() {
+	  		if(slc.flat){
+	  			slc.selectedCauses = [];
+	  			angular.forEach(slc.selectedCause, function (value, key) {
+		        	if(value === true){
+		  				angular.forEach(slc.data_init.casualties, function (cause) {
+				        	if(cause.id === parseInt(key))
+				        		slc.selectedCauses.push({'name': cause.name});	
+				        });
+				    }
+		        });
+	  		}
+	  	};
+
+	  	slc.setRisks = function() {
+	  		if(slc.car){
+	  			slc.selectedRisks = [];
+	  			if(slc.towing){			
+	  				angular.forEach(slc.data_init.towing, function (towing) {
+			        	if(towing.id === slc.insurance.vehicle.towing_id)
+					    	slc.selectedRisks.push({'name': "Šlepovanje", 'value': towing.name});
+		        	});
+	  			}
+	  			if(slc.repair){			
+	  				angular.forEach(slc.data_init.repair, function (repair) {
+			        	if(repair.id === slc.insurance.vehicle.repair_id)
+					    	slc.selectedRisks.push({'name': "Popravka", 'value': repair.name});
+		        	});
+	  			}
+	  			if(slc.accommodation){			
+	  				angular.forEach(slc.data_init.accomodation, function (accommodation) {
+			        	if(accommodation.id === slc.insurance.vehicle.accomodation_id)
+					    	slc.selectedRisks.push({'name': "Smeštaj", 'value': accommodation.name});
+		        	});
+	  			}
+	  			if(slc.alternative){			
+	  				angular.forEach(slc.data_init.alternative, function (alternative) {
+			        	if(alternative.id === slc.insurance.vehicle.alternative_id)
+					    	slc.selectedRisks.push({'name': "Alternativni prevoz", 'value': alternative.name});
+		        	});
+	  			}
+	  		}
+	  	};
+
+	  	slc.formatDate = function(date) {
+	  		return date.getDate() +"."+ date.getMonth()+1 +"."+ date.getFullYear()+".";
+	  	};
+
+	  	slc.createInsurance = function() {
+			promise_insurance = Insurance.create(slc.insurance);
+		 	promise_insurance.then(function (data) {
+		 		$mdDialog.show({
+			      templateUrl: 'app/components/modal/modalPayment.html',
+			      parent: angular.element(document.body),
+			      fullscreen: $mdMedia('sm') && isc.customFullscreen
+			    });
+		 		//$location.url(data); bice redirect na Payment		 		
+		 	});
+	  	};
+
+		$scope.$watch('slc.selectedIndex', function(current, old) {
+            switch (current) {
+                case 0:
+                    $location.url("/saleWizard1");
+                    break;
+                case 1:
+                    $location.url("/saleWizard2");
+                    break;
+                case 2:
+                    $location.url("/saleWizard3");
+                    break;
+            }
+        });
+
+		slc.someSelected = function (object) {
+			if (slc.flat) { 
+				return object && Object.keys(object).some(function (key) { 
+					return object[key]; 
+				}); 
+			}else
+			 	return true;
+		};
+        
 	  	$scope.$watch('slc.insurance.travel.start_date', function (newValue, oldValue) {
 	  		if(slc.insurance.travel !== undefined && slc.insurance.travel.start_date !== undefined){
 	  			var date = new Date(slc.insurance.travel.start_date);
@@ -186,6 +293,27 @@
 	  		}
 		});
 
+
+		$scope.$watch('slc.towing', function (newValue, oldValue) {
+	  		if(newValue === false && slc.insurance.vehicle !== undefined)
+	  			slc.insurance.vehicle.towing_id = {};
+		});
+
+		$scope.$watch('slc.repair', function (newValue, oldValue) {
+	  		if(newValue === false && slc.insurance.vehicle !== undefined)
+	  			slc.insurance.vehicle.repair_id = {};
+		});
+
+		$scope.$watch('slc.accommodation', function (newValue, oldValue) {
+	  		if(newValue === false && slc.insurance.vehicle !== undefined)
+	  			slc.insurance.vehicle.accomodation_id = {};
+		});
+
+		$scope.$watch('slc.alternative', function (newValue, oldValue) {
+	  		if(newValue === false && slc.insurance.vehicle !== undefined)
+	  			slc.insurance.vehicle.alternative_id = {};
+		});
+
 	  	slc.checkFlat = function() {
 	  		if(!slc.flat){
 	  			slc.insurance.home = {};
@@ -203,136 +331,6 @@
 	  			slc.accommodation = false;
 	  			slc.alternative = false;
 	  		}
-	  	};
-
-	  	slc.calculate = function() {
-	  		slc.setDates();
-
- 			var human_age_category_18_counter, human_age_category_18_60_counter, human_age_category_60_counter = 0;
-	  		angular.forEach(slc.insurance.travellers, function (traveller) {
-	  			if(traveller.human_age_id == 1)
-	  				human_age_category_18_counter = human_age_category_18_counter++;		
-	  		    else if(traveller.human_age_id == 2)
-	  		    	human_age_category_18_60_counter = human_age_category_18_60_counter++;
-	  		    else if(traveller.human_age_id == 3)  			
-	  		    	human_age_category_60_counter = human_age_category_60_counter++;	
-	        });
-	        slc.insurance.travel.human_age = [{id:1, name:"Do 18", number_of_people:0}, 
-	        			   {id:2, name:"Od 18-60", number_of_people:0}, 
-	        			   {id:3, name:"Preko 60", number_of_people:0}];
-	        slc.insurance.travel.owner.city_id = 1;
-	        slc.insurance.travel.owner.address = "nesto";
-	        slc.insurance.travel.owner.jmbg = "51458468486";
-	        slc.insurance.travellers = [];
-	        slc.insurance.home = {};
-	        slc.insurance.vehicle = {};
-	  		promise_price = Insurance.calculate(slc.insurance);
-		 	promise_price.then(function (data) {
-		 		slc.price = data;
-		 		slc.selectedIndex = 2;
-		 	    $state.go("main.sale.wizard3"); 
-		 		console.log(data);
-		 	});
-	  	};
-
-	  	slc.test = function(){
-			var testIns = {};
-			var travel = {};
-			travel.duration = "1";
-			travel.start_date = new Date();
-			travel.end_date = new Date();
-			travel.region_id = 1;
-			travel.sport_id = 1;
-			travel.max_value_id = 1;
-
-			var humanAge = {};
-			humanAge.id = 1;
-			humanAge.value = "Do 18";
-			humanAge.number_of_people = 1;
-
-			travel.human_age = [humanAge];
-			var owner = {};
-			owner.jmbg = "1254";
-			owner.first_name = "Igor";
-			owner.last_name = "Jovin";
-			owner.email = "mail";
-			owner.city_id = 1;
-			owner.address = "Adresa";
-			travel.owner = owner;
-			testIns.travel = travel;
-
-			var home = {};
-			home.duration = "1";
-			home.start_date = new Date();
-			home.end_date = new Date();
-			home.floor_area = 5;
-			home.flat_age = 1;
-			home.est_value = 1254.0;
-			home.casualty_id = 1;
-			home.owner = owner;
-			testIns.home = home;
-			var vehicle ={};
-			vehicle.duration = "1";
-			vehicle.start_date = new Date();
-			vehicle.end_date = new Date();
-			vehicle.towing_id = 1;
-			vehicle.repair_id = 1;
-			vehicle.accomodation_id = 1;
-			vehicle.alternative_id = 1;
-			vehicle.owner = owner;
-			var car = {};
-			car.brand_id = 1;
-			car.type = "tip";
-			car.man_year = 15;
-			car.reg_num = "14";
-			car.chassis_num = "1458";
-			vehicle.car = car;
-			testIns.vehicle = vehicle;
-
-			var traveller = {};
-			traveller.jmbg = "15478";
-			traveller.passport_num = "15788";
-			traveller.tel_num = "15478";
-			traveller.first_name = "Neko";
-			traveller.last_name = "Nekci";
-			traveller.human_age_id = 1;
-			traveller.city_id = 1;
-			traveller.address = "Adresa";
-			var travelers = {"lista":[ traveller]};
-
-			testIns.travellers = [traveller];
-
-			var stringovi = [];
-			stringovi.push("nesto");
-			stringovi.push("svasta");
-			var objekat = {"lista" : ["nesto", "svasta"]};
-
-			console.log(testIns);
-			promise_price = Insurance.calculate(testIns);
-		 	promise_price.then(function (data) {
-		 		slc.price = data;
-		 		// slc.selectedIndex = 2;
-		 		// $state.go("main.sale.wizard3"); 
-		 		console.log(data);
-		 	});
-				
-		};
-
-	  	slc.setDates = function() {
-	  		slc.dates.travel_start_date = slc.formatDate(slc.insurance.travel.start_date);
-	  		slc.dates.travel_end_date = slc.formatDate(slc.insurance.travel.end_date);
-	  		if(slc.insurance.home !== undefined && !angular.equals({}, slc.insurance.home)){
-	  			slc.dates.home_start_date = slc.formatDate(slc.insurance.home.start_date); 
-	  			slc.dates.home_end_date = slc.formatDate(slc.insurance.home.end_date);
-	  		}
-	  		if(slc.insurance.vehicle !== undefined && !angular.equals({}, slc.insurance.vehicle)){
-	  			slc.dates.vehicle_start_date = slc.formatDate(slc.insurance.vehicle.start_date);
-	  			slc.dates.vehicle_end_date = slc.formatDate(slc.insurance.vehicle.end_date);
-	  		}
-	  	};
-
-	  	slc.formatDate = function(date) {
-	  		return date.getDate() +"."+ date.getMonth()+1 +"."+ date.getFullYear()+".";
 	  	};
 
 	 	$scope.$watch('slc.number_of_people', function (newValue, oldValue) {
@@ -362,17 +360,5 @@
 			  }
 		  }
 		);
-
-		slc.createInsurance = function() {
-			promise_insurance = Insurance.create(slc.insurance);
-		 	promise_insurance.then(function (data) {
-		 		console.log(data);
-		 		$mdDialog.show({
-			      templateUrl: 'app/components/modal/modalPayment.html',
-			      parent: angular.element(document.body),
-			      fullscreen: $mdMedia('sm') && isc.customFullscreen
-			    });
-		 	});
-	  	};
  	}
  })();

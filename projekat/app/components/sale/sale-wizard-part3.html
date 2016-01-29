@@ -8,7 +8,7 @@
      <md-card-content style="border-bottom: 1px dotted #ccc; margin-bottom:10px">
      	<table style="width:100%">
      		<tr>
-     			<td style="width:70%; text-align:right"><strong>Ime i prezime:</strong></td>
+     			<td style="width:60%; text-align:right"><strong>Ime i prezime:</strong></td>
      			<td>{{slc.insurance.travel.owner.first_name}} {{slc.insurance.travel.owner.last_name}}</td> 
      		</tr>
      		<tr>
@@ -25,7 +25,7 @@
       <md-card-content style="border-bottom: 1px dotted #ccc; margin-bottom:10px">
       <table style="width:100%">
         <tr>
-          <td style="width:70%;text-align:right"><strong>Trajanje:</strong></td>
+          <td style="width:60%;text-align:right"><strong>Trajanje:</strong></td>
           <td>{{slc.dates.travel_start_date}} - {{slc.dates.travel_end_date}}</td>
         </tr>
         <tr>
@@ -50,12 +50,13 @@
       <md-card-content style="border-bottom: 1px dotted #ccc; margin-bottom:10px" ng-show="slc.flat">
       <table style="width:100%">
         <tr>
-          <td style="width:70%;text-align:right"><strong>Trajanje:</strong></td>
+          <td style="width:60%;text-align:right"><strong>Trajanje:</strong></td>
           <td>{{slc.dates.home_start_date}} - {{slc.dates.home_end_date}}</td>
         </tr>
-        <tr>
-          <td style="text-align:right"><strong>Osigurava se od:</strong></td>
-          <td></td>
+        <tr ng-repeat="cause in slc.selectedCauses">
+          <td style="text-align:right" ng-show="$index == 0"><strong>Osigurava se od:</strong></td>
+          <td style="text-align:right" ng-show="$index != 0"></td>
+          <td>{{cause.name}}</td>
         </tr>
         </table>
      </md-card-content>
@@ -67,12 +68,13 @@
       <md-card-content style="border-bottom: 1px dotted #ccc; margin-bottom:10px" ng-show="slc.car">
       <table style="width:100%">
         <tr>
-          <td style="width:70%;text-align:right"><strong>Trajanje:</strong></td>
+          <td style="width:60%;text-align:right"><strong>Trajanje:</strong></td>
           <td>{{slc.dates.vehicle_start_date}} - {{slc.dates.vehicle_end_date}}</td>
         </tr>
-        <tr>
-          <td style="text-align:right"><strong>Vrsta:</strong></td>
-          <td></td>
+        <tr ng-repeat="risk in slc.selectedRisks">
+          <td style="text-align:right" ng-show="$index == 0"><strong>Vrsta:</strong></td>
+          <td style="text-align:right" ng-show="$index != 0"></td>
+          <td>{{risk.name}} - {{risk.value}}</td>
         </tr>
         </table>
      </md-card-content style="border-bottom: 1px dotted #ccc; margin-bottom:10px">
@@ -84,24 +86,20 @@
         <md-card-content style="border-bottom: 1px dotted #ccc; margin-bottom:10px">
       <table style="width:100%">
           <tr>
-            <td style="width:70%;text-align:right"><strong>Iznos putnog osiguranja:</strong></td>
-            <!-- <td>{{}}</td> -->
-            <td>0,00 din</td>
+            <td style="width:60%;text-align:right"><strong>Iznos putnog osiguranja:</strong></td>
+            <td>{{slc.price.travel_price}}</td>
           </tr>
           <tr ng-show="slc.flat">
             <td style="text-align:right"><strong>Iznos stambenog osiguranja:</strong></td>
-            <td>0,00 din</td>
-            <!-- <td>{{}}</td> -->
+            <td>{{slc.price.home_price}}</td>
           </tr>
           <tr ng-show="slc.car">
             <td style="text-align:right"><strong>Iznos osiguranja "Pomoć na putu":</strong></td>
-            <td>0,00 din</td>
-            <!-- <td>{{}}</td> -->
+            <td>{{slc.price.vehicle_price}}</td>
           </tr>
           <tr>
             <td style="text-align:right"><strong>Ukupan iznos:</strong></td>
-            <td>0,00 din</td>
-            <!-- <td>{{}}</td> -->
+            <td>{{slc.price.sum_price}}</td>
           </tr>
         </table>
      </md-card-content>

@@ -32,18 +32,18 @@
                 <td>{{traveller.address}}</td>
                 <td>{{traveller.city_id}}</td>
                 <td><button class="md-icon-button md-primary md-button md-ink-ripple" type="button" aria-label="Settings">
-                    <md-icon  md-svg-src="./assets/images/angular-material/icons/pencil.svg" class="md-primary" ng-click="slc.editInsurance(traveller.id)"></md-icon>
+                    <md-icon  md-svg-src="./assets/images/angular-material/icons/pencil.svg" class="md-primary" ng-click="slc.editTraveller(traveller.id)"></md-icon>
                   </button>
                 </td>
                 <td>
-                  <button class="md-button md-ink-ripple" type="button" aria-label="Button" ng-click="slc.deleteInsurance(traveller.id)"><md-icon  md-svg-src="./assets/images/angular-material/icons/recycle.svg" class="md-primary"></md-icon></a></button>
+                  <button class="md-button md-ink-ripple" type="button" aria-label="Button" ng-click="slc.deleteTraveller(traveller.id)"><md-icon  md-svg-src="./assets/images/angular-material/icons/recycle.svg" class="md-primary"></md-icon></a></button>
                 </td>
             </tr>
           </tbody>
         </table>
 
   <br/>
-      <form name="slc.saleWizardPart2" novalidate  ng-submit="slc.saveTravellers()" ng-show="slc.addTravellerForm">
+      <form name="slc.saleWizardPart2" novalidate  ng-submit="slc.getTravellersDetails()" ng-show="slc.addTravellerForm">
         <fieldset style="border: 1px solid rgb(255, 98, 21)" >
           <legend style="color:rgb(255, 98, 21)">Podaci</legend>
           
