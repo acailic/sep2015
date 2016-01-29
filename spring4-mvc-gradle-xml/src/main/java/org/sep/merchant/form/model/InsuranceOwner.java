@@ -28,8 +28,11 @@ public class InsuranceOwner implements Serializable{
 	@Column (name = "last_name_ins_owner", nullable = false)
 	private String lastName;
 	
-	@Column (name = "jmbg_ins_owner", nullable = false)
+	@Column (name = "jmbg_ins_owner", nullable = true)
 	private String jmbg;
+	
+	@Column (name = "passport_num_ins_owner", nullable = true)
+	private String passNum;
 	
 	@Column (name = "address_ins_owner", nullable = true)
 	private String address;
@@ -49,7 +52,7 @@ public class InsuranceOwner implements Serializable{
 
 	public InsuranceOwner(String firstName, String lastName,
 			String jmbg, String address,
-			String telephoneNumber, String email) {
+			String telephoneNumber, String email, String passNum) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -57,6 +60,7 @@ public class InsuranceOwner implements Serializable{
 		this.address = address;
 		this.telephoneNumber = telephoneNumber;
 		this.email = email;
+		this.passNum = passNum;
 	}
 
 	public Integer getId() {

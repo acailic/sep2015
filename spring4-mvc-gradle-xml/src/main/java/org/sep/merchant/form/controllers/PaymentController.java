@@ -30,7 +30,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @Controller
 public class PaymentController {
 	
-	private final Logger logger = LoggerFactory.getLogger(RiskTypeController.class);
+	private final Logger logger = LoggerFactory.getLogger(PaymentController.class);
 	
 	@Autowired
 	OrderService orderService;
