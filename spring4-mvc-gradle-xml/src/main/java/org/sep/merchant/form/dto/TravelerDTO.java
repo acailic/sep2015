@@ -6,6 +6,7 @@ public class TravelerDTO implements Serializable{
 
 	private static final long serialVersionUID = 6093499226629341387L;
 	
+	private Integer id;
 	private String jmbg;
 	private String passport_num;
 	private String tel_num;
@@ -96,4 +97,14 @@ public class TravelerDTO implements Serializable{
 	public void setAddress(String address) {
 		this.address = address;
 	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	
+	
 }

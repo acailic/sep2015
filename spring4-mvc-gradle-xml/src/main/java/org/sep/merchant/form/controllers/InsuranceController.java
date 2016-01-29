@@ -95,7 +95,7 @@ public class InsuranceController {
 	
 	/**Kreiranje novog osiguranja, kao i cuvanje putnika i informacija o dodatnim stvarima, poput osiguranja kuce i vozila*/
 	@RequestMapping(value = "/create", method = RequestMethod.POST, consumes = "application/json")
-    public ResponseEntity<Void> createInsurance(@RequestBody WholeInsuranceDTO insurance,
+    public ResponseEntity<?> createInsurance(@RequestBody WholeInsuranceDTO insurance,
     											UriComponentsBuilder ucBuilder) {
         System.out.println("Creating insurance...");
         logger.info("Creating insurance...");
@@ -105,13 +105,20 @@ public class InsuranceController {
         		insurance.getTravellers().size());
         //obracunati cenu osiguranja
         PriceList priceList = priceListService.findAll().get(0); //preuzimamo poslednji cenovnik
-       
+        //if price == null return BAD_REQUEST
         //spajanje sa Order - ne ovde
         
-        //odredjivanje Owner-a osiguranja
+        //odredjivanje vlasnika osiguranja
         OwnerDTO ownerOfInsurance = travel.getOwner();
+        if(ownerOfInsurance.getFirst_name() == "" || ownerOfInsurance.getFirst_name() == null ||
+        		ownerOfInsurance.getLast_name() == "" || ownerOfInsurance.getLast_name() == null
+        		|| ownerOfInsurance.getEmail() == "" || ownerOfInsurance.getEmail() == null
+        		|| ownerOfInsurance.getJmbg() == null || ownerOfInsurance.getJmbg() == ""){
+        	logger.error("Enter all the required fields of Owner.");
+			return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
+        }
         InsuranceOwner ownerOfInsuranceToPersist = new InsuranceOwner(ownerOfInsurance.getFirst_name(), 
-        		ownerOfInsurance.getLast_name(), "0", ownerOfInsurance.getJmbg(), ownerOfInsurance.getAddress(), 
+        		ownerOfInsurance.getLast_name(), ownerOfInsurance.getJmbg(), ownerOfInsurance.getAddress(), 
         		"000", ownerOfInsurance.getEmail());
         insuranceOwnerService.save(ownerOfInsuranceToPersist);
         
@@ -175,23 +182,23 @@ public class InsuranceController {
 		
 		if(insurance.getHome() != null){ //ako je kupac zeleo i osiguranje za kucu
 			HomeDTO homeDTO = insurance.getHome();
-			Home home = new Home(homeDTO.getFloor_area(), homeDTO.getFlat_age(), homeDTO.getEst_value());
-			OwnerDTO ownerDTO = homeDTO.getOwner();
-			Owner ownerToPersist = new Owner(ownerDTO.getFirst_name(), ownerDTO.getLast_name(), ownerDTO.getJmbg());
-			ownerService.save(ownerToPersist);
-			home.setOwner(ownerToPersist);
-			homeService.save(home);
+			//Home home = new Home(homeDTO.getFloor_area(), homeDTO.getFlat_age(), homeDTO.getEst_value());
+			//OwnerDTO ownerDTO = homeDTO.getOwner();
+			//Owner ownerToPersist = new Owner(ownerDTO.getFirst_name(), ownerDTO.getLast_name(), ownerDTO.getJmbg());
+			//ownerService.save(ownerToPersist);
+			//home.setOwner(ownerToPersist);
+			//homeService.save(home);
 		}
 		
 		if(insurance.getVehicle() != null){ //ako je kupac zeleo i osiguranje za vozilo
 			VehicleDTO vehicleDTO = insurance.getVehicle();
-			CarDTO carDTO = vehicleDTO.getCar();
+			/*CarDTO carDTO = vehicleDTO.getCar();
 			Vehicle vehicle = new Vehicle(carDTO.getType(), carDTO.getMan_year(), carDTO.getReg_num(), carDTO.getChassis_num());
 			OwnerDTO ownerCarDTO = vehicleDTO.getOwner();
 			Owner ownerCarToPersist = new Owner(ownerCarDTO.getFirst_name(), ownerCarDTO.getLast_name(), ownerCarDTO.getJmbg());
 			ownerService.save(ownerCarToPersist);
 			vehicle.setOwner(ownerCarToPersist);
-			vehicleService.save(vehicle);
+			vehicleService.save(vehicle);*/
 			
 			//RIZICI
 			//dodatak za slepanje vozila

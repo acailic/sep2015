@@ -2,12 +2,12 @@ package org.sep.merchant.form.controllers;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.concurrent.TimeUnit;
 
 import org.sep.merchant.form.dto.MerchantResponseDTO;
 import org.sep.merchant.form.dto.PaymentDTO;
 import org.sep.merchant.form.dto.PriceDTO;
 import org.sep.merchant.form.dto.WholeInsuranceDTO;
-import org.sep.merchant.form.model.Insurance;
 import org.sep.merchant.form.model.Merchant;
 import org.sep.merchant.form.model.Order;
 import org.sep.merchant.form.service.MerchantService;
@@ -16,7 +16,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -73,11 +72,28 @@ public class PaymentController {
 	
 	}
 	
-	@RequestMapping(value = "/calculate", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> calculatePrice(@RequestBody PriceDTO insurance) {
+	@RequestMapping(value = "/calculate", method = RequestMethod.POST/*, consumes = MediaType.APPLICATION_JSON_VALUE,  produces = MediaType.APPLICATION_JSON_VALUE*/)
+    public ResponseEntity<?> calculatePrice(@RequestBody WholeInsuranceDTO insurance) {
 		logger.info("Calculating price of insurance...");
 		try{
-			PriceDTO priceDTO = new PriceDTO(new BigDecimal(1), new BigDecimal(2), new BigDecimal(3));
+			PriceDTO priceDTO = new PriceDTO();
+			BigDecimal basicPrice = new BigDecimal(1); //1EUR je cena osiguranja po danu
+			
+			if(insurance.getTravel().getDuration() == "" || insurance.getTravel().getDuration() == null){
+				if(insurance.getTravel().getStart_date() == null){
+					logger.error("Duration not set, as well as the start date.");
+					return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
+				} else if(insurance.getTravel().getEnd_date() == null){
+					logger.error("Duration not set, as well as the end date.");
+					return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
+				}
+				long diff = insurance.getTravel().getEnd_date().getTime() - insurance.getTravel().getStart_date().getTime();
+			    long days = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+			    basicPrice = basicPrice.multiply(new BigDecimal(days));
+			} else 
+				basicPrice = basicPrice.multiply(new BigDecimal(insurance.getTravel().getDuration())); //mnozi se sa brojem dana
+			
+			
 			return new ResponseEntity<PriceDTO>(priceDTO, HttpStatus.OK) ;
 		} catch(Exception e){
 			logger.error(e.toString());

@@ -3,6 +3,8 @@ package org.sep.merchant.form.dto;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomeDTO implements Serializable{
 
@@ -14,12 +16,12 @@ public class HomeDTO implements Serializable{
 	private Double floor_area;
 	private Integer flat_age;
 	private BigDecimal est_value;
-	private Integer casualty_id;
+	private List<Integer> casualty_ids = new ArrayList<Integer>();
 	private OwnerDTO owner;
 	
 	public HomeDTO(String duration, Date start_date, Date end_date,
 			Double floor_area, Integer flat_age, BigDecimal est_value,
-			Integer casualty_id, OwnerDTO owner) {
+			List<Integer> casualty_ids, OwnerDTO owner) {
 		super();
 		this.duration = duration;
 		this.start_date = start_date;
@@ -27,7 +29,7 @@ public class HomeDTO implements Serializable{
 		this.floor_area = floor_area;
 		this.flat_age = flat_age;
 		this.est_value = est_value;
-		this.casualty_id = casualty_id;
+		this.casualty_ids = casualty_ids;
 		this.owner = owner;
 	}
 
@@ -78,12 +80,12 @@ public class HomeDTO implements Serializable{
 		this.est_value = est_value;
 	}
 
-	public Integer getCasualty_id() {
-		return casualty_id;
+	public List<Integer> getCasualty_ids() {
+		return casualty_ids;
 	}
 
-	public void setCasualty_id(Integer casualty_id) {
-		this.casualty_id = casualty_id;
+	public void setCasualty_ids(List<Integer> casualty_ids) {
+		this.casualty_ids = casualty_ids;
 	}
 
 	public OwnerDTO getOwner() {

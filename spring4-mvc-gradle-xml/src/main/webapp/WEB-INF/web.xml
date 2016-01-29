@@ -31,6 +31,11 @@
         <filter-name>cors</filter-name>
         <url-pattern>/calculate</url-pattern>
     </filter-mapping>
+    
+    <filter-mapping>
+        <filter-name>cors</filter-name>
+        <url-pattern>/create</url-pattern>
+    </filter-mapping>
 
 	<welcome-file-list>
     	<welcome-file>index.html</welcome-file>

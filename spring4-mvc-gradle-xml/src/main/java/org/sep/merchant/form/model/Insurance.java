@@ -26,16 +26,16 @@ public class Insurance implements Serializable{
 	@Column(name = "id_insurance")
 	private Integer id;
 	
-	@Column (name = "duration", nullable = false)
+	@Column (name = "duration", nullable = true)
 	private String duration;
 	
-	@Column (name = "start_date", nullable = false)
+	@Column (name = "start_date", nullable = true)
 	private Date startDate;
 	
-	@Column (name = "end_date", nullable = false)
+	@Column (name = "end_date", nullable = true)
 	private Date endDate;
 	
-	@Column (name = "num_of_people", nullable = false)
+	@Column (name = "num_of_people", nullable = true)
 	private Integer numOfPeople;
 	
 	@OneToMany(mappedBy = "insurance")  

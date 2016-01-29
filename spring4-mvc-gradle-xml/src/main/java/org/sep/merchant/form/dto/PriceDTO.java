@@ -20,7 +20,9 @@ public class PriceDTO implements Serializable{
 	}
 
 	public PriceDTO(){
-		
+		this.travel_price = new BigDecimal(0);
+		this.vehicle_price = new BigDecimal(0);
+		this.home_price = new BigDecimal(0);
 	}
 
 	public BigDecimal getTravel_price() {

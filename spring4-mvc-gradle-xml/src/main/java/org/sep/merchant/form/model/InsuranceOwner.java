@@ -28,9 +28,6 @@ public class InsuranceOwner implements Serializable{
 	@Column (name = "last_name_ins_owner", nullable = false)
 	private String lastName;
 	
-	@Column (name = "passport_num_ins_owner", nullable = false)
-	private String passportNumber;
-	
 	@Column (name = "jmbg_ins_owner", nullable = false)
 	private String jmbg;
 	
@@ -40,7 +37,7 @@ public class InsuranceOwner implements Serializable{
 	@Column (name = "email_ins_owner", nullable = false)
 	private String email;
 	
-	@Column (name = "telephone_ins_owner", nullable = false)
+	@Column (name = "telephone_ins_owner", nullable = true)
 	private String telephoneNumber;
 	
 	@OneToMany(mappedBy = "insuranceOwner")  
@@ -51,12 +48,11 @@ public class InsuranceOwner implements Serializable{
 	}
 
 	public InsuranceOwner(String firstName, String lastName,
-			String passportNumber, String jmbg, String address,
+			String jmbg, String address,
 			String telephoneNumber, String email) {
 		super();
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.passportNumber = passportNumber;
 		this.jmbg = jmbg;
 		this.address = address;
 		this.telephoneNumber = telephoneNumber;
@@ -81,14 +77,6 @@ public class InsuranceOwner implements Serializable{
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
-	}
-
-	public String getPassportNumber() {
-		return passportNumber;
-	}
-
-	public void setPassportNumber(String passportNumber) {
-		this.passportNumber = passportNumber;
 	}
 
 	public String getJmbg() {
