@@ -5,28 +5,31 @@
 		.module('acquirer.input')
 		.factory('Payment', Payment);
 
-	Payment.$inject = ['$http'];
-	function Payment($http) {
+	Payment.$inject = ['$http', '$q'];
+	function Payment($http, $q) {
         //ovde nema nista, cisto nako za sad
 		 var paymentService = {
                 send: function(payment){
 
-                   // var deferred = $q.defer();
+                   var deferred = $q.defer();
                     $http({
-                        //url: "http://localhost:8000/acquirer/transaction", 
-                        url:"http://localhost:8081/Acquirer_back/payment/init/2",
+                        url:"http://localhost:8081/Acquirer_back/payment/init/payment?id="+payment,
                         method: "GET",
-                        data : payment,
-                        headers: {'Content-Type': 'application/json',
-                                   'Access-Control-Allow-Origin':'*'
-                        }
+                        data :   payment   
+                        //{'id':payment},
+                         /*headers: {'Content-Type': 'application/json',
+                                    'Access-Control-Allow-Origin':'*'
+                         }*/
                     }).success(function (data) {
-                    //    deferred.resolve(data);
+                         alert(data);
+                          console.log("Uspesno slanju payment id." );
+                       deferred.resolve(data);
+
                     }).error(function () {
-                        alert("Došlo je do greške pri slanju payment id.");
+                        //alert("Došlo je do greške pri slanju payment id.");
+                        console.log("Došlo je do greške pri slanju payment id." );
                     });
-                    //return deferred.promise;
-                    return payment;
+                    return deferred.promise;
                 } 
 
         };

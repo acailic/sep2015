@@ -41,7 +41,10 @@
 				url: '/about',
 				views: {
 					'content@': {
-						templateUrl: 'app/components/acquirer/about.html'
+						templateUrl: 'app/components/aboutus/aboutus.html',
+						controller: 'UserController',
+						controllerAs: 'ul'
+
 					}
 				}
 			})

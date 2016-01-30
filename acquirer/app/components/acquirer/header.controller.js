@@ -24,11 +24,3 @@
 
 
 })();
-
-/*
-.config(function($mdIconProvider) {
-    	$mdIconProvider
-      .iconSet("call", 'images/serbia.svg', 24)
-      .iconSet("social", 'images/serbia.svg', 24);
-  })
-	*/	

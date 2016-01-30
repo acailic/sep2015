@@ -19,34 +19,81 @@
        inc.idpayment = $stateParams.idpayment;
   
       inc.transaction = {
-           id: 0,
-           amount: 0,
-           cardholdername: '',
-           cardholderlastname: '',
-           cardtype: '',
-           cardnum:  '' ,
-           seccode:  '' ,
-           expmonth: '',
-           expyear: '',
+           paymentId: 10,
+           amount: 10,
+           cardholdername: 'aca',
+           cardholderlastname: 'ilic',
+           pan:  '12341245' ,
+           cardSecCode:  '1242' ,
+           expmonth: '12',
+           expyear: '2011',
+           CSRFToken: 'sadas123',
+
     }; 
-    inc.transaction.value = 1000;
+
+    inc.sending_transaction = {
+           paymentId: 10,
+           amount: 10,
+           cardHolderName: 'aca ilic',
+           pan:  '12341245' ,
+           cardSecCode:  '1242' ,
+           cardExpDate : new Date(1,12,2011),
+           CSRFToken: '312213321',
+           acquirerTimeStamp : new Date(1,12,2011),
+
+    }; 
      //  OVDE BI TREBAO LINK NAZAD DO MERCHANTA
     inc.returnUrl= 'http://google.com'; 
+
+     var onSuccess = function(data){
+        console.log("ON SUCCESS PAYMENTA:");
+        console.log(data.paymentId);
+        console.log(data.amount);
+        console.log(data.csrftoken);
+        inc.transaction.paymentId=data.paymentId;
+        inc.transaction.amount=data.amount;
+        inc.transaction.csrftoken=data.csrftoken;
+    };
+
+    var onFailure = function(reason){
+       console.log("ON onFailure:"+ inc.transaction );
+        alert("Failed, " + reason);
+    };
+   
+    var onNotify = function(update){
+        alert("Notified: " + update);
+    };
+
+    console.log("SALJE ID PAYMENTA :"+ inc.idpayment );
+    var promise=Payment.send(inc.idpayment) ;
+    promise.then(onSuccess, onFailure); 
+    console.log("POSLAO JE!@@" );
+   
      
+     var onSuccessTransaction = function(data){
+        console.log("ON SUCCESS onSuccessTransaction:");
+        console.log(data);
+       
+       
+    };
 
-
-
-    //inc.sendingPayment= function(value){
-     var returned_value=Payment.send(inc.id_payment);
-    //var returned_value;
-    //inc.transaction.id=returned_value.id;
-    //inc.transaction.amount=returned_value.amount;
-    //inc.transaction.token=returned_value.token;
+    var onFailureTransaction = function(reason){
+       console.log("ON onFailure Transaction:"+ inc.transaction );
+        alert("Failed Transaction, " + reason);
+    };
+   
+    var onNotifyTransaction = function(update){
+        alert("Notified: " + update);
+    };
      
+  
     //inc.transaction = transaction;
       
     inc.generatingTransaction = function(value) {
-       Transaction.generate(inc.transaction);
+       console.log("GENERATING TRANSACTIONS:" );
+       console.log(inc.sending_transaction );
+       var retTransaction=Transaction.generate(inc.sending_transaction);
+       promise.then(onSuccessTransaction, onFailureTransaction, onNotifyTransaction); 
     };
     
     inc.showModalPayment = function(ev) {
