@@ -8,6 +8,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -38,7 +39,13 @@ public class Insurance implements Serializable{
 	@Column (name = "num_of_people", nullable = true)
 	private Integer numOfPeople;
 	
-	@OneToMany(mappedBy = "insurance")  
+	@Column (name = "basic_price", nullable = true)
+	private BigDecimal basicPrice;
+	
+	@Column (name = "total_price", nullable = true)
+	private BigDecimal totalPrice;
+	
+	@OneToMany(mappedBy = "insurance", fetch = FetchType.EAGER)  
 	private Set<PriceListItem> priceListItems;
 	
 	@OneToMany(mappedBy = "insurance")  
@@ -72,6 +79,8 @@ public class Insurance implements Serializable{
 
 	public Insurance(String duration, Date startDate, Date endDate, Integer numOfPeople) {
 		super();
+		this.basicPrice = new BigDecimal(0);
+		this.totalPrice = new BigDecimal(0);
 		this.duration = duration;
 		this.startDate = startDate;
 		this.endDate = endDate;

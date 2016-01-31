@@ -69,7 +69,7 @@ public class Vehicle implements Serializable{
 
 	public Vehicle(String duration, Date startDate, Date endDate,
 			String vehicleType, String manufactureYear,
-			String registrationNumber, String chassisNumber, Owner owner) {
+			String registrationNumber, String chassisNumber) {
 		super();
 		this.duration = duration;
 		this.startDate = startDate;
@@ -78,7 +78,6 @@ public class Vehicle implements Serializable{
 		this.manufactureYear = manufactureYear;
 		this.registrationNumber = registrationNumber;
 		this.chassisNumber = chassisNumber;
-		this.owner = owner;
 	}
 
 	public Integer getId() {

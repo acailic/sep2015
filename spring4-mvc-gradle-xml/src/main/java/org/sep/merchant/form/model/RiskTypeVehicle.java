@@ -30,9 +30,8 @@ public class RiskTypeVehicle implements Serializable{
 	@JoinColumn(name="id_vehicle")
 	private Vehicle vehicle;
 
-	public RiskTypeVehicle(Integer id, RiskType riskType, Vehicle vehicle) {
+	public RiskTypeVehicle(RiskType riskType, Vehicle vehicle) {
 		super();
-		this.id = id;
 		this.riskType = riskType;
 		this.vehicle = vehicle;
 	}

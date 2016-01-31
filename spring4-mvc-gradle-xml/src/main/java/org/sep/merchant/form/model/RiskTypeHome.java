@@ -28,10 +28,13 @@ public class RiskTypeHome implements Serializable{
 	@ManyToOne
 	@JoinColumn(name="id_home")
 	private Home home;
+	
+	public RiskTypeHome(){
+		
+	}
 
-	public RiskTypeHome(Integer id, RiskType riskType, Home home) {
+	public RiskTypeHome(RiskType riskType, Home home) {
 		super();
-		this.id = id;
 		this.riskType = riskType;
 		this.home = home;
 	}

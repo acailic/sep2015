@@ -61,8 +61,7 @@ public class Home  implements Serializable{
 	}
 	
 	public Home(String duration, Date startDate, Date endDate,
-			Double floorArea, Integer flatAge, BigDecimal estimatedValue,
-			Owner owner) {
+			Double floorArea, Integer flatAge, BigDecimal estimatedValue) {
 		super();
 		this.duration = duration;
 		this.startDate = startDate;
@@ -70,7 +69,6 @@ public class Home  implements Serializable{
 		this.floorArea = floorArea;
 		this.flatAge = flatAge;
 		this.estimatedValue = estimatedValue;
-		this.owner = owner;
 	}
 
 	public Integer getId() {
