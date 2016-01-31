@@ -46,6 +46,70 @@
 			},
 
 
+			calculateTravel: function(travel){
+				var deferred = $q.defer();
+				
+				$http({
+					url: "http://localhost:8080/spring4/calculateTravel", 
+					method: "POST",				
+					data : travel, 
+					headers: {
+	                    'Content-Type': 'application/json'
+	         		}
+				}).success(function (data) {
+					deferred.resolve(data);
+				}).error(function () {
+					alert("Došlo je do greške pri kalkulaciji");
+				});
+				
+				return deferred.promise;
+			},
+
+
+			calculateVehicle: function(vehicle){
+				var deferred = $q.defer();
+				
+				$http({
+					url: "http://localhost:8080/spring4/calculateVehicle", 
+					method: "POST",				
+					data : vehicle, 
+					headers: {
+	                    'Content-Type': 'application/json'
+	         		}
+				}).success(function (data) {
+					deferred.resolve(data);
+				}).error(function () {
+					alert("Došlo je do greške pri kalkulaciji");
+				});
+				
+				return deferred.promise;
+			},
+
+
+			calculateHome: function(home){
+				var deferred = $q.defer();
+				
+				$http({
+					url: "http://localhost:8080/spring4/calculateHome", 
+					method: "POST",				
+					data : home, 
+					headers: {
+	                    'Content-Type': 'application/json'
+	         		}
+				}).success(function (data) {
+					deferred.resolve(data);
+				}).error(function () {
+					alert("Došlo je do greške pri kalkulaciji");
+				});
+				
+				return deferred.promise;
+			},
+
+
+
+
+
+
 			create: function(insurance){
 				var deferred = $q.defer();
 				

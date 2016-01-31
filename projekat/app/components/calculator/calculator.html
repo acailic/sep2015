@@ -21,30 +21,36 @@
                <div ng-message="required">Potrebno je da popunite ovo polje.</div>
             </div>
          </md-input-container>
+         </br>
+
+         <fieldset flex="100" style="border: 1px dotted rgb(255, 98, 21)">
+            <legend style="color:rgb(255, 98, 21)">Broj putnika</legend>
          <md-input-container layout="column" layout-align="left center">
-            <label>Broj osoba do 18 god</label>
+            <label>Do 18 god</label>
             <input name="age1" type="number" min="1" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
-               ng-model="calc.age_number.number18" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" required>
-            <div ng-messages="calc.travelForm.age1.$error" ng-show="calc.travelForm.age1.$touched || calc.invalidTravelForm">
-               <div ng-message="required">Potrebno je da popunite ovo polje.</div>
-            </div>
+               ng-model="calc.age_number.number18" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" >
+            
          </md-input-container>
          <md-input-container layout="column" layout-align="left center">
-            <label>Broj osoba od 18 do 60 god</label>
+            <label>Od 18 do 60 god</label>
             <input  name= "age2" type="number" min="1" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
-               ng-model="calc.age_number.number18_60" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" required>
-            <div ng-messages="calc.travelForm.age2.$error" ng-show="calc.travelForm.age2.$touched || calc.invalidTravelForm">
-               <div ng-message="required">Potrebno je da popunite ovo polje.</div>
-            </div>
+               ng-model="calc.age_number.number18_60" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" >
+           
          </md-input-container>
          <md-input-container layout="column" layout-align="left center">
-            <label>Broj osoba preko 60 godina</label> 
+            <label>Preko 60 godina</label> 
             <input name="age3" type="number" min="1" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
-               ng-model="calc.age_number.number60" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" required>
-            <div ng-messages="calc.travelForm.age3.$error" ng-show="calc.travelForm.age3.$touched || calc.invalidTravelForm">
-               <div ng-message="required">Potrebno je da popunite ovo polje.</div>
-            </div>
+               ng-model="calc.age_number.number60" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" >
+            
          </md-input-container>
+
+         </fieldset>
+
+         <div style="font-size: 12px; color: rgb(244,67,54); font-family: Roboto, 'Helvetica Neue' sans-serif;" ng-show="calc.invalidTravelForm && !calc.age_number.number18_60 && !calc.age_number.number18 && !calc.age_number.number60">
+               Potrebno je da popunite najmanje jedno polje o brojnosti putnika.
+         </div>
+
+
          <md-input-container layout="column" layout-align="left center">
             <label>Max. iznos osiguranja</label>
             <md-select name="max_value" ng-model="calc.insurance.travel.max_value_id" ng-required= "true" >
@@ -77,7 +83,7 @@
             <legend style="color:rgb(3,169,244)">Dodatno</legend>
             <div>
                <div flex="40">
-                  <md-checkbox aria-label="Checkbox 1" class="md-primary" ng-model="flat">
+                  <md-checkbox aria-label="Checkbox 1" class="md-primary" ng-model="calc.flat">
                      Stambeno
                   </md-checkbox>
                   <md-tooltip md-direction="right">
@@ -85,7 +91,7 @@
                   </md-tooltip>
                </div>
                <div flex="35">
-                  <md-checkbox aria-label="Checkbox 1" class="md-primary" ng-model="car">
+                  <md-checkbox aria-label="Checkbox 1" class="md-primary" ng-model="calc.car">
                      Auto
                   </md-checkbox>
                   <md-tooltip md-direction="right">
@@ -99,13 +105,13 @@
       
       </form>
    </fieldset>
-   <div flex-offset="10" layout="row" layout-align="center center" ng-show="!flat && !car">
+   <div flex-offset="10" layout="row" layout-align="center center" ng-show="!calc.flat && !calc.car">
       <img ng-src="./assets/images/insurance-app/dolarBlue.jpg" width="500" height="400" class="md-card-image" alt="Washed Out">
    </div>
-   <div flex="5" style="border: 1px rgb(255, 98, 21)" layout="row" layout-align="center center" ng-show="flat = !flat">
+   <div flex="5" style="border: 1px rgb(255, 98, 21)" layout="row" layout-align="center center" ng-show="calc.flat = !calc.flat">
       <md-icon md-svg-icon="\assets\images\angular-material\icons\add182.svg" style="color:rgb(255, 98, 21)" aria-label="Plus"></md-icon>
    </div>
-   <fieldset flex="30" style="border: 1px solid rgb(255, 98, 21)" ng-show="flat = !flat">
+   <fieldset flex="30" style="border: 1px solid rgb(255, 98, 21)" ng-show="calc.flat = !calc.flat">
       <legend style="color:rgb(255, 98, 21)">
          <md-icon md-svg-icon="\assets\images\angular-material\icons\home.svg" style="color:rgb(255, 98, 21)" aria-label="Home"></md-icon>
          Stambeno
@@ -114,15 +120,16 @@
          <md-input-container layout="column" layout-align="left center">
             <label for="input_203">Trajanje</label>
             <input type="number" min= "1" onkeypress='return event.charCode >= 48 && event.charCode <= 57'
-               name="duration" ng-model="calc.insurance.home.duration" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched"  aria-invalid="false" flex="10" ng-required="flat">
+               name="duration" ng-model="calc.insurance.home.duration" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched"  aria-invalid="false" flex="10" ng-required="calc.flat">
             <div ng-messages="calc.homeForm.duration.$error" ng-show="calc.homeForm.duration.$touched || calc.invalidHomeForm">
                <div ng-message="required">Potrebno je da popunite ovo polje.</div>
             </div>
          </md-input-container>
          <md-input-container layout="column" layout-align="left center">
             <label for="input_203">Površina stana</label>
-            <input name="floor_area" ng-model="calc.insurance.home.floor_area" flex="10" ng-required="flat"
-               ng-pattern="/^[1-9]\d*(.|,)?\d+$/" >
+            
+               <input name="floor_area" ng-model="calc.insurance.home.floor_area" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10" ng-pattern="/^\d+(.\d+){0,1}$/" ng-required="calc.flat">
+
             <div ng-messages="calc.homeForm.floor_area.$error" ng-show="calc.homeForm.floor_area.$touched || calc.invalidHomeForm">
                <div ng-message="required">Potrebno je da popunite ovo polje.</div>
                <div ng-message="pattern">Niste upisali validan broj.</div>
@@ -130,17 +137,16 @@
          </md-input-container>
          <md-input-container layout="column" layout-align="left center">
             <label for="input_203">Starost stana</label>
-            <input name="flat_age" ng-model="calc.insurance.home.flat_age" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10" ng-required= "flat"
-               ng-pattern="/^[1-9]\d*(.|,)?\d+$/">
-            <div ng-messages="calc.homeForm.flat_age.$error" ng-show="calc.homeForm.flat_age.$touched || calc.invalidHomeForm">
+            <input name="flat_age" ng-model="calc.insurance.home.flat_age" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10" ng-pattern="/^\d+(.\d+){0,1}$/" ng-required="calc.flat">
+            <div ng-messages="calc.homeForm.flat_age.$error" ng-show="homeForm.flat_age.$touched || calc.invalidHomeForm">
                <div ng-message="required">Potrebno je da popunite ovo polje.</div>
                <div ng-message="pattern">Niste upisali validan broj.</div>
             </div>
          </md-input-container>
          <md-input-container layout="column" layout-align="left center">
             <label for="input_203">Procenjene vrednosti stana</label>
-            <input name="est_value" ng-model="calc.insurance.home.est_value" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10" 
-               ng-required="flat" ng-pattern="/^[1-9]\d*(.|,)?\d+$/" >
+            <input name="est_value" ng-model="calc.insurance.home.est_value" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10" ng-pattern="/^\d+(.\d+){0,1}$/"
+               ng-required="calc.flat" >
             <div ng-messages="calc.homeForm.est_value.$error" ng-show="calc.homeForm.est_value.$touched || calc.invalidHomeForm">
                <div ng-message="required">Potrebno je da popunite ovo polje.</div>
                <div ng-message="pattern">Niste upisali validan broj.</div>
@@ -150,7 +156,7 @@
          <div>
             <label>Izaberite od čega osiguravate stan/kuću:</label>
                <md-input-container>
-                  <span ng-repeat="cause in calc.causalties" >
+                  <span ng-repeat="cause in calc.data_init.casualties" >
                      <md-checkbox name="casualty" ng-model="calc.selectedCause[cause.id]" ng-value="{{cause.id}}" aria-label="Checkbox 1" class="md-primary"  ng-required="!calc.someSelected(calc.selectedCause)">
                         {{cause.name}}
                      </md-checkbox>
@@ -160,14 +166,13 @@
                   </div>
                </md-input-container>
          </div>
-
-         
       </form>
+
    </fieldset>
-   <div flex="5" style="border: 1px rgb(255, 98, 21)" layout="row" layout-align="center center" ng-show="car = !car">
+   <div flex="5" style="border: 1px rgb(255, 98, 21)" layout="row" layout-align="center center" ng-show="calc.car = !calc.car">
       <md-icon md-svg-icon="\assets\images\angular-material\icons\add182.svg" style="color:rgb(255, 98, 21)" aria-label="Plus"></md-icon>
    </div>
-   <fieldset flex="30" style="border: 1px solid rgb(255, 98, 21)" ng-show="car = !car">
+   <fieldset flex="30" style="border: 1px solid rgb(255, 98, 21)" ng-show="calc.car = !calc.car">
       <legend style="color:rgb(255, 98, 21)">
          <md-icon md-svg-icon="\assets\images\angular-material\icons\craner.svg" height="24" width="24" style="color:rgb(255, 98, 21)" aria-label="Travel"></md-icon>
          Auto
@@ -175,7 +180,7 @@
       <form id="vehicleForm" name="calc.vehicleForm" ng-submit="calc.calculateVehicle()"  novalidate>
          <md-input-container layout="column" layout-align="left center">
             <label for="input_203">Trajanje</label>
-            <input name="duration" type="number" min="1" onkeypress='return event.charCode >= 48 && event.charCode <= 57' ng-model="calc.insurance.vehicle.duration" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10" ng-required="car">
+            <input name="duration" type="number" min="1" onkeypress='return event.charCode >= 48 && event.charCode <= 57' ng-model="calc.insurance.vehicle.duration" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10" ng-required="calc.car">
              <div ng-messages="calc.vehicleForm.duration.$error" ng-show="calc.vehicleForm.duration.$touched || calc.invalidVehicleForm">
                <div ng-message="required">Potrebno je da popunite ovo polje.</div>
             </div>
@@ -269,54 +274,61 @@
 <md-content class="md-padding" layout="row">
    <div flex="30" layout="row" layout-align="center start">
       <div flex-offset="2">
-         <md-button type="submit" form="travelForm" class="md-raised md-primary" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);" ng-click="calc.calculate()">Izračunajte</md-button>
+         <md-button type="submit" form="travelForm" class="md-raised md-primary" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);" >Izračunajte</md-button>
          <md-button class="md-raised md-primary" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);"
          ng-click="calc.resetTravel()" >Reset</md-button>
       </div>
    </div>
-   <div flex="35" layout="row" layout-align="center start" ng-show="flat = !flat">
+   <div flex="35" layout="row" layout-align="center start" ng-show="calc.flat = !calc.flat">
       <div flex-offset="15">
          <md-button type="submit" form="homeForm" class="md-raised md-primary" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);">Izračunajte</md-button>
          <md-button class="md-raised md-primary" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);" ng-click="calc.resetHome()">Reset</md-button>
       </div>
    </div>
-   <div flex="35" layout="row" layout-align="center start" ng-show="car = !car">
+   <div flex="35" layout="row" layout-align="center start" ng-show="calc.car = !calc.car">
       <div flex-offset="15">
          <md-button type="submit" form="vehicleForm" class="md-raised md-primary" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);">Izračunajte</md-button>
          <md-button class="md-raised md-primary" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);" ng-click="calc.resetVehicle()">Reset</md-button>
       </div>
    </div>
 </md-content>
+<md-divider></md-divider>
 <md-content class="md-padding" layout="row">
-   <div flex="30" layout="row" layout-align="center start">
+   <div flex="30" layout="row" layout-align="center start" >
       <md-chips>
-         <md-chip>= {{calc.price.travel_price}}</md-chip>
+         <md-chip>= {{calc.price.travel_price}} RSD</md-chip>
       </md-chips>
    </div>
-   <div flex="35" layout="row" layout-align="center start" ng-show="flat = !flat">
+   <div flex="35" layout="row" layout-align="center start" ng-show="calc.flat = !calc.flat">
       <div flex-offset="15">
          <md-chips>
-            <md-chip>= {{calc.price.home_price}}</md-chip>
+            <md-chip>= {{calc.price.home_price}} RSD</md-chip>
          </md-chips>
       </div>
    </div>
-   <div flex="35" layout="row" layout-align="center start" ng-show="car = !car">
-      <div flex-offset="15">
+   <div flex="35" layout="row" layout-align="center start" ng-show="calc.car = !calc.car">
+      <div flex-offset="15" >
          <md-chips>
-            <md-chip>= {{calc.price.vehicle_price}}</md-chip>
+            <md-chip>= {{calc.price.vehicle_price}} RSD</md-chip>
          </md-chips>
       </div>
    </div>
 </md-content>
-<md-divider></md-divider>
-<div layout="row" layout-align="center center" ng-show="flat || car">
-   <md-chips>
-      <md-chip>Ukupno = {{calc.price.travel + calc.price.home + calc.price.vehicle}} </md-chip>
-      <md-icon md-svg-icon="\assets\images\angular-material\icons\right-arrow.svg" style="color:rgb(255, 98, 21)" aria-label="Plus"></md-icon>
-   </md-chips>
-   <md-button class="md-raised md-primary" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);" ng-click="calc.sale()">Kupite </md-button>
-</div>
 
+<div layout="row" layout-align="center center" ng-show="(calc.flat || calc.car)">
+   <md-chips>
+      <md-chip>Ukupno = {{calc.price.travel_price + calc.price.home_price + calc.price.vehicle_price}} RSD </md-chip>
+      
+   </md-chips>
+</div>
+<md-divider></md-divider>
+<div flex-offset="80" layout-gt-sm="row" layout-align="center center" >
+
+      <md-button class="md-raised md-primary" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);" ng-click="calc.sale()">Kupite osiguranje 
+      <md-icon md-svg-icon="\assets\images\angular-material\icons\share-arrow.svg" style="color:rgb(3,169,244)" aria-label="Plus"></md-icon>
+   </md-button>
+   
+</div>
 
 <style>
    md-chips.md-default-theme,
