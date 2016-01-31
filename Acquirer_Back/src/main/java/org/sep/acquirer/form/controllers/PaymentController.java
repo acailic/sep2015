@@ -128,7 +128,7 @@ public class PaymentController {
 			payment.setCSRFToken(String.valueOf(scrfToken.nextInt()));
 			
 			TokenResponseDTO response = new TokenResponseDTO(payment.getId(), payment.getAmount(), payment.getCSRFToken());
-			return new ResponseEntity<TokenResponseDTO>(response, HeaderUtil.getHeader(), HttpStatus.OK);
+			return new ResponseEntity<TokenResponseDTO>(response, HeaderUtil.getHeaderResponseAcquirer(), HttpStatus.OK);
 		}catch(Exception ex){
 
 			logger.error(ex.toString());
@@ -214,7 +214,7 @@ public class PaymentController {
 				order = acquirerOrderService.save(order);
 				result.setState(order.getOrderState());
 				
-				return new ResponseEntity<AcquirerResponseDTO>(result, HeaderUtil.getHeader(), HttpStatus.OK);
+				return new ResponseEntity<AcquirerResponseDTO>(result, HeaderUtil.getHeaderResponseAcquirer(), HttpStatus.OK);
 				
 			}else{	
 				PccResponseDTO responseDto = mapper.readValue(response.getBody(), PccResponseDTO.class);
@@ -225,7 +225,7 @@ public class PaymentController {
 				result.setState(order.getOrderState());
 				result.setErrorMsg(responseDto.getErrorMsg());
 				
-				return new ResponseEntity<AcquirerResponseDTO>(result, HeaderUtil.getHeader(), response.getStatusCode());
+				return new ResponseEntity<AcquirerResponseDTO>(result, HeaderUtil.getHeaderResponseAcquirer(), response.getStatusCode());
 			}
 		}catch(Exception ex){
 			
