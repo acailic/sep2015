@@ -266,6 +266,13 @@
 				if(calc.travelForm.$valid){
             		
             		calc.invalidTravelForm= false;
+
+
+            		human_ages[0].number_of_people = calc.age_number.number18; 
+	   				human_ages[1].number_of_people = calc.age_number.number18_60; 
+	   				human_ages[2].number_of_people = calc.age_number.number60; 
+	   				calc.insurance.travel.human_age = human_ages;
+
             	}else{
             		calc.invalidTravelForm= true;
 
@@ -276,6 +283,16 @@
             	if(calc.flat){//ako je izabrano stambeno 
             			if(calc.homeForm.$valid){
             				calc.invalidHomeForm= false;
+
+            				var casualty_ids = [];
+		            		angular.forEach(calc.selectedCause, function (value, key) {
+				        	if(value === true)
+				  				casualty_ids.push(parseInt(key));
+				        	});
+
+		        			calc.insurance.home.casualty_ids = casualty_ids; 
+            		
+             				
             			}else{
             				calc.invalidHomeForm= true;
 
@@ -302,6 +319,13 @@
 
 
             	if(goToSale){
+            		if(!calc.car){
+            			calc.insurance.vehicle = null;
+            		}
+
+            		if(!calc.flat){
+            			calc.insurance.home = null;
+            		}
 					SharedObject.setInsurance(calc.insurance);
 					$state.go("main.sale.wizard1");
 				}

@@ -33,8 +33,7 @@
 			    .primaryPalette('grey');
 
 			$mdDateLocaleProvider.formatDate = function(date) {
-				console.log(date);
-				if(date !== undefined)
+				if(date !== undefined && date !== null)
 			    	return date.getDate() +"."+ Number(date.getMonth()+1) +"."+ date.getFullYear()+".";
 			    else
 			    	return null;

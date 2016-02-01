@@ -8,9 +8,39 @@
  	SaleController.$inject = ['$mdDialog', '$mdMedia', 'SharedObject', '$state', '$scope', 'Insurance', '$location', '$window'];
  	function SaleController($mdDialog, $mdMedia, SharedObject, $state, $scope, Insurance, $location, $window) {
  		var slc = this;
- 		slc.insurance = SharedObject.getInsurance();
+ 		slc.insurance = {};
 
-	//	slc.insurance = {};
+ 		if(!angular.equals({}, SharedObject.getInsurance())){
+ 			slc.insurance = SharedObject.getInsurance();
+
+	 		if(slc.insurance.travel.sport_id !== undefined)
+	 			slc.activity = true;
+	 		if(slc.insurance.home !== null){
+	 			slc.flat = true;
+	 			slc.selectedCause = [];
+				angular.forEach(slc.insurance.home.casualty_ids, function (value, key) {
+	        		slc.selectedCause[value] = true;
+	        	});
+	 		}
+	 		if(slc.insurance.vehicle !== null){
+	 			slc.car = true;
+		 		if(slc.insurance.vehicle.accommodation_id !== null)
+		 			slc.accomodation = true;
+		 		if(slc.insurance.vehicle.alternative_id !== null)
+		 			slc.alternative = true;
+		 		if(slc.insurance.vehicle.repair_id !== null)
+		 			slc.repair = true;
+		 		if(slc.insurance.vehicle.towing_id !== null)
+		 			slc.towing = true;
+	 		}
+	 		slc.number_of_people = 0;
+	 		angular.forEach(slc.insurance.travel.human_age, function (age, index) {
+	 			if(angular.isNumber(age.number_of_people)){
+					slc.number_of_people += age.number_of_people;
+				}
+			});
+		}
+
 		slc.insurance.travellers = [];
 		slc.finalView = false;
 		slc.addTravellerForm = true;
@@ -289,13 +319,13 @@
 		});
 
 		slc.resetDatePickers = function(){
-			if(slc.insurance.home !== undefined){
+			if(slc.insurance.home !== undefined && slc.insurance.home !== null){
 	  			if(slc.insurance.home.start_date !== undefined)
 	  				slc.insurance.home.start_date = undefined;
 	  			if(slc.insurance.home.end_date !== undefined)
 	  				slc.insurance.home.end_date = undefined;
 	  		}
-	  		if(slc.insurance.vehicle !== undefined){
+	  		if(slc.insurance.vehicle !== undefined && slc.insurance.vehicle !== null){
 	  			if(slc.insurance.vehicle.start_date !== undefined)
 	  				slc.insurance.vehicle.start_date = undefined;
 	  			if(slc.insurance.vehicle.end_date !== undefined)
@@ -304,14 +334,14 @@
 		};
 
 		$scope.$watch('slc.insurance.home.start_date', function (newValue, oldValue) {
-	  		if(slc.insurance.home !== undefined && slc.insurance.home.start_date !== undefined){
+	  		if(slc.insurance.home !== undefined && slc.insurance.home !== null && slc.insurance.home.start_date !== undefined){
 	  			var date = new Date(slc.insurance.home.start_date);
 	  			slc.homeEndDateMin = new Date(date.getFullYear(), date.getMonth(), date.getDate()+1);
 	  		}
 		});
 
 		$scope.$watch('slc.insurance.vehicle.start_date', function (newValue, oldValue) {
-	  		if(slc.insurance.vehicle !== undefined && slc.insurance.vehicle.start_date !== undefined){
+	  		if(slc.insurance.vehicle !== undefined && slc.insurance.vehicle !== null && slc.insurance.vehicle.start_date !== undefined){
 	  			var date = new Date(slc.insurance.vehicle.start_date);
 	  			slc.vehicleEndDateMin = new Date(date.getFullYear(), date.getMonth(), date.getDate()+1);
 	  		}
