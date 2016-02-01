@@ -13,6 +13,7 @@ import org.sep.merchant.form.dto.HomeDTO;
 import org.sep.merchant.form.dto.HumanAgeDTO;
 import org.sep.merchant.form.dto.InsuranceDTO;
 import org.sep.merchant.form.dto.OwnerDTO;
+import org.sep.merchant.form.dto.ReturnUrlDTO;
 import org.sep.merchant.form.dto.TravelerDTO;
 import org.sep.merchant.form.dto.VehicleDTO;
 import org.sep.merchant.form.dto.WholeInsuranceDTO;
@@ -346,6 +347,10 @@ public class InsuranceController {
 		Order order = new Order(new Double(totalPrice.doubleValue()), merchantTimestamp, "http://localhost:8000/error",
 				"http://localhost:8000/success", "http://localhost:8000/fail");
 		Merchant merchant = merchantService.find(1);
+		if(merchant == null){
+			logger.info("Could not find merchant.");
+			return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 		order.setMerchant(merchant);
 		order.setInsurance(insuranceToPersist);
 		Order savedOrder = orderService.save(order);
@@ -364,8 +369,9 @@ public class InsuranceController {
         
         HttpHeaders headers = new HttpHeaders();
 		headers.setLocation(ucBuilder.path("/confirm/{id}").buildAndExpand(savedOrder.getId()).toUri());
-		String redirectUrl = "http://localhost:8080/spring4/confirm/{" + savedOrder.getId() + "}";
-        return new ResponseEntity<String>(redirectUrl, headers, HttpStatus.CREATED);
+		String redirectUrl = "http://localhost:8080/spring4/confirm/" + savedOrder.getId();
+		ReturnUrlDTO returnUrl = new ReturnUrlDTO(redirectUrl);
+        return new ResponseEntity<ReturnUrlDTO>(returnUrl, headers, HttpStatus.CREATED);
         } catch (Exception e){
         	logger.info(e.toString());
         	return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
