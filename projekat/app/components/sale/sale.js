@@ -5,8 +5,8 @@
  		.module('merchant.sale')
  		.controller('SaleController', SaleController);
 
- 	SaleController.$inject = ['$mdDialog', '$mdMedia', 'SharedObject', '$state', '$scope', 'Insurance', '$location'];
- 	function SaleController($mdDialog, $mdMedia, SharedObject, $state, $scope, Insurance, $location) {
+ 	SaleController.$inject = ['$mdDialog', '$mdMedia', 'SharedObject', '$state', '$scope', 'Insurance', '$location', '$window'];
+ 	function SaleController($mdDialog, $mdMedia, SharedObject, $state, $scope, Insurance, $location, $window) {
  		var slc = this;
  		slc.insurance = SharedObject.getInsurance();
 
