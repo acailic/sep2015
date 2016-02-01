@@ -128,7 +128,7 @@
          <md-input-container layout="column" layout-align="left center">
             <label for="input_203">Površina stana</label>
             
-               <input name="floor_area" ng-model="calc.insurance.home.floor_area" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10" ng-pattern="/^\d+(.\d+){0,1}$/" ng-required="calc.flat">
+               <input name="floor_area" ng-model="calc.insurance.home.floor_area" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57' ng-pattern="/^\d+(.\d+){0,1}$/" ng-required="calc.flat">
 
             <div ng-messages="calc.homeForm.floor_area.$error" ng-show="calc.homeForm.floor_area.$touched || calc.invalidHomeForm">
                <div ng-message="required">Potrebno je da popunite ovo polje.</div>
@@ -137,7 +137,7 @@
          </md-input-container>
          <md-input-container layout="column" layout-align="left center">
             <label for="input_203">Starost stana</label>
-            <input name="flat_age" ng-model="calc.insurance.home.flat_age" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10" ng-pattern="/^\d+(.\d+){0,1}$/" ng-required="calc.flat">
+            <input name="flat_age" ng-model="calc.insurance.home.flat_age" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57' ng-pattern="/^\d+(.\d+){0,1}$/" ng-required="calc.flat">
             <div ng-messages="calc.homeForm.flat_age.$error" ng-show="homeForm.flat_age.$touched || calc.invalidHomeForm">
                <div ng-message="required">Potrebno je da popunite ovo polje.</div>
                <div ng-message="pattern">Niste upisali validan broj.</div>
@@ -145,7 +145,7 @@
          </md-input-container>
          <md-input-container layout="column" layout-align="left center">
             <label for="input_203">Procenjene vrednosti stana</label>
-            <input name="est_value" ng-model="calc.insurance.home.est_value" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10" ng-pattern="/^\d+(.\d+){0,1}$/"
+            <input name="est_value" ng-model="calc.insurance.home.est_value" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="10" onkeypress='return event.charCode >= 48 && event.charCode <= 57' ng-pattern="/^\d+(.\d+){0,1}$/"
                ng-required="calc.flat" >
             <div ng-messages="calc.homeForm.est_value.$error" ng-show="calc.homeForm.est_value.$touched || calc.invalidHomeForm">
                <div ng-message="required">Potrebno je da popunite ovo polje.</div>
