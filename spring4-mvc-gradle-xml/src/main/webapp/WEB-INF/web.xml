@@ -34,6 +34,21 @@
     
     <filter-mapping>
         <filter-name>cors</filter-name>
+        <url-pattern>/calculateTravel</url-pattern>
+    </filter-mapping>
+    
+    <filter-mapping>
+        <filter-name>cors</filter-name>
+        <url-pattern>/calculateHome</url-pattern>
+    </filter-mapping>
+    
+    <filter-mapping>
+        <filter-name>cors</filter-name>
+        <url-pattern>/calculateVehicle</url-pattern>
+    </filter-mapping>
+    
+    <filter-mapping>
+        <filter-name>cors</filter-name>
         <url-pattern>/create</url-pattern>
     </filter-mapping>
 

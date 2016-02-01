@@ -50,10 +50,9 @@ public class Order implements Serializable{
 		
 	}
 
-	public Order(Integer id, Double amount, Date merchantTimestamp,
+	public Order(Double amount, Date merchantTimestamp,
 			String errorUrl, String successUrl, String failedUrl) {
 		super();
-		this.id = id;
 		this.amount = amount;
 		this.merchantTimestamp = merchantTimestamp;
 		this.errorUrl = errorUrl;

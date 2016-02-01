@@ -1,14 +1,16 @@
 package org.sep.merchant.form.controllers;
 
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.math.RoundingMode;
 import java.util.concurrent.TimeUnit;
 
 import org.sep.merchant.form.dto.HomeDTO;
+import org.sep.merchant.form.dto.HumanAgeDTO;
 import org.sep.merchant.form.dto.InsuranceDTO;
 import org.sep.merchant.form.dto.MerchantResponseDTO;
 import org.sep.merchant.form.dto.PaymentDTO;
 import org.sep.merchant.form.dto.PriceDTO;
+import org.sep.merchant.form.dto.TransactionResultDTO;
 import org.sep.merchant.form.dto.VehicleDTO;
 import org.sep.merchant.form.dto.WholeInsuranceDTO;
 import org.sep.merchant.form.model.Merchant;
@@ -17,17 +19,18 @@ import org.sep.merchant.form.model.RiskItem;
 import org.sep.merchant.form.service.MerchantService;
 import org.sep.merchant.form.service.OrderService;
 import org.sep.merchant.form.service.RiskItemService;
-import org.sep.merchant.form.util.RiskUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.client.DefaultResponseErrorHandler;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
@@ -48,14 +51,19 @@ public class PaymentController {
 	@Autowired
 	RiskItemService riskItemService;
 	
-	@RequestMapping(value = "/confirm", method = RequestMethod.GET)
-    public ModelAndView confirmInsurance(@RequestParam BigDecimal totalPrice) {
+	@Autowired
+    JavaMailSender mailSender;
+	
+	@RequestMapping(value = "/confirm/{id}", method = RequestMethod.GET)
+    public ModelAndView confirmInsurance(@PathVariable("id") Integer id) {
 		logger.info("Confirming insurance...");
 		try{
 			Merchant merchant = merchantService.findAll().get(0); //preuzimanje merchanta iz baze
-			Order order = new Order();
-			PaymentDTO paymentDTO = new PaymentDTO(new Long(merchant.getId()), merchant.getPassword(), new Double(12000.23), 
-					new Long(1), new Date(2,2,2015), "error");
+			Order order = orderService.find(id);
+			if(order == null)
+				return new ModelAndView("redirect:/confirm");
+			PaymentDTO paymentDTO = new PaymentDTO(new Long(merchant.getId()), merchant.getPassword(), order.getAmount(), 
+					new Long(order.getId()), order.getMerchantTimestamp(), order.getErrorUrl());
 			
 			RestTemplate temp = new RestTemplate();
 	        temp.setErrorHandler(new DefaultResponseErrorHandler(){
@@ -65,21 +73,42 @@ public class PaymentController {
 	        });
 
 	        ObjectMapper mapper = new ObjectMapper();
-
 	        ResponseEntity<String> response = temp.postForEntity("http://localhost:8081/Acquirer_back/payment",
 	                                                    mapper.writeValueAsString(paymentDTO), String.class);
-
 	        MerchantResponseDTO responseDto = mapper.readValue(response.getBody(), MerchantResponseDTO.class);
-	
-	
-		
+	        
+			return new ModelAndView("redirect:" + responseDto.getPaymentUrl() + "/{" + responseDto.getPaymentId() + "}");
 		} catch (Exception e){
 			logger.error(e.toString());
-			return new ModelAndView("redirect:/confirm");
+			return new ModelAndView("redirect:/confirm"); //DOPUNITI
 		}
-		
-		return new ModelAndView("redirect:/myURL");
+	}
 	
+	@RequestMapping(value = "/transactionResults", method = RequestMethod.POST)
+	public ResponseEntity<?> getTransactionResults(TransactionResultDTO transactionResult){
+		try{
+			Order order = orderService.find(transactionResult.getMerchantOrderId());
+			if(order == null)
+				return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
+			
+			//imati acquirera u bazi i proveriti??
+			//imati payment ID u bazi i proveriti??
+			
+			String redirectUrl = "http://localhost:8080/spring4/success";
+			// creates a simple e-mail object
+	        SimpleMailMessage email = new SimpleMailMessage();
+	        email.setTo(order.getInsurance().getInsuranceOwner().getEmail());
+	        email.setSubject("Potvrda kupovine osiguranja");
+	        email.setText("Ovim emailom potvrdjujemo da ste kupili osiguranje. ID Vase transakcije je " 
+	        		+ transactionResult.getPaymentId());
+	         
+	        // sends the e-mail
+	        mailSender.send(email);
+			return new ResponseEntity<String>(redirectUrl, HttpStatus.OK);
+		} catch (Exception e){
+			logger.error(e.toString());
+			return new ResponseEntity<Object>(HttpStatus.INTERNAL_SERVER_ERROR);
+		}
 	}
 	
 	@RequestMapping(value = "/calculateTravel", method = RequestMethod.POST/*, consumes = MediaType.APPLICATION_JSON_VALUE,  produces = MediaType.APPLICATION_JSON_VALUE*/)
@@ -87,6 +116,13 @@ public class PaymentController {
 		logger.info("Calculating price of travel insurance...");
 		try{
 			PriceDTO priceDTO = new PriceDTO();
+			BigDecimal priceNum = new BigDecimal(0);
+			priceNum = determineTravelPrice(insurance);
+			if(!priceNum.equals(new BigDecimal(-1))){
+				priceNum = priceNum.setScale(2, RoundingMode.CEILING);
+				priceDTO.setTravel_price(priceNum);
+			} else
+				return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
 			return new ResponseEntity<PriceDTO>(priceDTO, HttpStatus.OK) ;
 		} catch (Exception e){
 			logger.error(e.toString());
@@ -98,13 +134,14 @@ public class PaymentController {
     public ResponseEntity<?> calculateVehiclePrice(@RequestBody VehicleDTO insurance) {
 		logger.info("Calculating price of vehicle insurance...");
 		try{
-			String price = null;
+			PriceDTO priceDTO = new PriceDTO();
 			BigDecimal priceNum = new BigDecimal(0);
 			if(!(priceNum = determineVehiclePrice(insurance)).equals(new BigDecimal(-1))){
-				price = priceNum.toString();
+				priceNum = priceNum.setScale(2, RoundingMode.CEILING);
+				priceDTO.setVehicle_price(priceNum);
 			} else
 				return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
-			return new ResponseEntity<String>(price, HttpStatus.OK) ;
+			return new ResponseEntity<PriceDTO>(priceDTO, HttpStatus.OK) ;
 		} catch (Exception e){
 			logger.error(e.toString());
 			return new ResponseEntity<Object>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -115,13 +152,14 @@ public class PaymentController {
     public ResponseEntity<?> calculateHomePrice(@RequestBody HomeDTO insurance) {
 		logger.info("Calculating price of home insurance...");
 		try{
-			String price = null;
+			PriceDTO priceDTO = new PriceDTO();
 			BigDecimal priceNum = new BigDecimal(0);
 			if(!(priceNum = determineHomePrice(insurance)).equals(new BigDecimal(-1))){
-				price = priceNum.toString();
+				priceNum = priceNum.setScale(2, RoundingMode.CEILING);
+				priceDTO.setHome_price(priceNum);
 			} else
 				return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
-			return new ResponseEntity<String>(price, HttpStatus.OK) ;
+			return new ResponseEntity<PriceDTO>(priceDTO, HttpStatus.OK) ;
 		} catch (Exception e){
 			logger.error(e.toString());
 			return new ResponseEntity<Object>(HttpStatus.INTERNAL_SERVER_ERROR);
@@ -133,23 +171,11 @@ public class PaymentController {
 		logger.info("Calculating price of insurance...");
 		try{
 			PriceDTO priceDTO = new PriceDTO();
-			BigDecimal basicPrice = new BigDecimal(1); //1EUR je cena osiguranja po danu
-			
-			if(insurance.getTravel().getDuration() == "" || insurance.getTravel().getDuration() == null){
-				if(insurance.getTravel().getStart_date() == null){
-					logger.error("Duration not set, as well as the start date.");
-					return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
-				} else if(insurance.getTravel().getEnd_date() == null){
-					logger.error("Duration not set, as well as the end date.");
-					return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
-				}
-				long diff = insurance.getTravel().getEnd_date().getTime() - insurance.getTravel().getStart_date().getTime();
-			    long days = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
-			    basicPrice = basicPrice.multiply(new BigDecimal(days));
-			} else 
-				basicPrice = basicPrice.multiply(new BigDecimal(insurance.getTravel().getDuration())); //mnozi se sa brojem dana
-			
-			
+			if(insurance.getHome() != null)
+				priceDTO.setHome_price(determineHomePrice(insurance.getHome()));
+			if(insurance.getVehicle() != null)
+				priceDTO.setVehicle_price(determineVehiclePrice(insurance.getVehicle()));
+			priceDTO.setTravel_price(determineTravelPrice(insurance.getTravel()));
 			return new ResponseEntity<PriceDTO>(priceDTO, HttpStatus.OK) ;
 		} catch(Exception e){
 			logger.error(e.toString());
@@ -194,8 +220,8 @@ public class PaymentController {
 		homePrice.add(floorAreaFactor);
 		homePrice.add(estValueFactor);
 		
-		RiskUtil riskUtil = new RiskUtil();
-		if(home.getCasualty_ids().size() != 0 || !home.getCasualty_ids().equals(null)){
+		//RiskUtil riskUtil = new RiskUtil();
+		if(home.getCasualty_ids().size() != 0 || home.getCasualty_ids() != null){
 			for(Integer casualtyId : home.getCasualty_ids()){
 				if(!determineRiskItemPrice(casualtyId, homePrice).equals(new BigDecimal(-1)))
 					homePrice = homePrice.add(determineRiskItemPrice(casualtyId, homePrice));
@@ -223,26 +249,26 @@ public class PaymentController {
 		} else 
 			vehiclePrice = vehiclePrice.multiply(new BigDecimal(vehicle.getDuration()));
 		
-		RiskUtil riskUtil = new RiskUtil();
-		if(!vehicle.getTowing_id().equals(null)){
+		//RiskUtil riskUtil = new RiskUtil();
+		if(vehicle.getTowing_id() != null){
 			if(!determineRiskItemPrice(vehicle.getTowing_id(), vehiclePrice).equals(new BigDecimal(-1)))
 				vehiclePrice = vehiclePrice.add(determineRiskItemPrice(vehicle.getTowing_id(), vehiclePrice));
 			else
 				return new BigDecimal(-1);
 		}
-		if(!vehicle.getAccomodation_id().equals(null)){
+		if(vehicle.getAccomodation_id() != null){
 			if(!determineRiskItemPrice(vehicle.getAccomodation_id(), vehiclePrice).equals(new BigDecimal(-1)))
 				vehiclePrice = vehiclePrice.add(determineRiskItemPrice(vehicle.getAccomodation_id(), vehiclePrice));
 			else
 				return new BigDecimal(-1);
 		}
-		if(!vehicle.getAlternative_id().equals(null)){
+		if(vehicle.getAlternative_id() != null){
 			if(!determineRiskItemPrice(vehicle.getAlternative_id(), vehiclePrice).equals(new BigDecimal(-1)))
 				vehiclePrice = vehiclePrice.add(determineRiskItemPrice(vehicle.getAlternative_id(), vehiclePrice));
 			else
 				return new BigDecimal(-1);
 		}	
-		if(!vehicle.getRepair_id().equals(null)){
+		if(vehicle.getRepair_id() != null){
 			if(!determineRiskItemPrice(vehicle.getRepair_id(), vehiclePrice).equals(new BigDecimal(-1)))
 				vehiclePrice = vehiclePrice.add(determineRiskItemPrice(vehicle.getRepair_id(), vehiclePrice));
 			else
@@ -250,6 +276,54 @@ public class PaymentController {
 		}	
 		
 		return vehiclePrice;
+	}
+	
+	public BigDecimal determineTravelPrice(InsuranceDTO insurance){
+		BigDecimal travelPrice = new BigDecimal(1); //1.1 EUR je cena osiguranja kuce po danu
+		
+		if(insurance.getDuration() == "" || insurance.getDuration() == null){
+			if(insurance.getStart_date() == null){
+				logger.error("Duration not set, as well as the start date for the travel insurance.");
+				return new BigDecimal(-1);
+			} else if(insurance.getEnd_date() == null){
+				logger.error("Duration not set, as well as the end date for the travel insurance.");
+				return new BigDecimal(-1);
+			}
+			long diff = insurance.getEnd_date().getTime() - insurance.getStart_date().getTime();
+		    long days = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+		    travelPrice = travelPrice.multiply(new BigDecimal(days));
+		} else 
+			travelPrice = travelPrice.multiply(new BigDecimal(insurance.getDuration()));
+		
+		if(insurance.getRegion_id() != null && !insurance.getRegion_id().equals("")){
+			if(!determineRiskItemPrice(insurance.getRegion_id(), travelPrice).equals(new BigDecimal(-1)))
+				travelPrice = travelPrice.add(determineRiskItemPrice(insurance.getRegion_id(), travelPrice));
+			else
+				return new BigDecimal(-1);
+		}
+		if(insurance.getSport_id() != null && !insurance.getSport_id().equals("") && insurance.getSport_id() != 0){
+			if(!determineRiskItemPrice(insurance.getSport_id(), travelPrice).equals(new BigDecimal(-1)))
+				travelPrice = travelPrice.add(determineRiskItemPrice(insurance.getSport_id(), travelPrice));
+			else
+				return new BigDecimal(-1);
+		}
+		if(insurance.getMax_value_id() != null && !insurance.getMax_value_id().equals("")){
+			if(!determineRiskItemPrice(insurance.getMax_value_id(), travelPrice).equals(new BigDecimal(-1)))
+				travelPrice = travelPrice.add(determineRiskItemPrice(insurance.getMax_value_id(), travelPrice));
+			else
+				return new BigDecimal(-1);
+		}	
+		
+		if(insurance.getHuman_age().size() != 0 || insurance.getHuman_age() != null){
+			for(HumanAgeDTO age : insurance.getHuman_age()){
+				if(!determineRiskItemPrice(age.getId(), travelPrice).equals(new BigDecimal(-1)))
+					travelPrice = travelPrice.add(determineRiskItemPrice(age.getId(), travelPrice));
+				else
+					return new BigDecimal(-1);
+			}
+		}
+		
+		return travelPrice;
 	}
 
 }
