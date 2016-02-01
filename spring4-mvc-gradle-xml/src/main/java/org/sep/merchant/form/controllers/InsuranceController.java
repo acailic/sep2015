@@ -62,7 +62,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 public class InsuranceController {
@@ -138,7 +137,6 @@ public class InsuranceController {
         //obracunati cenu osiguranja
         PriceList priceList = new PriceList();
         priceList = priceListService.find(1);
-        //if price == null return BAD_REQUEST
         BigDecimal totalPrice = PriceUtil.determineBasicPrice(insurance);
         
         //odredjivanje vlasnika osiguranja
@@ -355,15 +353,6 @@ public class InsuranceController {
 		order.setInsurance(insuranceToPersist);
 		Order savedOrder = orderService.save(order);
 		
-		//redirekcija na confirm metodu
-		/*RestTemplate temp = new RestTemplate();
-        temp.setErrorHandler(new DefaultResponseErrorHandler(){
-            protected boolean hasError(HttpStatus statusCode) {
-                return false;
-            }
-        });*/
-
-        ObjectMapper mapper = new ObjectMapper();
         if(savedOrder.getId() == null)
         	return new ResponseEntity<Void>(HttpStatus.INTERNAL_SERVER_ERROR);
         
@@ -432,12 +421,12 @@ public class InsuranceController {
 			homePrice = homePrice.multiply(new BigDecimal(home.getDuration()));
 		
 		BigDecimal floorAreaFactor = homePrice.multiply(new BigDecimal(home.getFloor_area()/100)); //povrsina kuce povecava cenu
-		BigDecimal flatAgeFactor = new BigDecimal(0);
+		BigDecimal flatAgeFactor = homePrice.multiply(new BigDecimal(home.getFlat_age()/10));
 		BigDecimal estValueFactor = homePrice.multiply(new BigDecimal(home.getFloor_area()/100000)); //procenjena cena kuce povecava cenu
 		homePrice.add(floorAreaFactor);
 		homePrice.add(estValueFactor);
+		homePrice.add(flatAgeFactor);
 		
-		//RiskUtil riskUtil = new RiskUtil();
 		if(home.getCasualty_ids().size() != 0 || home.getCasualty_ids() != null){
 			for(Integer casualtyId : home.getCasualty_ids()){
 				if(!determineRiskItemPrice(casualtyId, homePrice).equals(new BigDecimal(-1)))
@@ -466,7 +455,6 @@ public class InsuranceController {
 		} else 
 			vehiclePrice = vehiclePrice.multiply(new BigDecimal(vehicle.getDuration()));
 		
-		//RiskUtil riskUtil = new RiskUtil();
 		if(vehicle.getTowing_id() != null){
 			if(!determineRiskItemPrice(vehicle.getTowing_id(), vehiclePrice).equals(new BigDecimal(-1)))
 				vehiclePrice = vehiclePrice.add(determineRiskItemPrice(vehicle.getTowing_id(), vehiclePrice));

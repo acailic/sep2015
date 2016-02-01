@@ -77,7 +77,7 @@ public class PaymentController {
 	                                                    mapper.writeValueAsString(paymentDTO), String.class);
 	        MerchantResponseDTO responseDto = mapper.readValue(response.getBody(), MerchantResponseDTO.class);
 	        
-			return new ModelAndView("redirect:" + responseDto.getPaymentUrl() + "/{" + responseDto.getPaymentId() + "}");
+			return new ModelAndView("redirect:" + responseDto.getPaymentUrl() + "/" + responseDto.getPaymentId());
 		} catch (Exception e){
 			logger.error(e.toString());
 			return new ModelAndView("redirect:/confirm"); //DOPUNITI
@@ -171,11 +171,19 @@ public class PaymentController {
 		logger.info("Calculating price of insurance...");
 		try{
 			PriceDTO priceDTO = new PriceDTO();
-			if(insurance.getHome() != null)
-				priceDTO.setHome_price(determineHomePrice(insurance.getHome()));
-			if(insurance.getVehicle() != null)
-				priceDTO.setVehicle_price(determineVehiclePrice(insurance.getVehicle()));
-			priceDTO.setTravel_price(determineTravelPrice(insurance.getTravel()));
+			if(insurance.getHome() != null){
+				BigDecimal homePrice = determineHomePrice(insurance.getHome());
+				homePrice = homePrice.setScale(2, RoundingMode.CEILING);
+				priceDTO.setHome_price(homePrice);
+			}
+			if(insurance.getVehicle() != null){
+				BigDecimal vehiclePrice = determineVehiclePrice(insurance.getVehicle());
+				vehiclePrice = vehiclePrice.setScale(2, RoundingMode.CEILING);
+				priceDTO.setVehicle_price(vehiclePrice);
+			}
+			BigDecimal travelPrice = determineTravelPrice(insurance.getTravel());
+			travelPrice = travelPrice.setScale(2, RoundingMode.CEILING);
+			priceDTO.setTravel_price(travelPrice);
 			return new ResponseEntity<PriceDTO>(priceDTO, HttpStatus.OK) ;
 		} catch(Exception e){
 			logger.error(e.toString());
@@ -215,12 +223,12 @@ public class PaymentController {
 			homePrice = homePrice.multiply(new BigDecimal(home.getDuration()));
 		
 		BigDecimal floorAreaFactor = homePrice.multiply(new BigDecimal(home.getFloor_area()/100)); //povrsina kuce povecava cenu
-		BigDecimal flatAgeFactor = new BigDecimal(0);
+		BigDecimal flatAgeFactor = homePrice.multiply(new BigDecimal(home.getFlat_age()/10));
 		BigDecimal estValueFactor = homePrice.multiply(new BigDecimal(home.getFloor_area()/100000)); //procenjena cena kuce povecava cenu
 		homePrice.add(floorAreaFactor);
 		homePrice.add(estValueFactor);
+		homePrice.add(flatAgeFactor);
 		
-		//RiskUtil riskUtil = new RiskUtil();
 		if(home.getCasualty_ids().size() != 0 || home.getCasualty_ids() != null){
 			for(Integer casualtyId : home.getCasualty_ids()){
 				if(!determineRiskItemPrice(casualtyId, homePrice).equals(new BigDecimal(-1)))
@@ -249,7 +257,6 @@ public class PaymentController {
 		} else 
 			vehiclePrice = vehiclePrice.multiply(new BigDecimal(vehicle.getDuration()));
 		
-		//RiskUtil riskUtil = new RiskUtil();
 		if(vehicle.getTowing_id() != null){
 			if(!determineRiskItemPrice(vehicle.getTowing_id(), vehiclePrice).equals(new BigDecimal(-1)))
 				vehiclePrice = vehiclePrice.add(determineRiskItemPrice(vehicle.getTowing_id(), vehiclePrice));
@@ -279,7 +286,7 @@ public class PaymentController {
 	}
 	
 	public BigDecimal determineTravelPrice(InsuranceDTO insurance){
-		BigDecimal travelPrice = new BigDecimal(1); //1.1 EUR je cena osiguranja kuce po danu
+		BigDecimal travelPrice = new BigDecimal(1); //1 EUR je cena osiguranja kuce po danu
 		
 		if(insurance.getDuration() == "" || insurance.getDuration() == null){
 			if(insurance.getStart_date() == null){
