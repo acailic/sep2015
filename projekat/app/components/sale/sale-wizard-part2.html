@@ -11,12 +11,9 @@
             <th>#</th>
             <th>Ime</th>
             <th>Prezime</th>
-            <th>Starost</th>
             <th>JMBG</th>
             <th>Br. pasosa</th>
             <th>Br. tel</th>
-            <th>Adresa</th>
-            <th>Grad</th>
             <th></th>
             <th></th>
           </thead>
@@ -25,12 +22,9 @@
                 <th>{{$index+1}}</th>
                 <td>{{traveller.first_name}}</td>
                 <td>{{traveller.last_name}}</td>
-                <td>{{traveller.human_age_id}}</td>
                 <td>{{traveller.jmbg}}</td>
                 <td>{{traveller.passport_num}}</td>
                 <td>{{traveller.tel_num}}</td>
-                <td>{{traveller.address}}</td>
-                <td>{{traveller.city_id}}</td>
                 <td><button class="md-icon-button md-primary md-button md-ink-ripple" type="button" aria-label="Settings">
                     <md-icon  md-svg-src="./assets/images/angular-material/icons/pencil.svg" class="md-primary" ng-click="slc.editTraveller(traveller.id)"></md-icon>
                   </button>
@@ -50,23 +44,29 @@
           <div layout="gt-xs-row">
             <md-input-container md-no-float="" class="md-block md-input-has-placeholder md-has-icon">
               <md-icon md-svg-src="./assets/images/angular-material/icons/profile29.svg" class="name ng-isolate-scope" aria-hidden="true"></md-icon>
-              <input name="first_name" ng-model="slc.traveller.first_name" placeholder="Ime" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" aria-invalid="false" flex-gt-xs ng-required="slc.checkTravellers">
+              <input name="first_name" ng-model="slc.traveller.first_name" placeholder="Ime" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" aria-invalid="false" flex-gt-xs ng-required="slc.checkTravellers" ng-pattern="/^[a-zA-Z]+$/">
               <div ng-messages="slc.saleWizardPart2.first_name.$error" ng-show="slc.saleWizardPart2.first_name.$touched || slc.invalidForm">
                 <div ng-message="required">
                   Obavezno ime putnika.
                 </div>
+                <div ng-message="pattern">
+                  Uneti su nedozvoljeni karakteri
+                </div>
               </div>
             </md-input-container>
              <md-input-container flex-offset="5" md-no-float="" class="md-block md-input-has-placeholder md-has-icon">
-              <input name="last_name" ng-model="slc.traveller.last_name" placeholder="Prezime"class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" aria-invalid="false" flex-gt-xs ng-required="slc.checkTravellers">
+              <input name="last_name" ng-model="slc.traveller.last_name" placeholder="Prezime"class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" aria-invalid="false" flex-gt-xs ng-required="slc.checkTravellers" ng-pattern="/^[a-zA-Z]+$/">
               <div ng-messages="slc.saleWizardPart2.last_name.$error"  ng-show="slc.saleWizardPart2.last_name.$touched || slc.invalidForm">
                 <div ng-message="required">
                   Obavezno prezime putnika.
                 </div>
+                <div ng-message="pattern">
+                  Uneti su nedozvoljeni karakteri
+                </div>
               </div>
             </md-input-container>
             <md-input-container layout="column" layout-align="left center"  flex-offset="5" md-no-float="" class="md-block md-input-has-placeholder md-has-icon">
-              <md-select name="age" ng-model="slc.traveller.human_age_id" aria-label="Starost" placeholder="Starost" ng-required="slc.checkTravellers">
+              <md-select name="age" ng-model="slc.traveller.human_age_id" aria-label="Starost" placeholder="Starost" ng-required="slc.checkTravellers" >
                 <md-option ng-repeat="age in slc.data_init.ages" ng-value="age.id">{{age.name}}</md-option>
               </md-select>
               <div ng-messages="slc.saleWizardPart2.age.$error" ng-show="slc.saleWizardPart2.age.$touched || slc.invalidForm">
@@ -94,10 +94,10 @@
               <input name="pass_num" ng-model="slc.traveller.passport_num" placeholder="Broj pasoša" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" onkeypress='return event.charCode >= 48 && event.charCode <= 57' id="input_203" aria-invalid="false" flex="100"  minlength="9" maxlength="9" ng-required="slc.checkTravellers">
              <div ng-messages="slc.saleWizardPart2.pass_num.$error" ng-show="slc.saleWizardPart2.pass_num.$touched || slc.invalidForm">
                 <div ng-message="required">
-                  Obavezan broj pasosa.
+                  Obavezan broj pasoša.
                 </div>
                 <div ng-message="minlength, maxlength">
-                  Broj pasosa se sastoji od 9 karaktera.
+                  Broj pasoša se sastoji od 9 karaktera.
                 </div>
               </div> 
             </md-input-container>
@@ -120,10 +120,13 @@
           <div layout="gt-sm-row">
             <md-input-container md-no-float="" class="md-block md-input-has-placeholder md-has-icon">
               <md-icon md-svg-src="./assets/images/angular-material/icons/home10.svg" class="name ng-isolate-scope" aria-hidden="true"></md-icon>
-              <input name="address" ng-model="slc.traveller.address" placeholder="Ulica i broj" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="100" ng-required="slc.checkTravellers">
+              <input name="address" ng-model="slc.traveller.address" placeholder="Ulica i broj" class="ng-valid md-input ng-dirty ng-valid-parse ng-touched" id="input_203" aria-invalid="false" flex="100" ng-required="slc.checkTravellers" ng-pattern="/^[a-zA-Z | 0-9]+$/">
               <div ng-messages="slc.saleWizardPart2.address.$error" ng-show="slc.saleWizardPart2.address.$touched || slc.invalidForm">
                 <div ng-message="required">
                   Obavezan unos ulice i broja.
+                </div>
+                <div ng-message="pattern">
+                  Uneti su nedozvoljeni karakteri
                 </div>
               </div>
             </md-input-container>

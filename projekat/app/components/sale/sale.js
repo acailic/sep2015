@@ -70,6 +70,7 @@
 	  	};
 
 	   	slc.getTravellersDetails = function() {
+	   		console.log(slc.traveller);
 		    if(slc.saleWizardPart2.$valid){
 		    	slc.invalidForm = false;
 		    	elementExists = false;
@@ -114,10 +115,12 @@
 	        });
 	  	};
 
-	  	slc.editTraveller = function(insuranceId) {
-	  		angular.forEach(slc.insurance.travellers, function (insurance, index) {
-	  			if(insurance.id === insuranceId){
-	  				slc.insuranceTravellerDeepCopy = angular.copy(insurance);
+	  	slc.editTraveller = function(travellerId) {
+	  		angular.forEach(slc.insurance.travellers, function (trav, index) {
+	  			if(trav.id === travellerId){
+	  				slc.addTravellerForm = true;
+	  				slc.checkTravellers = true;
+	  				slc.insuranceTravellerDeepCopy = angular.copy(trav);
 	  				slc.traveller = slc.insuranceTravellerDeepCopy;
 	  				indexOfEditedElement = index;
 	  			}
@@ -125,6 +128,7 @@
 	  	};
 
 	  	slc.calculate = function() {
+
 	  		slc.setDates();
 	  		slc.setCausualties();
 	  		slc.setRisks();
