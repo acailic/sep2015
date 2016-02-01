@@ -8,9 +8,9 @@
  	SaleController.$inject = ['$mdDialog', '$mdMedia', 'SharedObject', '$state', '$scope', 'Insurance', '$location'];
  	function SaleController($mdDialog, $mdMedia, SharedObject, $state, $scope, Insurance, $location) {
  		var slc = this;
- 		// slc.insurance = SharedObject.getInsurance();
+ 		slc.insurance = SharedObject.getInsurance();
 
-		slc.insurance = {};
+	//	slc.insurance = {};
 		slc.insurance.travellers = [];
 		slc.finalView = false;
 		slc.addTravellerForm = true;
@@ -107,6 +107,9 @@
 		  	angular.forEach(slc.insurance.travellers, function (insurance, index) {
 	  			if(insurance.id === insuranceId){
 	  				slc.insurance.travellers.splice(index,1);
+	  				slc.number_of_travellers -= 1;
+	  				slc.finalView = false;
+	  				slc.addTravellerForm = true;
 	  			}
 	        });
 	  	};
@@ -125,6 +128,8 @@
 	  		slc.setDates();
 	  		slc.setCausualties();
 	  		slc.setRisks();
+	  		slc.setRegion();
+	  		slc.setMaxValue();
 
 	  		angular.forEach(slc.insurance.travellers, function (traveller) {
 	  			angular.forEach(human_ages, function (age) {
@@ -208,19 +213,34 @@
 	  		}
 	  	};
 
+	  	slc.setRegion = function() {
+	  		angular.forEach(slc.data_init.regions, function (region) {
+	        	if(region.id === slc.insurance.travel.region_id)
+			    	slc.selectedRegion = region.name;
+        	});
+	  	};
+
+	  	slc.setMaxValue = function() {
+	  		angular.forEach(slc.data_init.max_values, function (max_value) {
+	        	if(max_value.id === slc.insurance.travel.max_value_id)
+			    	slc.selectedMaxValue = max_value.name;
+        	});
+	  	};
+
 	  	slc.formatDate = function(date) {
-	  		return date.getDate() +"."+ date.getMonth()+1 +"."+ date.getFullYear()+".";
+	  		return date.getDate() +"."+ Number(date.getMonth()+1) +"."+ date.getFullYear()+".";
 	  	};
 
 	  	slc.createInsurance = function() {
+	  		$mdDialog.show({
+		      templateUrl: 'app/components/modal/modalPayment.html',
+		      parent: angular.element(document.body),
+		      fullscreen: $mdMedia('sm') && isc.customFullscreen
+		    });
 			promise_insurance = Insurance.create(slc.insurance);
 		 	promise_insurance.then(function (data) {
-		 		$mdDialog.show({
-			      templateUrl: 'app/components/modal/modalPayment.html',
-			      parent: angular.element(document.body),
-			      fullscreen: $mdMedia('sm') && isc.customFullscreen
-			    });
-		 		//$location.url(data); bice redirect na Payment		 		
+		 		$mdDialog.hide();
+ 				$window.location.href = data.url;
 		 	});
 	  	};
 

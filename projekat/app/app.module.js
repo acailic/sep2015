@@ -2,7 +2,7 @@
 	angular
 		.module('merchant', ['ngMaterial', 'ngMessages', 'merchant.core', 'merchant.insurance', 'merchant.modal', 
 			'merchant.sale', 'merchant.calculator'])
-		.config(function($sceDelegateProvider, $mdThemingProvider) {
+		.config(function($sceDelegateProvider, $mdThemingProvider, $mdDateLocaleProvider) {
 
 
 
@@ -31,5 +31,13 @@
 
 			$mdThemingProvider.theme('input', 'default')
 			    .primaryPalette('grey');
+
+			$mdDateLocaleProvider.formatDate = function(date) {
+				console.log(date);
+				if(date !== undefined)
+			    	return date.getDate() +"."+ Number(date.getMonth()+1) +"."+ date.getFullYear()+".";
+			    else
+			    	return null;
+			};
 		});
 })();

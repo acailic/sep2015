@@ -153,7 +153,7 @@
 			 			calc.price.travel_price = data.travel_price;
 			 			console.log("Primljena cijena za putno osiguranje ="+data.travel_price);
 
-			 			calc.price.travel_price = 1;
+			 	//		calc.price.travel_price = 1;
 			 			
 
 			 		});
@@ -185,7 +185,7 @@
 			 			calc.price.home_price = data.home_price;
 
 			 			console.log("Primljena cijena za osiguranje kuce/stana ="+data.home_price);
-			 			calc.price.home_price = 2;
+			 		//	calc.price.home_price = 2;
 			 		
 
 			 		});
@@ -215,7 +215,7 @@
 			 		promise_price.then(function (data) {
 			 			calc.price.vehicle_price = data.vehicle_price;
 			 			console.log("Primljena cijena za osiguranje pomoc na putu ="+data.vehicle_price);
-			 			calc.price.vehicle_price = 3;
+			 			//calc.price.vehicle_price = 3;
 			 		
 			 		});
 
