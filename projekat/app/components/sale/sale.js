@@ -72,6 +72,8 @@
 			}
 		    else{
 		    	slc.invalidForm = true;
+		    	slc.submittedFlat = slc.flat;
+		    	slc.submittedCar = slc.car;
 
 	    		if(!slc.towing){
       				slc.validTowing = false;
@@ -273,7 +275,7 @@
 		    });
 			promise_insurance = Insurance.create(slc.insurance);
 		 	promise_insurance.then(function (data) {
-		 		$mdDialog.hide();
+		 		//$mdDialog.hide();
  				$window.location.href = data.url;
 		 	});
 	  	};
@@ -347,26 +349,27 @@
 	  		}
 		});
 
+		if(slc.insurance.vehicle !== null){
+			$scope.$watch('slc.towing', function (newValue, oldValue) {
+		  		if(newValue === false && slc.insurance.vehicle !== undefined)
+		  			slc.insurance.vehicle.towing_id = {};
+			});
 
-		$scope.$watch('slc.towing', function (newValue, oldValue) {
-	  		if(newValue === false && slc.insurance.vehicle !== undefined)
-	  			slc.insurance.vehicle.towing_id = {};
-		});
+			$scope.$watch('slc.repair', function (newValue, oldValue) {
+		  		if(newValue === false && slc.insurance.vehicle !== undefined)
+		  			slc.insurance.vehicle.repair_id = {};
+			});
 
-		$scope.$watch('slc.repair', function (newValue, oldValue) {
-	  		if(newValue === false && slc.insurance.vehicle !== undefined)
-	  			slc.insurance.vehicle.repair_id = {};
-		});
+			$scope.$watch('slc.accommodation', function (newValue, oldValue) {
+		  		if(newValue === false && slc.insurance.vehicle !== undefined)
+		  			slc.insurance.vehicle.accomodation_id = {};
+			});
 
-		$scope.$watch('slc.accommodation', function (newValue, oldValue) {
-	  		if(newValue === false && slc.insurance.vehicle !== undefined)
-	  			slc.insurance.vehicle.accomodation_id = {};
-		});
-
-		$scope.$watch('slc.alternative', function (newValue, oldValue) {
-	  		if(newValue === false && slc.insurance.vehicle !== undefined)
-	  			slc.insurance.vehicle.alternative_id = {};
-		});
+			$scope.$watch('slc.alternative', function (newValue, oldValue) {
+		  		if(newValue === false && slc.insurance.vehicle !== undefined)
+		  			slc.insurance.vehicle.alternative_id = {};
+			});
+		}
 
 	  	slc.checkFlat = function() {
 	  		if(!slc.flat){
