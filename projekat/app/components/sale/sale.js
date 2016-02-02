@@ -58,7 +58,6 @@
 		var promise_idata = Insurance.data_init();
 		promise_idata.then(function (data) {
 			slc.data_init = data;
-			console.log(slc.data_init);
   			angular.forEach(slc.data_init.ages, function (age, index) {
 	  			human_ages[index] = {'id': age.id,'value': age.name, 'number_of_people': 0};
 	  		});
@@ -102,7 +101,6 @@
 	  	};
 
 	   	slc.getTravellersDetails = function() {
-	   		console.log(slc.traveller);
 		    if(slc.saleWizardPart2.$valid){
 		    	slc.invalidForm = false;
 		    	elementExists = false;
@@ -275,24 +273,9 @@
 		    });
 			promise_insurance = Insurance.create(slc.insurance);
 		 	promise_insurance.then(function (data) {
-		 		//$mdDialog.hide();
  				$window.location.href = data.url;
 		 	});
 	  	};
-
-		$scope.$watch('slc.selectedIndex', function(current, old) {
-            switch (current) {
-                case 0:
-                    $location.url("/saleWizard1");
-                    break;
-                case 1:
-                    $location.url("/saleWizard2");
-                    break;
-                case 2:
-                    $location.url("/saleWizard3");
-                    break;
-            }
-        });
 
 		slc.someSelected = function (object) {
 			if (slc.flat) { 
