@@ -105,7 +105,7 @@
 <!-- ng-disabled="inc.paymentForm.$invalid" -->
     <section layout="row" layout-sm="column" layout-align="end end" layout-wrap="">
        <md-button class="md-raised md-primary"   
-       ng-click="inc.showModalProgress($event); inc.generatingTransaction(inc.transaction)"  > {{'LABELS.SUBPAYMENT'|translate}} </md-button>
+       ng-click="inc.showModalProgress($event); inc.generatingTransaction(inc.sending_transaction)"  ng-disabled="inc.paymentForm.$invalid" > {{'LABELS.SUBPAYMENT'|translate}} </md-button>
         <!-- <md-button class="md-raised md-warn"> {{'LABELS.DECPAYMENT'|translate}} </md-button> -->
         
     </section>

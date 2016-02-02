@@ -1,5 +1,5 @@
 // Karma configuration
-// Generated on Tue Oct 25 2016 15:20:11 GMT+0200 (Let/zim. vreme u Centr. Evropi)
+// Generated on Mon Feb 01 2016 21:44:19 GMT+0100 (Central Europe Standard Time)
 
 module.exports = function(config) {
   config.set({
@@ -14,34 +14,11 @@ module.exports = function(config) {
 
 
     // list of files / patterns to load in the browser
-    //treba doddati
     files: [
-        '../assets/js/angular/angular.js',
-        '../assets/js/angular-material/angular-material-mocks.js',
-        '../assets/js/angular-material/angular-material.js',
-        '../assets/js/angular-mocks/angular-mocks.js',
-        '../assets/js/angular-messages/angular-messages.js',
-        '../assets/js/angular-resource/angular-resource.js',
-        '../assets/js/angular-ui-router/release/angular-ui-router.js',
-        '../assets/js/angular-translate/angular-translate.js',
-        '../assets/js/angular-dynamic-locale/dist/tmhDynamicLocale.js',
-        '../assets/js/angular-animate/angular-animate.js',
-        '../assets/js/angular-messages/angular-messages.js',
-        '../app/app.module.js',
-        '../app/components/acquirer/acquirer.module.js',
-        '../app/components/acquirer/acquirer.route.js',
-        '../app/components/modal/modal.module.js',
-        '../app/components/menu/menu.module.js',
-        '../app/components/input/input.module.js',
-        '../app/components/input/input.js',
-        '../app/components/transactions/transactions.module.js',
-       '../app/components/modal/modal.module.js',
-        '../app/components/shared/i18n/i18n.module.js',
-        '../app/components/aboutus/users.js',
-        '../app/components/aboutus/userservice.js',
-        '../app/**/*.js'
+      'You can use glob patterns, eg. "js/*.js" or "test/**/*Spec.js".',
+      'app/components/**/*.js'
     ],
- 
+
 
     // list of files to exclude
     exclude: [
@@ -84,6 +61,10 @@ module.exports = function(config) {
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false
+    singleRun: false,
+
+    // Concurrency level
+    // how many browser should be started simultaneous
+    concurrency: Infinity
   })
 }

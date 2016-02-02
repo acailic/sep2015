@@ -7,7 +7,7 @@
 
 	config.$inject = ['$stateProvider', '$urlRouterProvider' ];
 	function config($stateProvider, $urlRouterProvider ) {
-		 $urlRouterProvider.otherwise('/home');
+		  
 		 
 
 		$stateProvider
@@ -20,7 +20,7 @@
 						controllerAs: 'hc'	
 					},
 					'menu': {
-						templateUrl: 'app/components/acquirer/menu.html'	
+						templateUrl: 'app/components/acquirer/menu.html',
 					},
 					'footer': {
 						templateUrl: 'app/components/acquirer/footer.html'	
@@ -80,6 +80,6 @@
 				}
 			});
 			 
-		 
+		 $urlRouterProvider.otherwise('/home');
 	}
 })();

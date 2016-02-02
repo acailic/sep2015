@@ -1,6 +1,6 @@
 (function() {
 	angular
-		.module('acquirer', ['acquirer.core','acquirer.input','acquirer.modal', 'acquirer.transactions','acquirer.users', 'acquirer.shared'])
+		.module('acquirer', ['acquirer.core','acquirer.input','acquirer.modal', 'acquirer.transactions','acquirer.users', 'acquirer.shared', 'acquirer.menu'])
 		.config(function($sceDelegateProvider, $mdThemingProvider) {
 		    
 			//Allow CORS requests to these urls:
@@ -25,7 +25,7 @@
 
 			$mdThemingProvider.theme('input', 'default')
 			    .primaryPalette('purple');
-		});
+		}); 
 
 		 
 		 

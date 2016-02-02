@@ -16,13 +16,10 @@
                         url:"http://localhost:8081/Acquirer_back/payment/init/payment?id="+payment,
                         method: "GET",
                         data :   payment   
-                        //{'id':payment},
-                         /*headers: {'Content-Type': 'application/json',
-                                    'Access-Control-Allow-Origin':'*'
-                         }*/
+                         
                     }).success(function (data) {
-                         alert(data);
-                          console.log("Uspesno slanju payment id." );
+                      //  alert(data);
+                        console.log("Uspesno slanju payment id." );
                        deferred.resolve(data);
 
                     }).error(function () {
