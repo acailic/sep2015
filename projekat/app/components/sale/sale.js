@@ -382,23 +382,22 @@
 					    parent: angular.element(document.body),
 					    fullscreen: $mdMedia('sm') && isc.customFullscreen,
 					    controller: function($scope) {
-				        $scope.response = function(value){
-					          if(value === true){
-					          	slc.insurance.travellers = [];
-			  					slc.number_of_travellers = 0;
-					          }else
-					          	slc.number_of_people = oldValue;
-					          slc.addTravellerForm = true;
-					          $mdDialog.hide();
-					        };
-					    }
-				   		});
-				    }
+					        $scope.response = function(value){
+						          if(value === true){
+						          	slc.insurance.travellers = [];
+				  					slc.number_of_travellers = 0;
+						          }else
+						          	slc.number_of_people = oldValue;
+						          slc.addTravellerForm = true;
+						          $mdDialog.hide();
+						        };
+						}
+				});
 			  }else{
 			  	slc.addTravellerForm = true;
 			  	slc.checkTravellers = true;
 			  }
 		  }
-		);
- 	}
- })();
+ 		});
+	}
+})();
