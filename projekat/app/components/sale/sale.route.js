@@ -27,7 +27,6 @@
 				}
 			})
 			.state('main.sale.wizard2', {
-				url: '/saleWizard2',
 				views: {
 					'wizard': {
 						templateUrl: 'app/components/sale/sale-wizard-part2.html'
@@ -35,7 +34,6 @@
 				}
 			})
 			.state('main.sale.wizard3', {
-				url: '/saleWizard3',
 				views: {
 					'wizard': {
 						templateUrl: 'app/components/sale/sale-wizard-part3.html'
