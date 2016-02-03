@@ -121,7 +121,7 @@
       var onFailureTransaction = function(){
         console.log("ON onFailure Transaction:"+ inc.transaction );
         //alert("Failed Transaction, ");
-      /*   $timeout(function() {
+          $timeout(function() {
               $mdDialog.show(
                   $mdDialog.alert()
                     .parent( angular.element(document.body))
@@ -134,18 +134,18 @@
             console.log('update with timeout fired');
         }, 1000); 
 
-*/
-           inc.resultTrans= {
-                    merchantOrderId: "1",
-                    acquirerOrderId: "1",
-                    acquirerTimestamp: new Date(),
-                    paymentId: '1'
-                  };
-        $timeout(function() {       
-          inc.showConfirm();  
-          console.log('update with timeout fired');
-        }, 1500); 
-        
+   
+           /*  inc.resultTrans= {
+                      merchantOrderId: "1",
+                      acquirerOrderId: "1",
+                      acquirerTimestamp: new Date(),
+                      paymentId: '1'
+                    };
+          $timeout(function() {       
+            inc.showConfirm();  
+            console.log('update with timeout fired');
+          }, 1500); */
+          
       };
      
       var onNotifyTransaction = function(update){
