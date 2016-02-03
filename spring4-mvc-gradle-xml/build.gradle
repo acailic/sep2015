@@ -54,12 +54,33 @@ dependencies {
 // Embeded Jetty for testing
 jettyRun{
 	contextPath = "spring4"
-	httpPort = 8080
+	httpPort = 8085
+	def httpsConnector = jettyRun.class.classLoader.loadClass('org.mortbay.jetty.security.SslSocketConnector').newInstance()
+	httpsConnector.setPort(8444);
+	httpsConnector.setKeystore("sitepkcs12.keystore");
+	httpsConnector.setPassword("merchant");
+	httpsConnector.setKeyPassword("merchant");
+
+	def httpConnector = jettyRun.class.classLoader.loadClass('org.mortbay.jetty.nio.SelectChannelConnector').newInstance()
+	httpConnector.setPort(8080);
+
+	connectors = [httpsConnector, httpConnector]
+	
 }
 
 jettyRunWar{
 	contextPath = "spring4"
-	httpPort = 8080
+	httpPort = 8085
+	def httpsConnector = jettyRun.class.classLoader.loadClass('org.mortbay.jetty.security.SslSocketConnector').newInstance()
+	httpsConnector.setPort(8444);
+	httpsConnector.setKeystore("sitepkcs12.keystore");
+	httpsConnector.setPassword("merchant");
+	httpsConnector.setKeyPassword("merchant");
+
+	def httpConnector = jettyRun.class.classLoader.loadClass('org.mortbay.jetty.nio.SelectChannelConnector').newInstance()
+	httpConnector.setPort(8080);
+
+	connectors = [httpsConnector, httpConnector]
 }
 
 //For Eclipse IDE only

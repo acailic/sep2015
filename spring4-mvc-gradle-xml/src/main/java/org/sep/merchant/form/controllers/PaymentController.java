@@ -2,6 +2,7 @@ package org.sep.merchant.form.controllers;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import org.sep.merchant.form.dto.HomeDTO;
@@ -10,6 +11,7 @@ import org.sep.merchant.form.dto.InsuranceDTO;
 import org.sep.merchant.form.dto.MerchantResponseDTO;
 import org.sep.merchant.form.dto.PaymentDTO;
 import org.sep.merchant.form.dto.PriceDTO;
+import org.sep.merchant.form.dto.ReturnUrlDTO;
 import org.sep.merchant.form.dto.TransactionResultDTO;
 import org.sep.merchant.form.dto.VehicleDTO;
 import org.sep.merchant.form.dto.WholeInsuranceDTO;
@@ -19,6 +21,7 @@ import org.sep.merchant.form.model.RiskItem;
 import org.sep.merchant.form.service.MerchantService;
 import org.sep.merchant.form.service.OrderService;
 import org.sep.merchant.form.service.RiskItemService;
+import org.sep.merchant.form.util.EmailValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,10 +94,31 @@ public class PaymentController {
 			if(order == null)
 				return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
 			
+			String redirectUrl = order.getSuccessUrl();
 			//imati acquirera u bazi i proveriti??
 			//imati payment ID u bazi i proveriti??
+			if(!transactionResult.getTransactionResult().equalsIgnoreCase("success")){
+				if(transactionResult.getTransactionResult().equalsIgnoreCase("fail"))
+					redirectUrl = order.getFailedUrl();
+				else
+					redirectUrl = order.getErrorUrl();
+			} 
 			
-			String redirectUrl = "http://localhost:8080/spring4/success";
+			EmailValidator validator = new EmailValidator();
+			boolean validationResult = validator.validate(order.getInsurance().getInsuranceOwner().getEmail());
+			
+			java.util.Date currentDate = new Date();
+			java.sql.Date currentDateSql = new java.sql.Date(currentDate.getTime());
+			java.sql.Date acquirerTimestamp = transactionResult.getAcquirerTimestamp();
+			java.sql.Date timestampLimit = new java.sql.Date(currentDate.getTime());
+			timestampLimit.setMinutes(currentDateSql.getMinutes() + 10);
+			boolean timeResult = true;
+			if(acquirerTimestamp.before(currentDateSql) || acquirerTimestamp.after(timestampLimit))
+				timeResult = false;
+			
+			if(!validationResult && !timeResult)
+				redirectUrl = order.getFailedUrl();
+			
 			// creates a simple e-mail object
 	        SimpleMailMessage email = new SimpleMailMessage();
 	        email.setTo(order.getInsurance().getInsuranceOwner().getEmail());
@@ -104,7 +128,8 @@ public class PaymentController {
 	         
 	        // sends the e-mail
 	        mailSender.send(email);
-			return new ResponseEntity<String>(redirectUrl, HttpStatus.OK);
+	        ReturnUrlDTO returnUrlDTO = new ReturnUrlDTO(redirectUrl);
+			return new ResponseEntity<ReturnUrlDTO>(returnUrlDTO, HttpStatus.OK);
 		} catch (Exception e){
 			logger.error(e.toString());
 			return new ResponseEntity<Object>(HttpStatus.INTERNAL_SERVER_ERROR);

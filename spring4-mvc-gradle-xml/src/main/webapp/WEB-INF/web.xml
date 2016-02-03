@@ -27,6 +27,11 @@
         <filter-class>org.sep.merchant.form.util.SimpleCORSFilter</filter-class>
     </filter>
     
+    <filter>
+        <filter-name>cors2</filter-name>
+        <filter-class>org.sep.merchant.form.util.SimpleCORSFilter2</filter-class>
+    </filter>
+    
     <filter-mapping>
         <filter-name>cors</filter-name>
         <url-pattern>/calculate</url-pattern>
@@ -50,6 +55,11 @@
     <filter-mapping>
         <filter-name>cors</filter-name>
         <url-pattern>/create</url-pattern>
+    </filter-mapping>
+    
+     <filter-mapping>
+        <filter-name>cors2</filter-name>
+        <url-pattern>/transactionResults</url-pattern>
     </filter-mapping>
 
 	<welcome-file-list>

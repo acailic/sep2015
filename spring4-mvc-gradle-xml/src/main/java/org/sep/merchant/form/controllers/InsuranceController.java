@@ -342,8 +342,8 @@ public class InsuranceController {
  
 		java.util.Date currentDate = new Date();
 		java.sql.Date merchantTimestamp = new java.sql.Date(currentDate.getTime());
-		Order order = new Order(new Double(totalPrice.doubleValue()), merchantTimestamp, "http://localhost:8000/error",
-				"http://localhost:8000/success", "http://localhost:8000/fail");
+		Order order = new Order(new Double(totalPrice.doubleValue()), merchantTimestamp, "http://localhost:8000/error.html",
+				"http://localhost:8000/success.html", "http://localhost:8000/failed.html");
 		Merchant merchant = merchantService.find(1);
 		if(merchant == null){
 			logger.info("Could not find merchant.");

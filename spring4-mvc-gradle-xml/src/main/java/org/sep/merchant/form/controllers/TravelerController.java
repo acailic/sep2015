@@ -47,15 +47,6 @@ public class TravelerController {
 	@RequestMapping(value = "/addTraveler", method = RequestMethod.POST, consumes = "application/json")
 	public ResponseEntity<Void> createTraveler(@RequestBody Traveler traveler, UriComponentsBuilder ucBuilder) {
 		System.out.println("Usao u kreiranje putnika");
-
-		/*if (travelerService.findAll() != null) {
-			if (travelerService.find(traveler.getJmbg()) != null) {
-				System.out.println("An insurance with the ID "
-						+ traveler.getId() + " already exists.");
-				return new ResponseEntity<Void>(HttpStatus.CONFLICT);
-			}
-		}*/
-
 		travelerService.save(traveler);
 
 		HttpHeaders headers = new HttpHeaders();

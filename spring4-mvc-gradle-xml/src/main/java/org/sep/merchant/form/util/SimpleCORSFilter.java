@@ -1,6 +1,9 @@
 package org.sep.merchant.form.util;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -9,6 +12,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -26,8 +30,11 @@ public class SimpleCORSFilter  implements Filter {
 
 	    HttpServletRequest request = (HttpServletRequest) req;
 	    HttpServletResponse response = (HttpServletResponse) res;
-
-	    response.setHeader("Access-Control-Allow-Origin", "http://localhost:8000");
+	    List<String> listOfAllowed = new ArrayList<String>();
+		 listOfAllowed.add("http://localhost:8082");
+		 listOfAllowed.add("http://localhost:8080");
+		 
+	    response.addHeader("Access-Control-Allow-Origin", "http://localhost:8082");
 	    response.setHeader("Access-Control-Allow-Credentials", "true");
 	    response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
 	    response.setHeader("Access-Control-Max-Age", "3600");
