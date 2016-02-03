@@ -30,6 +30,7 @@
                         console.log("PUKAO JE Došlo je do greške pri generisanju transakcije" );
                         console.log(transaction);
                         //alert("Došlo je do greške pri generisanju transakcije");
+                       deferred.reject();
                     });
                     return deferred.promise;
                 } 

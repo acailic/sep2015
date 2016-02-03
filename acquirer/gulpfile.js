@@ -33,13 +33,26 @@ gulp.task('scripts', function() {
 		.pipe(gulp.dest('dist'));
 });
 
+ 
+
+gulp.task('webserverhttps', function() {
+  gulp.src('.')
+    .pipe(webserver({
+      livereload: true,
+      open: true,
+  https: true
+    }));
+});
+
 gulp.task('webserver', function() {
   gulp.src('.')
     .pipe(webserver({
       livereload: true,
-      open: true
+      open: true,
+  https: false
     }));
 });
+
 
 gulp.task('sass', function () {
     gulp.src('assets/sass/**/*.scss')
@@ -67,6 +80,8 @@ gulp.task('lint', function() {
 gulp.task('watch', function() {
 	gulp.watch('app/**/*.js', ['lint', 'scripts']);
 });
+
+
 
 //gulp.task('default', ['lint', 'vendorScripts', 'scripts', 'minCss', 'watch', 'sass:watch', 'webserver']);
 gulp.task('default', ['lint','watch', 'sass:watch', 'webserver']);

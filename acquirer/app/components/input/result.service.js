@@ -17,7 +17,7 @@
                         method: "POST",
                         data :   result,
                         headers: {'Content-Type': 'application/json',
-                                    'Access-Control-Allow-Origin':'http://localhost:8000'
+                                  //  'Access-Control-Allow-Origin':'http://localhost:8000'
                          } 
                          
                     }).success(function (data) {
@@ -27,6 +27,7 @@
                     }).error(function () {
                          
                         console.log("Došlo je do greške pri slanju rezultata transakcije ka merchantu servisu." );
+                        deferred.reject();
                     });
                     return deferred.promise;
                 } 

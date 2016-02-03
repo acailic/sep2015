@@ -7,8 +7,8 @@
    
 
    
-  InputController.$inject = ['$mdDialog', '$mdMedia','Transaction', 'Payment' ,'$stateParams','$timeout'  ,'Result','$location' ];
- 	function InputController($mdDialog, $mdMedia, Transaction, Payment,  $stateParams, $timeout,  Result, $location ) {
+  InputController.$inject = ['$mdDialog', '$mdMedia','Transaction', 'Payment' ,'$stateParams','$timeout'  ,'Result',  '$window' ];
+ 	function InputController($mdDialog, $mdMedia, Transaction, Payment,  $stateParams, $timeout,  Result,  $window ) {
  		  var inc = this; 
       //inc.$state=$state;
        inc.transaction = {
@@ -20,15 +20,15 @@
              cardSecCode:  '' ,
              expmonth: '',
              expyear: '',
-             CSRFToken: '',
-
+             CSRFToken: ''
       };  
+
       inc.resultTrans= {
         merchantOrderId: '',
         acquirerOrderId: '',
         acquirerTimestamp: '',
         paymentId: ''
-      }
+      };
 
       console.log("USAO JE U KONTROLER");
       console.log($stateParams);
@@ -101,12 +101,12 @@
           console.log("ON SUCCESS onSuccessTransaction:");
           console.log(data);
          //uspesna transakcija trebalo bi samo da procitam url i da se redirektujem
-          //alert(data.state);
+          // alert(data.state);
           //inc.showModalPayment(data); 
            inc.resultTrans= {
                     merchantOrderId: data.merchantOrderId,
                     acquirerOrderId: data.acquirerOrderId,
-                    acquirerTimestamp: data.acquirerTimestamp,
+                    acquirerTimestamp: data.acquirerTimeStamp,
                     paymentId: data.paymentId
                   };
            $timeout(function() {
@@ -115,13 +115,37 @@
             if (data.state=="UNSUCCESSFULL")
               inc.showError();
             console.log('update with timeout fired');
-        }, 3000);
+        }, 1500);
       };
 
-      var onFailureTransaction = function(reason){
+      var onFailureTransaction = function(){
         console.log("ON onFailure Transaction:"+ inc.transaction );
-        alert("Failed Transaction, " + reason);
-          
+        //alert("Failed Transaction, ");
+      /*   $timeout(function() {
+              $mdDialog.show(
+                  $mdDialog.alert()
+                    .parent( angular.element(document.body))
+                    .clickOutsideToClose(false)
+                    .title(' UNSUCCESSFULL TRANSACTION ')
+                    .content('<h2>Transaction is not generate.</h2>')
+                    .ariaLabel('Alert Dialog Demo')
+                    .ok('OK')
+                );
+            console.log('update with timeout fired');
+        }, 1000); 
+
+*/
+           inc.resultTrans= {
+                    merchantOrderId: "1",
+                    acquirerOrderId: "1",
+                    acquirerTimestamp: new Date(),
+                    paymentId: '1'
+                  };
+        $timeout(function() {       
+          inc.showConfirm();  
+          console.log('update with timeout fired');
+        }, 1500); 
+        
       };
      
       var onNotifyTransaction = function(update){
@@ -175,7 +199,7 @@
             templateUrl: 'app/components/modal/progress-modal.html',
             parent: angular.element(document.body),
             targetEvent: ev,
-            clickOutsideToClose:true,
+            clickOutsideToClose:false,
             fullscreen: $mdMedia('sm') && inc.customFullscreen
           });
       };
@@ -188,7 +212,7 @@
             controller: ModalController,
             templateUrl: 'app/components/modal/success-modal.html',
             parent: angular.element(document.body),
-            clickOutsideToClose:true,
+            clickOutsideToClose:false,
             fullscreen: useFullScreen
           })
           .then(function(answer) {
@@ -197,8 +221,9 @@
             console.log(inc.resultTrans);
             var retResult=Result.sending(inc.resultTrans);
             retResult.then(function(data) {
-                    // promise fulfilled
-                   $location.path(data.redirectUrl);
+                    console.log("URL JE: "+data.url);
+                   //$location.path( "www.google.com");
+                   $window.location.href=data.url;
                 }, function(error) {
                     // promise rejected, could log the error with: console.log('error', error);
                     console.log('error', error); 
@@ -219,22 +244,21 @@
             controller: ModalController,
             templateUrl: 'app/components/modal/error-modal.html',
             parent: angular.element(document.body),
-            clickOutsideToClose:true,
+            clickOutsideToClose:false,
             fullscreen: useFullScreen
           })
           .then(function(answer) {
             //$location.path('/about');
-            console.log("redirekcija."+answer);
+           console.log("redirekcija."+answer);
             console.log(inc.resultTrans);
             var retResult=Result.sending(inc.resultTrans);
             retResult.then(function(data) {
-                    // promise fulfilled
-                   $location.path(data.redirectUrl);
+                    console.log("URL JE: "+data.url);
+                     $window.location.href=data.url;
                 }, function(error) {
                     // promise rejected, could log the error with: console.log('error', error);
                     console.log('error', error); 
-                });
-             
+                });      
           }, function() {
              console.log('You cancelled the dialog.');
              

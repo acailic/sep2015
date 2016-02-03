@@ -6,7 +6,7 @@ describe("InputController", function() {
     
    
     //pre svakog testa učitavamo mock PaymentService servis sa datom implementacijom
-     beforeEach(module(function($provide){
+    /* beforeEach(module(function($provide){
 
         $provide.factory('Payment', function(){
             return {
@@ -20,7 +20,7 @@ describe("InputController", function() {
             }
         });
       
-    })); 
+    })); */
  
  
 
