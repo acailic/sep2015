@@ -1,12 +1,13 @@
 (function() {
 	angular
-		.module('acquirer', ['acquirer.core','acquirer.input','acquirer.modal', 'acquirer.transactions','acquirer.users', 'acquirer.shared', 'acquirer.menu'])
+		.module('acquirer', ['acquirer.core','acquirer.input',  'acquirer.modal', 'acquirer.transactions','acquirer.users', 'acquirer.shared', 'acquirer.menu'])
 		.config(function($sceDelegateProvider, $mdThemingProvider) {
 		    
 			//Allow CORS requests to these urls:
 			 $sceDelegateProvider.resourceUrlWhitelist([
    			'self',
-   			'http://localhost:8081/**'
+   			'http://localhost:8081/**',
+   			'http://localhost:8080/**'
 			]);
 		    
 

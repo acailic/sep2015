@@ -94,7 +94,7 @@
 
       }; */
        //  OVDE BI TREBAO LINK NAZAD DO MERCHANTA
-      inc.returnUrl= 'http://google.com'; 
+      inc.returnUrl= 'http://localhost:8000/insurance'; 
 
      
        var onSuccessTransaction = function(data){
@@ -110,8 +110,10 @@
                     paymentId: data.paymentId
                   };
            $timeout(function() {
-            
-            inc.showConfirm();
+            if (data.state=="SUCCESSFULL")
+              inc.showConfirm();
+            if (data.state=="UNSUCCESSFULL")
+              inc.showError();
             console.log('update with timeout fired');
         }, 3000);
       };
@@ -181,7 +183,7 @@
  
     
      inc.showConfirm = function( ) {
-          var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  ;
+          var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
           $mdDialog.show({
             controller: ModalController,
             templateUrl: 'app/components/modal/success-modal.html',
@@ -190,12 +192,10 @@
             fullscreen: useFullScreen
           })
           .then(function(answer) {
+            //$location.path('/about');
             console.log("redirekcija."+answer);
-            alert("redirekcija na merchanta.");
             console.log(inc.resultTrans);
             var retResult=Result.sending(inc.resultTrans);
-            $location.path("www.google.com");
-
             retResult.then(function(data) {
                     // promise fulfilled
                    $location.path(data.redirectUrl);
@@ -209,9 +209,39 @@
              
           });
            
-  };
+       };
    
        
+
+       inc.showError = function( ) {
+          var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
+          $mdDialog.show({
+            controller: ModalController,
+            templateUrl: 'app/components/modal/error-modal.html',
+            parent: angular.element(document.body),
+            clickOutsideToClose:true,
+            fullscreen: useFullScreen
+          })
+          .then(function(answer) {
+            //$location.path('/about');
+            console.log("redirekcija."+answer);
+            console.log(inc.resultTrans);
+            var retResult=Result.sending(inc.resultTrans);
+            retResult.then(function(data) {
+                    // promise fulfilled
+                   $location.path(data.redirectUrl);
+                }, function(error) {
+                    // promise rejected, could log the error with: console.log('error', error);
+                    console.log('error', error); 
+                });
+             
+          }, function() {
+             console.log('You cancelled the dialog.');
+             
+          });
+           
+       };
+
  	}
  
  } )();

@@ -2,7 +2,7 @@
   <form>
     <md-toolbar>
       <div class="md-toolbar-tools">
-        <h2>Error</h2>
+        <h2>Greska</h2>
         <span flex></span>
         <md-button class="md-icon-button" ng-click="cancel()">
           <md-icon md-svg-src="/assets/images/angular-material/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
@@ -11,19 +11,19 @@
     </md-toolbar>
     <md-dialog-content>
       <div class="md-dialog-content">
-          Placeno neuspesno!!!!!!!!!!!!!!!!!
+          Placanje neuspesno!!!!!!
           ....
  
       </div>
     </md-dialog-content>
 
-    <md-dialog-actions layout="row" layout-sm="column" layout-align="end end" layout-wrap="">
-        
-   
-      <md-button  >
-         Sorry.
-      </md-button>
+    <md-dialog-actions layout="row">
       
+      <span flex></span>
+      <md-button ng-click="mc.answer('redirect')">
+       Redirekcija na merchanta
+      </md-button>
+    
     </md-dialog-actions>
   </form>
 </md-dialog>
