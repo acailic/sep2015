@@ -8,7 +8,6 @@
  	SaleController.$inject = ['$mdDialog', '$mdMedia', 'SharedObject', '$state', '$scope', 'Insurance', '$location', '$window'];
  	function SaleController($mdDialog, $mdMedia, SharedObject, $state, $scope, Insurance, $location, $window) {
  		var slc = this;
- 		slc.insurance = {};
 
  		if(!angular.equals({}, SharedObject.getInsurance())){
  			slc.insurance = SharedObject.getInsurance();
@@ -39,7 +38,8 @@
 					slc.number_of_people += age.number_of_people;
 				}
 			});
-		}
+		}else
+			slc.insurance = {};
 
 		slc.insurance.travellers = [];
 		slc.finalView = false;
