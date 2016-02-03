@@ -17,6 +17,7 @@
 		};
 		mdc.answer = function(answer) {
 		    $mdDialog.hide(answer);
+		    console.log("POZVANA 12");
 		};
 	}
  })();

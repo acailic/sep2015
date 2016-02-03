@@ -7,8 +7,8 @@
    
 
    
-  InputController.$inject = ['$mdDialog', '$mdMedia','Transaction', 'Payment' ,'$stateParams','$timeout' ];
- 	function InputController($mdDialog, $mdMedia, Transaction, Payment,  $stateParams, $timeout ) {
+  InputController.$inject = ['$mdDialog', '$mdMedia','Transaction', 'Payment' ,'$stateParams','$timeout'  ,'Result','$location' ];
+ 	function InputController($mdDialog, $mdMedia, Transaction, Payment,  $stateParams, $timeout,  Result, $location ) {
  		  var inc = this; 
       //inc.$state=$state;
        inc.transaction = {
@@ -23,6 +23,12 @@
              CSRFToken: '',
 
       };  
+      inc.resultTrans= {
+        merchantOrderId: '',
+        acquirerOrderId: '',
+        acquirerTimestamp: '',
+        paymentId: ''
+      }
 
       console.log("USAO JE U KONTROLER");
       console.log($stateParams);
@@ -58,16 +64,9 @@
           console.log("POSLAO JE!@@" );
       };
       
-
-      
-
-
-
       if(!angular.isUndefined(inc.idpayment)) {
         inc.onIncomingParametar(inc.idpayment);
       }
-            
-
         
     
        /*inc.transaction = {
@@ -97,32 +96,22 @@
        //  OVDE BI TREBAO LINK NAZAD DO MERCHANTA
       inc.returnUrl= 'http://google.com'; 
 
-      inc.showModalSuccess = function(data) {
-
-          var confirm = $mdDialog.confirm().title('Would you like to delete your debt?')
-                  .textContent('All of the banks have agreed to forgive you your debts.')
-                  .ariaLabel('Lucky day')
-                  .ok('Please do it!')
-                  .cancel('Sounds like a scam');
-            $mdDialog.show(confirm).then(function() {
-              $scope.status = 'You decided to get rid of your debt.';
-            }, function() {
-              $scope.status = 'You decided to keep your debt.';
-            });
-       };
      
-
-
-       
        var onSuccessTransaction = function(data){
           console.log("ON SUCCESS onSuccessTransaction:");
           console.log(data);
          //uspesna transakcija trebalo bi samo da procitam url i da se redirektujem
           //alert(data.state);
           //inc.showModalPayment(data); 
+           inc.resultTrans= {
+                    merchantOrderId: data.merchantOrderId,
+                    acquirerOrderId: data.acquirerOrderId,
+                    acquirerTimestamp: data.acquirerTimestamp,
+                    paymentId: data.paymentId
+                  };
            $timeout(function() {
             
-            inc.showModalPayment(data);
+            inc.showConfirm();
             console.log('update with timeout fired');
         }, 3000);
       };
@@ -130,29 +119,19 @@
       var onFailureTransaction = function(reason){
         console.log("ON onFailure Transaction:"+ inc.transaction );
         alert("Failed Transaction, " + reason);
-         $timeout(function() {
-            
-            inc.showModalPayment(data);
-            console.log('update with timeout fired')
-        }, 3000);
+          
       };
      
       var onNotifyTransaction = function(update){
           alert("Notified: " + update);
-           $timeout(function() {
-            
-            inc.showModalPayment(data);
-            console.log('update with timeout fired')
-        }, 3000);
+           
       };
        
     
       //inc.transaction = transaction;
         
       inc.generatingTransaction = function(value) {
-
          console.log("GENERATING TRANSACTIONS:" );
-        
 
          inc.sending_transaction = {
                paymentId: inc.paymentId,
@@ -169,6 +148,7 @@
         var retTransaction=Transaction.generate(inc.sending_transaction);
         retTransaction.then(onSuccessTransaction, onFailureTransaction, onNotifyTransaction); 
       };
+
       
       inc.showModalPayment = function() {
 
@@ -181,6 +161,7 @@
             clickOutsideToClose:true,
             fullscreen: $mdMedia('sm') && inc.customFullscreen
           });
+          
       };
 
       inc.showModalProgress = function(ev) {
@@ -197,9 +178,38 @@
           });
       };
       
+ 
+    
+     inc.showConfirm = function( ) {
+          var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  ;
+          $mdDialog.show({
+            controller: ModalController,
+            templateUrl: 'app/components/modal/success-modal.html',
+            parent: angular.element(document.body),
+            clickOutsideToClose:true,
+            fullscreen: useFullScreen
+          })
+          .then(function(answer) {
+            console.log("redirekcija."+answer);
+            alert("redirekcija na merchanta.");
+            console.log(inc.resultTrans);
+            var retResult=Result.sending(inc.resultTrans);
+            $location.path("www.google.com");
 
-      
-   
+            retResult.then(function(data) {
+                    // promise fulfilled
+                   $location.path(data.redirectUrl);
+                }, function(error) {
+                    // promise rejected, could log the error with: console.log('error', error);
+                    console.log('error', error); 
+                });
+             
+          }, function() {
+             console.log('You cancelled the dialog.');
+             
+          });
+           
+  };
    
        
  	}
@@ -207,6 +217,8 @@
  } )();
  
   function ModalController($mdDialog) {
+
+
   var mdc = this;
 
   mdc.hide = function() {
@@ -217,6 +229,7 @@
   };
   mdc.answer = function(answer) {
       $mdDialog.hide(answer);
+       
   }; 
 }  
 
