@@ -71,7 +71,7 @@ public class TransactionController {
 				errorMsg = "Request is incomplete!";
 				logger.info(DECLINE + errorMsg);
 				result.setErrorMsg(errorMsg);
-				return new ResponseEntity<PccResponseDTO>(result, HttpStatus.BAD_REQUEST);
+				return new ResponseEntity<PccResponseDTO>(result, HttpStatus.BAD_GATEWAY);
 			}
 			
 			
@@ -80,14 +80,14 @@ public class TransactionController {
 				errorMsg = "Acquirer does not exist!";
 				logger.info(DECLINE + errorMsg);
 				result.setErrorMsg(errorMsg);
-				return new ResponseEntity<PccResponseDTO>(result, HttpStatus.BAD_REQUEST);
+				return new ResponseEntity<PccResponseDTO>(result, HttpStatus.BAD_GATEWAY);
 			}
 			
 			if(dto.getPan() == null || dto.getPan().isEmpty() || dto.getPan().length() != 16){
 				errorMsg = "PAN is not well formated!";
 				logger.info(DECLINE + errorMsg);
 				result.setErrorMsg(errorMsg);
-				return new ResponseEntity<PccResponseDTO>(result, HttpStatus.BAD_REQUEST);
+				return new ResponseEntity<PccResponseDTO>(result, HttpStatus.BAD_GATEWAY);
 			}
 
 			String iin = dto.getPan().substring(0, 6);
@@ -116,7 +116,7 @@ public class TransactionController {
 				errorMsg = "Issuer does not exist!";
 				logger.info(DECLINE + errorMsg);
 				result.setErrorMsg(errorMsg);
-				return new ResponseEntity<PccResponseDTO>(result, HttpStatus.BAD_REQUEST);
+				return new ResponseEntity<PccResponseDTO>(result, HttpStatus.BAD_GATEWAY);
 			}		
 
 			tr = new Transaction(dto);
@@ -139,14 +139,14 @@ public class TransactionController {
 				tr.setIssuerOrderId(responseDto.getIssuerOrderId());
 				tr.setIssuerTimestamp(responseDto.getIssuerOrderTimestamp());
 				tr.setOrderState(responseDto.getState());				
-				tr = transactionService.save(tr);
+				tr = transactionService.update(tr);
 				
 				result = new PccResponseDTO(tr);
 				return new ResponseEntity<PccResponseDTO>(result, HeaderUtil.getHeader(), HttpStatus.OK);
 				
 			}else{	
 				tr.setOrderState(OrderStateEnum.UNSUCCESSFULL);
-				tr = transactionService.save(tr);
+				tr = transactionService.update(tr);
 				
 //				result = new PccResponseDTO(tr);
 				result.setErrorMsg(response.getBody());
@@ -159,7 +159,7 @@ public class TransactionController {
 
 			if(tr != null){
 				tr.setOrderState(OrderStateEnum.UNSUCCESSFULL);
-				tr = transactionService.save(tr);
+				tr = transactionService.update(tr);
 			}
 			return new ResponseEntity<Object>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
