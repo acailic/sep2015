@@ -35,9 +35,11 @@ gulp.task('scripts', function() {
 
 gulp.task('webserver', function() {
   gulp.src('.')
-    .pipe(webserver({
+     .pipe(webserver({
       livereload: true,
-      open: true
+      open: true,
+      port: 8001,
+     https: true
     }));
 });
 
