@@ -20,6 +20,7 @@
     "angular-ui-router": "~0.2.15",
     "angular-material": "^0.11.2",
     "angular-messages": "1.4.8",
-    "angular-mocks": "latest"   
+    "angular-mocks": "latest",
+    "spring-security-csrf-token-interceptor-extended": "latest"  
   }
 }

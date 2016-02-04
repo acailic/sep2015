@@ -14,7 +14,7 @@
 				var deferred = $q.defer();
 
 				$http({
-					url: "http://localhost:8080/spring4/data_init", 
+					url: "http://localhost:8444/spring4/data_init", 
 					method: "GET"
 				}).success(function (data) {
 					deferred.resolve(data);
@@ -30,7 +30,7 @@
 				var deferred = $q.defer();
 				
 				$http({
-					url: "http://localhost:8080/spring4/calculate", 
+					url: "http://localhost:8444/spring4/calculate", 
 					method: "POST",				
 					data : insurance, 
 					headers: {
@@ -50,7 +50,7 @@
 				var deferred = $q.defer();
 				
 				$http({
-					url: "http://localhost:8080/spring4/calculateTravel", 
+					url: "http://localhost:8444/spring4/calculateTravel", 
 					method: "POST",				
 					data : travel, 
 					headers: {
@@ -70,7 +70,7 @@
 				var deferred = $q.defer();
 				
 				$http({
-					url: "http://localhost:8080/spring4/calculateVehicle", 
+					url: "http://localhost:8444/spring4/calculateVehicle", 
 					method: "POST",				
 					data : vehicle, 
 					headers: {
@@ -90,7 +90,7 @@
 				var deferred = $q.defer();
 				
 				$http({
-					url: "http://localhost:8080/spring4/calculateHome", 
+					url: "http://localhost:8444/spring4/calculateHome", 
 					method: "POST",				
 					data : home, 
 					headers: {
@@ -114,7 +114,7 @@
 				var deferred = $q.defer();
 				
 				$http({
-					url: "http://localhost:8080/spring4/create", 
+					url: "http://localhost:8444/spring4/create", 
 					method: "POST",
 					data : insurance, 
 					headers: {
