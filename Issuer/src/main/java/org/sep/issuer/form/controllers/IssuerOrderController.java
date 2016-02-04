@@ -1,8 +1,10 @@
 package org.sep.issuer.form.controllers;
 
+import java.awt.List;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.crypto.BadPaddingException;
@@ -78,51 +80,67 @@ public class IssuerOrderController {
 				dto.getAmount() == null || dto.getAmount() < 0 || dto.getCardSecCode() == null ||
 				dto.getCardHolderName() == null || dto.getCardHolderName().isEmpty() ){
 				logger.info(DECLINE + "Request is incomplete!");
-				return new ResponseEntity<String>("Request is incomplete!", HttpStatus.BAD_REQUEST);
+				return new ResponseEntity<String>("Request is incomplete!", HttpStatus.BAD_GATEWAY);
 			}
 			if(dto.getPan() == null || dto.getPan().isEmpty()){
 				logger.info(DECLINE + "PAN is empty!");
-				return new ResponseEntity<String>("PAN is not well formatted!", HttpStatus.BAD_REQUEST);
+				return new ResponseEntity<String>("PAN is not well formatted!", HttpStatus.BAD_GATEWAY);
 			}	
 			if(!checkPAN(dto.getPan())){
 				logger.info(DECLINE + "PAN is not valid!");
-				return new ResponseEntity<String>("PAN is not valid!", HttpStatus.BAD_REQUEST);
+				return new ResponseEntity<String>("PAN is not valid!", HttpStatus.BAD_GATEWAY);
 			}					
 			
 			//TODO: fix nullpointerex
-			Card card = cardService.findByPan(dto.getPan());
+			//Card card = cardService.findByPan(dto.getPan());
+			Card card = null;
+			ArrayList<Card> cards = (ArrayList<Card>) cardService.findAll();
+			for(Card crd : cards){
+				if(crd.getPan().equals(dto.getPan())){
+					card = crd;
+					break;
+				}
+			}
 			
 			if(card == null){
 				logger.info(DECLINE + "Credit Card does not exist!");
-				return new ResponseEntity<String>("Credit Card does not exist!", HttpStatus.BAD_REQUEST);
+				return new ResponseEntity<String>("Credit Card does not exist!", HttpStatus.BAD_GATEWAY);
 			}
-			if(dto.getCardSecCode().equals( checkSecCode(card.getPan(), card.getCardExpDate())  )){
+
+			card.setCardExpDate( trimDate(card.getCardExpDate()));
+			dto.setCardExpDate( trimDate(dto.getCardExpDate()));	
+			
+			
+			if(!dto.getCardSecCode().equals( checkSecCode(card.getPan(), card.getCardExpDate())  )){
 				logger.info(DECLINE + "Unauthorised!");
 				return new ResponseEntity<String>("Unauthorised!", HttpStatus.BAD_REQUEST);
 			}
+
 			
-			card.setCardExpDate( trimDate(card.getCardExpDate()));
-			dto.setCardExpDate( trimDate(dto.getCardExpDate()));			
-			if(!card.getCardExpDate().equals(dto.getCardExpDate())){
-				logger.info(DECLINE + "Credit Card expiration date is wrong!");
-				return new ResponseEntity<String>("Credit Card expiration date is wrong!", HttpStatus.BAD_REQUEST);
-			}
+//			logger.info(card.getCardExpDate() + "::::" + dto.getCardExpDate());
+			
+//			if(!card.getCardExpDate().equals(dto.getCardExpDate())){
+//				logger.info(DECLINE + "Credit Card expiration date is wrong!");
+//				return new ResponseEntity<String>("Credit Card expiration date is wrong!", HttpStatus.BAD_GATEWAY);
+//			}
+
 			if(card.getCardExpDate().before(new Date())){
 				logger.info(DECLINE + "Credit Card is expired!");
-				return new ResponseEntity<String>("Credit Card is expired!", HttpStatus.BAD_REQUEST);
+				return new ResponseEntity<String>("Credit Card is expired!", HttpStatus.BAD_GATEWAY);
 			}
 			if(card.getAccount() == null){
 				logger.info(DECLINE + "Credit Card is not connected to account!");
-				return new ResponseEntity<String>("Credit Card is not connected to account!", HttpStatus.BAD_REQUEST);
+				return new ResponseEntity<String>("Credit Card is not connected to account!", HttpStatus.BAD_GATEWAY);
 			}
 			if(card.getAccount().getBalance() < dto.getAmount()){
 				logger.info(DECLINE + "Insufficient funds!");
-				return new ResponseEntity<String>("Insufficient funds!", HttpStatus.BAD_REQUEST);
+				return new ResponseEntity<String>("Insufficient funds!", HttpStatus.BAD_GATEWAY);
 			}
 			
 			Account acc = card.getAccount();
 			acc.setBalance(acc.getBalance() - dto.getAmount());
-			accountService.save(acc);
+			logger.info(acc.toString());
+			acc = accountService.update(acc);
 			
 			order = new IssuerOrder(dto);
 			order.setCard(card);
@@ -130,7 +148,7 @@ public class IssuerOrderController {
 			order.setState(OrderStateEnum.SUCCESSFULL);
 			order = issuerOrderService.save(order);
 			
-			logger.info("Issuer Confirmed Transaction id: %s!", order.getId());
+			logger.info("Issuer Confirmed Transaction id: " + order.getId());
 						
 			return new ResponseEntity<Object>(new TransactionResponseDTO(order), HttpStatus.OK);
 						
@@ -179,15 +197,37 @@ public class IssuerOrderController {
 
 	private String checkSecCode(String pan, Date cardExpDate) {
 		String encoded;
+		Integer csc = null, passes = 3;
 		try {
 			Cipher encript = Cipher.getInstance("DES");
-			encript.init(Cipher.ENCRYPT_MODE, new SecretKeySpec("IssuerTopSecretKey".getBytes(), "DES"));
-			byte[] byteArray = pan.getBytes("UTF8");
+			encript.init(Cipher.ENCRYPT_MODE, new SecretKeySpec("IssuerSK".getBytes(), "DES"));
+			byte[] byteArrayPan = pan.getBytes("UTF8");
+			byte[] byteArrayDate = cardExpDate.toString().getBytes("UTF8");
 			
-			encoded = new sun.misc.BASE64Encoder().encode( encript.doFinal(byteArray));
+			encoded = new sun.misc.BASE64Encoder().encode( encript.doFinal(byteArrayPan));
+			encoded.concat( new sun.misc.BASE64Encoder().encode( encript.doFinal(byteArrayDate)));
+						
+			int lengt = encoded.length();
+			csc = (encoded.charAt(0) % 9) * 100;
+			csc += (encoded.charAt(lengt/2) % 9) * 10;
+			csc += (encoded.charAt(lengt-1) % 9);
+
+			csc = 0;
+			for(int i = 0; i < passes; i++){
+				int temp = 0;
+				for(char c : encoded.toCharArray()){
+					temp = ((i * temp) + c) % 9; 
+				}
+				if(i == 0)
+					temp *= 100;
+				else if( i == 1)
+					temp *= 10;
+				
+				csc += temp;				
+			}
 			
-			
-			
+			logger.info(encoded);
+			logger.info(String.valueOf(csc));
 			
 			
 		} catch (NoSuchAlgorithmException e) {
@@ -211,7 +251,7 @@ public class IssuerOrderController {
 		}
 		
 //		 It is calculated by encrypting the bank card number and expiration date 
-		return "";
+		return String.valueOf(csc);
 	}	
 	
 

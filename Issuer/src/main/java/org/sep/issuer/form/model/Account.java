@@ -38,6 +38,12 @@ public class Account extends AbstractEntity {
 		super();
 	}
 	
+	public  String toString(){
+		
+		
+		return issuer.getName() + " " + user.getFirstName() + " " + number + " " + balance + " " + id;
+		
+	}
 
 	public User getUser() {
 		return user;
