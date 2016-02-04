@@ -1,96 +1,87 @@
 describe("InputController", function() {
 
     var InputController,Result, Payment, Transaction,$httpBackend;
-  
+     //Transaction, Payment,  $stateParams, $timeout,  Result,  $window
      beforeEach(module("acquirer"));
     
-   
-    //pre svakog testa učitavamo mock PaymentService servis sa datom implementacijom
-    /*  beforeEach(module(function($provide){
-
-        $provide.factory('Payment', function(){
-            return {
-                send: function(payment) {return [{id:'1'}] } 
-            }
-        });
-
-        $provide.factory('Transaction', function(){
-            return {
-                generate: function(transaction) {return [{id:'1'}] } 
-            }
-        });
-      
-    }));  */
  
  
  
-    beforeEach(inject(function($controller, _Payment_ , _Transaction_,_Result_, _$httpBackend_) {
-        Payment = _Payment_;
+    beforeEach(inject(function($controller, _Transaction_ , _Payment_,_$stateParams_,_$timeout_ , _Result_, _$window_ ,_$httpBackend_) {
+       
         Transaction=_Transaction_;
+        Payment = _Payment_;
+        $stateParams=_$stateParams_;
+        $timeout= _$timeout_ ;
         Result=_Result_;
-        $httpBackend=_$httpBackend_
+        $window=_$window_; 
+        $httpBackend=_$httpBackend_;
+
+        $httpBackend.whenGET("app/components/acquirer/header.html").respond("<div/>");
+        $httpBackend.whenGET("app/components/acquirer/menu.html").respond("<div/>");
+        $httpBackend.whenGET("app/components/acquirer/footer.html").respond("<div/>");
+        $httpBackend.whenGET("app/components/input/input.html").respond("<div/>");
+
+        $httpBackend.whenGET('http://localhost:8081/Acquirer_back/payment/init/payment?id=1').respond(200, ['1','2','3']);
         InputController = $controller("InputController", {
-            Payment: Payment,
             Transaction: Transaction,
-            Result:Result
+            Payment: Payment,
+            $stateParams:$stateParams,
+            $timeout: $timeout,
+            Result:Result,
+            $window:$window,
+            $httpBackend: $httpBackend
         });
     }));  
- 
+
+    it("Variables to be defined", function() {
+        expect(InputController.transaction ).toBeDefined();
+        expect(InputController.resultTrans ).toBeDefined();
+    });
     
-     /*   it("should make request when use input changes and model should be valid", function () {
-            $httpBackend.whenGET(appUrl + "/radnici/987?apiKey="+appKey).respond(404);
-            $compile(inputElement)($scope);
+     it("Methods to be defined", function() {
+       
+        expect(InputController.onIncomingParametar ).toBeDefined();
+        expect(InputController.generatingTransaction ).toBeDefined();
+        expect(InputController.showModalProgress ).toBeDefined();
+        expect(InputController.showConfirm ).toBeDefined();
+        expect(InputController.showError).toBeDefined();
+    }); 
 
-            //kad promenimo vrednost jmbg polja znamo da se izvršava HTTP zahtev
-            $scope.testForm.jmbg.$setViewValue("987");
-            $httpBackend.flush();
-
-            //kako je definisano da zahtev vraća 404 očekujemo da će forma biti validna
-            expect($scope.testForm.$valid).toBe(true);
-        });*/
-    it("and so is a spec", function() {
-        a = 1;
-
-        expect(a+a).toBe(2);
-    });
-/* 
-   it("should send payment service functions be called", function() {
-        spyOn(Payment, "send");
-
-        InputController.onIncomingParametar(2);
-
-        
-    });   
-*/ /*
-    it("should send payment service functions be called with param", function() {
-        spyOn(Payment, "send");
-
-        InputController.onIncomingParametar(2);
-
-        expect(Payment.send).toHaveBeenCalledWith({id:'2'});
+     it("Should get transaction data, paymentId, amount, CSRFtoken",function()  {
+        // $httpBackend.flush();
+        $httpBackend.expectGET("http://localhost:8081/Acquirer_back/payment/init/payment?id=1").respond(200, ['1','2','3']);
+        Payment.send('1');
+        $httpBackend.flush();
+        expect(InputController.transaction.paymentId).toBeDefined();
+        expect(InputController.transaction.amount).toBeDefined();
+        expect(InputController.transaction.CSRFToken).toBeDefined();
     });
 
-     it("should call payment service function and receive custom return value", function() {
-        spyOn(Payment, "send").and.returnValue(5);
-        InputController.onIncomingParametar(2);
-        
-        //expect( InputController.onSuccess).toBe(5);
-    });*/
-   /*  
-    it("should call employee service function and receive custom return value", function() {
-        spyOn(employeeService, "addEmployee").and.returnValue(5);
-        empCtrl.employee = {jmbg:'1', name:'boban'};
+     it("Should get generate data", function()  {
+       // $httpBackend.flush();
+        var transaction='transaction';
+        $httpBackend.expectPOST('http://localhost:8081/Acquirer_back/payment/confirm', transaction).respond(200, [1]);
+        Transaction.generate(transaction);
+        $httpBackend.flush();
+        expect(InputController.resultTrans).toBeDefined();
 
-        expect(empCtrl.lastSaveSuccess).toBe(true);
-        empCtrl.saveEmployee();
+    });
 
-        expect(empCtrl.lastSaveSuccess).toBe(5);
-    });*/
+
+    it("Should get result data", function()  {
+        //$httpBackend.flush();
+        var result= "SUCCESSFUL"
+        $httpBackend.expectPOST('http://localhost:8080/spring4/transactionResults', result).respond(200, ['redirectlink']);
+        Result.sending("SUCCESSFUL");
+        $httpBackend.flush();
+        expect(InputController.redirectUrl).toBeDefined();
+    }); 
 
     //na kraju dodajemo ovaj blok da garantujemo da smo flushovali sve zahteve koje smo formirali,
     //kao i da ne postoje expect izrazi za HTTP zahteve koji nisu okinuti
-    /* afterEach(function() {
+     afterEach(function() {
         $httpBackend.verifyNoOutstandingRequest();
         $httpBackend.verifyNoOutstandingExpectation();
-    }); */
+    });  
 });

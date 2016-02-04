@@ -5,7 +5,7 @@ module.exports = function(config) {
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
-    basePath: '',
+    basePath: '../',
 
 
     // frameworks to use
@@ -16,29 +16,31 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     //treba doddati
     files: [
-        '../assets/js/angular/angular.js',
-        '../assets/js/angular-material/angular-material.js',
-        '../assets/js/angular-mocks/angular-mocks.js',
-        '../assets/js/angular-messages/angular-messages.js',
-        '../assets/js/angular-resource/angular-resource.js',
-        '../assets/js/angular-ui-router/release/angular-ui-router.js',
-        '../assets/js/angular-translate/angular-translate.js',
-        '../assets/js/angular-dynamic-locale/dist/tmhDynamicLocale.js',
-        '../assets/js/angular-animate/angular-animate.js',
-        '../assets/js/angular-messages/angular-messages.js',
-        '../app/app.module.js',
-        '../app/components/acquirer/acquirer.module.js',
-        '../app/components/acquirer/acquirer.route.js',
-        '../app/components/modal/modal.module.js',
-        '../app/components/menu/menu.module.js',
-        '../app/components/input/input.module.js',
-        '../app/components/input/input.js',
-        '../app/components/transactions/transactions.module.js',
-       '../app/components/modal/modal.module.js',
-        '../app/components/shared/i18n/i18n.module.js',
-        '../app/components/aboutus/users.js',
-        '../app/components/aboutus/userservice.js',
-        '../app/**/*.js'
+        'assets/js/angular/angular.js',
+        'assets/js/angular-animate/angular-animate.js',
+        'assets/js/angular-aria/angular-aria.js',
+        'assets/js/angular-resource/angular-resource.js',
+        'assets/js/angular-ui-router/release/angular-ui-router.js',
+        'assets/js/angular-material/angular-material.js',
+        'assets/js/angular-messages/angular-messages.js',
+        'assets/js/angular-mocks/angular-mocks.js',
+        'assets/js/angular-route/angular-route.js',
+        'assets/js/ng-table/dist/ng-table.js',
+        'assets/js/angular-translate/angular-translate.js',
+        'app/app.module.js',
+        'app/components/acquirer/acquirer.module.js',
+        'app/components/acquirer/acquirer.route.js',
+        'app/components/modal/modal.module.js',
+        'app/components/menu/menu.module.js',
+        'app/components/input/input.module.js',
+        'app/components/transactions/transactions.module.js',
+        'app/components/modal/modal.module.js',
+        'app/components/shared/shared/shared.module.js',
+        'app/components/shared/i18n/i18n.module.js',
+        'app/components/shared/i18n/i18n-constants/i18n-constants.module.js',
+        'app/components/aboutus/users.js',
+        'assets/js/angular-dynamic-locale/dist/tmhDynamicLocale.js',
+        'app/**/*.js'
     ],
  
 

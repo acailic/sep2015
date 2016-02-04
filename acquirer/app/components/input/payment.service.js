@@ -16,7 +16,6 @@
                         url:"http://localhost:8081/Acquirer_back/payment/init/payment?id="+payment,
                         method: "GET",
                         data :   payment   
-                         
                     }).success(function (data) {
                       //  alert(data);
                         console.log("Uspesno slanju payment id." );

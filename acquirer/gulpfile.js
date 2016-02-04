@@ -12,6 +12,7 @@ var sass = require('gulp-sass');
 var minifyCss = require('gulp-minify-css');
 var concatCss = require('gulp-concat-css');
 //jshint
+var karma = require('karma');
 var jshint = require('gulp-jshint');
 var protractor = require('gulp-protractor');
 var exit = require('gulp-exit');

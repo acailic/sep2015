@@ -32,11 +32,11 @@
       };
 
       console.log("USAO JE U KONTROLER");
-      console.log($stateParams);
-        
-      console.log($stateParams.idpayment);
-      inc.idpayment = $stateParams.idpayment;
-
+      //console.log($stateParams);
+      if(!angular.isUndefined($stateParams.idpayment)){   
+          console.log($stateParams.idpayment);
+          inc.idpayment = $stateParams.idpayment;
+      }
 
        var onSuccess = function(data){
           console.log("ON SUCCESS PAYMENTA:");
@@ -45,7 +45,7 @@
           console.log(data.csrftoken);
           inc.transaction.paymentId=data.paymentId;
           inc.transaction.amount=data.amount;
-          inc.transaction.csrftoken=data.csrftoken;
+          inc.transaction.CSRFToken=data.csrftoken;
       };
 
       var onFailure = function(reason){
@@ -68,7 +68,7 @@
       if(!angular.isUndefined(inc.idpayment)) {
         inc.onIncomingParametar(inc.idpayment);
       }
-        
+      inc.redirectUrl='';  
     
        /* inc.transaction = {
              paymentId: 10,
@@ -226,8 +226,9 @@
             var retResult=Result.sending(inc.resultTrans);
             retResult.then(function(data) {
                     console.log("URL JE: "+data.url);
+                    inc.redirectUrl=data.url;
                    //$location.path( "www.google.com");
-                   $window.location.href=data.url;
+                   $window.location.href=inc.redirectUrl;
                 }, function(error) {
                     // promise rejected, could log the error with: console.log('error', error);
                     console.log('error', error); 
@@ -269,7 +270,8 @@
             var retResult=Result.sending(inc.resultTrans);
             retResult.then(function(data) {
                     console.log("URL JE: "+data.url);
-                     $window.location.href=data.url;
+                    inc.redirectUrl=data.url;
+                    $window.location.href= inc.redirectUrl;
                 }, function(error) {
                     // promise rejected, could log the error with: console.log('error', error);
                     console.log('error', error); 
