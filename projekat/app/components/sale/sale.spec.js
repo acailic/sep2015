@@ -17,7 +17,7 @@ describe("SaleController", function() {
         $httpBackend.whenGET("app/components/core/menu.html").respond("<div/>");
         $httpBackend.whenGET("app/components/sale/sale.html").respond("<div/>");
         $httpBackend.whenGET("app/components/insurance/insurance.html").respond("<div/>");
-        $httpBackend.whenGET('http://localhost:8080/spring4/data_init').respond(200, [1]);
+        $httpBackend.whenGET('http://localhost:8444/spring4/data_init').respond(200, [1]);
 		slcCtrl = $controller("SaleController", {
 			SharedObject : SharedObject,
 			Insurance : Insurance,
@@ -86,7 +86,7 @@ describe("SaleController", function() {
     }));
 
     it("Should get Initial data", inject(function () {
-	    $httpBackend.expectGET('http://localhost:8080/spring4/data_init')
+	    $httpBackend.expectGET('http://localhost:8444/spring4/data_init')
          .respond(200, [1]);
         Insurance.data_init();
 		$httpBackend.flush();
@@ -96,7 +96,7 @@ describe("SaleController", function() {
 	it("Should calculate the price of insurance", (function () {
 		expect(slcCtrl.calculate).toBeDefined();
 		var insurance = "insurance";
-		$httpBackend.expectPOST('http://localhost:8080/spring4/calculate', insurance).respond(200, "insurance");
+		$httpBackend.expectPOST('http://localhost:8444/spring4/calculate', insurance).respond(200, "insurance");
 		Insurance.calculate(insurance);
 		$httpBackend.flush();
 	}));
@@ -104,7 +104,7 @@ describe("SaleController", function() {
 	it("Should calculate the price of insurance", (function () {
 		expect(slcCtrl.createInsurance).toBeDefined();
 		var insurance = "insurance";
-		$httpBackend.expectPOST('http://localhost:8080/spring4/create', insurance).respond(200, "insurance");
+		$httpBackend.expectPOST('http://localhost:8444/spring4/create', insurance).respond(200, "insurance");
 		Insurance.create(insurance);
 		$httpBackend.flush();
 	}));
