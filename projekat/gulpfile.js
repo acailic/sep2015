@@ -15,31 +15,32 @@ var concatCss = require('gulp-concat-css');
 var jshint = require('gulp-jshint');
 
 var sources = [
-	'app/app.module.js',
-	'app/**/*.js'
+  'app/app.module.js',
+  'app/**/*.js'
 ];
 
 gulp.task('vendorScripts', function() {
-	return gulp.src('assets/js/*')
-		.pipe(concatVendor('vendor.min.js'))
-		.pipe(uglify())
-		.pipe(gulp.dest('dist'))
+  return gulp.src('assets/js/*')
+    .pipe(concatVendor('vendor.min.js'))
+    .pipe(uglify())
+    .pipe(gulp.dest('dist'))
 });
 
 gulp.task('scripts', function() {
-	return gulp.src(sources)
-		.pipe(concat('all.min.js'))
-		.pipe(uglify())
-		.pipe(gulp.dest('dist'));
+  return gulp.src(sources)
+    .pipe(concat('all.min.js'))
+    .pipe(uglify())
+    .pipe(gulp.dest('dist'));
 });
 
 gulp.task('webserver', function() {
   gulp.src('.')
-     .pipe(webserver({
+    .pipe(webserver({
       livereload: true,
       open: true,
       port: 8001,
      https: true
+
     }));
 });
 
@@ -50,8 +51,8 @@ gulp.task('sass', function () {
 });
 
 gulp.task('minCss', ['sass'], function() {
-	gulp.src('assets/css/**/*.css')
-		.pipe(concatCss("all.min.css"))
+  gulp.src('assets/css/**/*.css')
+    .pipe(concatCss("all.min.css"))
         .pipe(minifyCss())
         .pipe(gulp.dest('dist'));
 });
@@ -67,7 +68,7 @@ gulp.task('lint', function() {
 });
 
 gulp.task('watch', function() {
-	gulp.watch('app/**/*.js', ['lint', 'scripts']);
+  gulp.watch('app/**/*.js', ['lint', 'scripts']);
 });
 
 //gulp.task('default', ['lint', 'vendorScripts', 'scripts', 'minCss', 'watch', 'sass:watch', 'webserver']);

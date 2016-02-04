@@ -21,6 +21,6 @@
     "angular-material": "^0.11.2",
     "angular-messages": "1.4.8",
     "angular-mocks": "latest",
-    "spring-security-csrf-token-interceptor-extended": "latest"  
+    "spring-security-csrf-token-interceptor-extended" : "latest"
   }
 }
