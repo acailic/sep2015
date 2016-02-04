@@ -59,7 +59,7 @@
       <div layout-gt-sm="row">
         <md-input-container class="md-block" flex-gt-sm="">
           <label>{{'LABELS.CARDNUM'|translate}}</label>
-          <input ng-model="inc.transaction.pan"  ng-pattern="/^[0-9]{8}$/"  name="cardnum"  required>
+          <input ng-model="inc.transaction.pan"  ng-pattern="/^[0-9]{16}$/"  name="cardnum"  required>
 
           <div ng-messages="inc.paymentForm.cardnum.$error" role="alert" ng-show="inc.paymentForm.cardnum.$touched">
             <div ng-message="required">{{'LABELS.REQUIRED'|translate}}</div>
@@ -70,7 +70,7 @@
 
         <md-input-container class="md-block" flex-gt-sm="">
           <label>{{'LABELS.SECCODE'|translate}}</label>
-          <input ng-model="inc.transaction.cardSecCode" name="seccode" ng-pattern="/^[0-9]{4}$/" required >
+          <input ng-model="inc.transaction.cardSecCode" name="seccode" ng-pattern="/^[0-9]{3}$/" required >
 
             <div ng-messages="inc.paymentForm.cardSecCode.$error" ng-show="inc.paymentForm.cardSecCode.$touched" >
               <div ng-message="required">{{'LABELS.REQUIRED'|translate}}</div>

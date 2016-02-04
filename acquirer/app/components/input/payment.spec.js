@@ -59,7 +59,7 @@ describe("InputController", function() {
     });
 
      it("Should get generate data", function()  {
-       // $httpBackend.flush();
+        
         var transaction='transaction';
         $httpBackend.expectPOST('http://localhost:8081/Acquirer_back/payment/confirm', transaction).respond(200, [1]);
         Transaction.generate(transaction);
@@ -70,12 +70,13 @@ describe("InputController", function() {
 
 
     it("Should get result data", function()  {
-        //$httpBackend.flush();
-        var result= "SUCCESSFUL"
+         
+        var result= "SUCCESSFUL";
         $httpBackend.expectPOST('http://localhost:8080/spring4/transactionResults', result).respond(200, ['redirectlink']);
         Result.sending("SUCCESSFUL");
         $httpBackend.flush();
         expect(InputController.redirectUrl).toBeDefined();
+        
     }); 
 
     //na kraju dodajemo ovaj blok da garantujemo da smo flushovali sve zahteve koje smo formirali,

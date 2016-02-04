@@ -110,7 +110,7 @@
                     acquirerOrderId: data.acquirerOrderId,
                     acquirerTimestamp: data.acquirerTimeStamp,
                     paymentId: data.paymentId
-                  };
+           };
            $timeout(function() {
             if (data.state=="SUCCESSFULL")
               inc.showConfirm();
@@ -260,7 +260,7 @@
                      message+ '</p><hr>'+
                      '<div layout="row" ><img style="margin: auto; max-width: 100%;" alt="error" src="/images/error.png">'
                       + '</div></div><md-dialog-actions layout="row">'+
-                   ' <span/><md-button class="md-raised md-primary" ng-click="mc.answer(odg)">'
+                   ' <span/><md-button class="md-raised md-primary" ng-click="mc.answer(odg)">'+
                     + 'Go to merchant</md-button></md-dialog-actions></md-dialog-content>'
           })  
           .then(function(answer) {
