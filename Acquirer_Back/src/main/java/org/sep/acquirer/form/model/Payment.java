@@ -35,8 +35,8 @@ public class Payment extends AbstractEntity {
     @JoinColumn(name = "merchant")
 	private Merchant merchant;
 	
-	@OneToOne
-	private AcquirerOrder acquirerOrder;
+//	@OneToOne
+//	private AcquirerOrder acquirerOrder;
 	
 	public Payment() {
 	}
@@ -68,13 +68,13 @@ public class Payment extends AbstractEntity {
 		CSRFToken = cSRFToken;
 	}
 
-	public AcquirerOrder getAcquirerOrder() {
-		return acquirerOrder;
-	}
-
-	public void setAcquirerOrder(AcquirerOrder acquirerOrder) {
-		this.acquirerOrder = acquirerOrder;
-	}
+//	public AcquirerOrder getAcquirerOrder() {
+//		return acquirerOrder;
+//	}
+//
+//	public void setAcquirerOrder(AcquirerOrder acquirerOrder) {
+//		this.acquirerOrder = acquirerOrder;
+//	}
 
 	public Merchant getMerchant() {
 		return merchant;

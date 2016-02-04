@@ -20,7 +20,7 @@ public class TransactionDTO implements Serializable{
 	}
 	
 	public TransactionDTO(AcquirerOrder order) {
-
+		System.out.println(order.getPayment());
 		this.acquirerId = order.getPayment().getMerchant().getAcquirer().getId();
 		this.acquirerOrderId = order.getId();
 		this.acquirerOrderTimestamp = order.getAcquirerTimestamp();

@@ -37,7 +37,7 @@ public class AcquirerOrder extends AbstractEntity{
 	@Column(name="orderState", nullable = false)
 	private OrderStateEnum orderState;
 	
-	@OneToOne(mappedBy = "acquirerOrder")
+	@OneToOne
 	private Payment payment;
 
 	public AcquirerOrder() {

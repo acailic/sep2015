@@ -39,7 +39,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 @RequestMapping(value = "/payment")
-@CrossOrigin(origins = "http://localhost:8000")
+//@CrossOrigin(origins = "http://localhost:8000")
 public class PaymentController {
 
 	private final Logger logger = LoggerFactory.getLogger(PaymentController.class);
@@ -90,10 +90,10 @@ public class PaymentController {
 			}
 			
 			Payment payment = new Payment(paymentDTO, merchant);
+			payment = paymentService.save(payment);
 			PaymentResponseDTO response = new PaymentResponseDTO(AcquirerConstants.ACQUIRER_WEB_APP_HOST + 
 				 											 AcquirerConstants.ACQUIRER_WEB_APP_PAYMENT_URL , payment.getId());
 		
-			payment = paymentService.save(payment);
 			logger.info("Payment saved!");
 			return new ResponseEntity<PaymentResponseDTO>(response, HeaderUtil.getHeader(), HttpStatus.OK);
 		}catch(Exception ex){
@@ -128,6 +128,7 @@ public class PaymentController {
 			payment.setCSRFToken(String.valueOf(scrfToken.nextInt()));
 			
 			TokenResponseDTO response = new TokenResponseDTO(payment.getId(), payment.getAmount(), payment.getCSRFToken());
+			
 			return new ResponseEntity<TokenResponseDTO>(response, HeaderUtil.getHeaderResponseAcquirer(), HttpStatus.OK);
 		}catch(Exception ex){
 
@@ -154,7 +155,8 @@ public class PaymentController {
 			   orderDTO.getPan() == null || orderDTO.getPan().isEmpty() ||
 			   orderDTO.getCardSecCode() == null || orderDTO.getCardSecCode().isEmpty() ||
 			   orderDTO.getCardHolderName() == null ||  orderDTO.getCardHolderName().isEmpty() ||
-			   orderDTO.getCardExpDate() == null || orderDTO.getAmount() == null){
+			   orderDTO.getCardExpDate() == null || orderDTO.getAmount() == null /*||
+			   orderDTO.getCSRFToken() == null*/){
 				logger.info(DECLINE + "Request is incomplete!");
 				return new ResponseEntity<String>("Request is incomplete!", HttpStatus.BAD_GATEWAY);
 			}
@@ -165,20 +167,20 @@ public class PaymentController {
 				return new ResponseEntity<String>("Payment does not exist!", HttpStatus.BAD_GATEWAY);
 			}
 			
-			if(payment.getAcquirerOrder() != null){
-				logger.info(DECLINE + "Order has already been procceded!");
-				return new ResponseEntity<String>("Order has already been procceded!", HttpStatus.BAD_GATEWAY);
-			}
+//			if(payment.getAcquirerOrder() != null){
+//				logger.info(DECLINE + "Order has already been procceded!");
+//				return new ResponseEntity<String>("Order has already been procceded!", HttpStatus.BAD_GATEWAY);
+//			}
 			
 			if(!payment.getAmount().equals(orderDTO.getAmount())){
 				logger.info(DECLINE + "Amount in Order difers from amount in Payment!");
 				return new ResponseEntity<String>("Amount in Order difers from amount in Payment!", HttpStatus.BAD_GATEWAY);
 			}
-			
-			if(!payment.getCSRFToken().equals(orderDTO.getCSRFToken())){
-				logger.info(DECLINE + "CSRF Token is invalid!");
-				return new ResponseEntity<String>("CSRF Token is invalid!", HttpStatus.BAD_GATEWAY);
-			}
+			logger.info(payment.getCSRFToken() + "_" + orderDTO.getCSRFToken());
+//			if(!payment.getCSRFToken().equals(orderDTO.getCSRFToken())){
+//				logger.info(DECLINE + "CSRF Token is invalid!");
+//				return new ResponseEntity<String>("CSRF Token is invalid!", HttpStatus.BAD_GATEWAY);
+//			}
 	
 			order = new AcquirerOrder(orderDTO, payment, OrderStateEnum.PENDING);
 			order = acquirerOrderService.save(order);
@@ -211,17 +213,20 @@ public class PaymentController {
 				//TODO: verify ID's and timestamp
 				
 				order.setOrderState(responseDto.getState());
-				order = acquirerOrderService.save(order);
+				logger.info("Order id:" + order.getId() + " Payment id:" + order.getPayment().getId());
+				order = acquirerOrderService.update(order);
+				logger.info("After update");
+				
 				result.setState(order.getOrderState());
 				
 				return new ResponseEntity<AcquirerResponseDTO>(result, HeaderUtil.getHeaderResponseAcquirer(), HttpStatus.OK);
-				
+
 			}else{	
 				PccResponseDTO responseDto = mapper.readValue(response.getBody(), PccResponseDTO.class);
 				logger.error("Acquirer received error - HTTP State: " + response.getStatusCode() + " Msg: " + responseDto.getErrorMsg());
-				order = acquirerOrderService.find(responseDto.getAcquirerOrderId());
+//				order = acquirerOrderService.find(responseDto.getAcquirerOrderId());
 				order.setOrderState(OrderStateEnum.UNSUCCESSFULL);
-				order = acquirerOrderService.save(order);
+				order = acquirerOrderService.update(order);
 				result.setState(order.getOrderState());
 				result.setErrorMsg(responseDto.getErrorMsg());
 				

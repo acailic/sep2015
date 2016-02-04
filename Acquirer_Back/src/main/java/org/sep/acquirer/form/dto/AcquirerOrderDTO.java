@@ -16,7 +16,7 @@ public class AcquirerOrderDTO {
 	public AcquirerOrderDTO() {
 	}
 		
-	public AcquirerOrderDTO(Long paymentId, Date acquirerTimeStamp, String pan, String cardSecCode, String cardHolderName, Date cardExpDate, Double amount) {
+	public AcquirerOrderDTO(Long paymentId, Date acquirerTimeStamp, String pan, String cardSecCode, String cardHolderName, Date cardExpDate, String CSRFToken, Double amount) {
 		super();
 		this.paymentId = paymentId;
 		this.acquirerTimeStamp = acquirerTimeStamp;
@@ -24,6 +24,7 @@ public class AcquirerOrderDTO {
 		this.cardSecCode = cardSecCode;
 		this.cardHolderName = cardHolderName;
 		this.cardExpDate = cardExpDate;
+		this.CSRFToken = CSRFToken;
 		this.amount = amount;
 	}
 
