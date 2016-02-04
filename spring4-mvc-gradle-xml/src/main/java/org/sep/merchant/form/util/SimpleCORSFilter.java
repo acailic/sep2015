@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Component;
 
 public class SimpleCORSFilter  implements Filter {
 	
@@ -33,12 +32,12 @@ public class SimpleCORSFilter  implements Filter {
 	    List<String> listOfAllowed = new ArrayList<String>();
 		 listOfAllowed.add("http://localhost:8082");
 		 listOfAllowed.add("http://localhost:8080");
-		 
-	    response.addHeader("Access-Control-Allow-Origin", "http://localhost:8082");
+	    response.addHeader("Access-Control-Allow-Origin", "https://localhost:8001");
 	    response.setHeader("Access-Control-Allow-Credentials", "true");
 	    response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
 	    response.setHeader("Access-Control-Max-Age", "3600");
-	    response.setHeader("Access-Control-Allow-Headers", "Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers");
+	    response.setHeader("Access-Control-Allow-Headers", "Origin, Accept, X-Requested-With, Content-Type, Access-Control-Request-Method, Access-Control-Request-Headers,"
+	    		+ "x-csrf-xxx-token");
 	    chain.doFilter(req, res);
 	}
 
