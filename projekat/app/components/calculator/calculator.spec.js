@@ -24,7 +24,7 @@ describe("CalculatorController", function() {
         $httpBackend.whenGET("app/components/core/menu.html").respond("<div/>");
         $httpBackend.whenGET("app/components/sale/sale.html").respond("<div/>");
         $httpBackend.whenGET("app/components/insurance/insurance.html").respond("<div/>");
-        $httpBackend.whenGET('http://localhost:8444/spring4/data_init').respond(200, [1]);
+        $httpBackend.whenGET('https://localhost:8444/spring4/data_init').respond(200, [1]);
 
        	
 		calcCtrl = $controller("CalculatorController", {
@@ -61,7 +61,7 @@ describe("CalculatorController", function() {
 	
 
 	it("Should get Initial data", inject(function ($rootScope) {
-	    $httpBackend.expectGET('http://localhost:8444/spring4/data_init')
+	    $httpBackend.expectGET('https://localhost:8444/spring4/data_init')
          .respond(200, [1]);
         Insurance.data_init();
         $rootScope.$digest();
@@ -72,7 +72,7 @@ describe("CalculatorController", function() {
 	it("Should calculate the price of Travel insurance", inject(function ($rootScope) {
 		expect(calcCtrl.calculateTravel).toBeDefined();
 		var travel = "travel";
-		$httpBackend.expectPOST('http://localhost:8444/spring4/calculateTravel', travel).respond(200, "travel");
+		$httpBackend.expectPOST('https://localhost:8444/spring4/calculateTravel', travel).respond(200, "travel");
 		Insurance.calculateTravel(travel);
 		$httpBackend.flush();
        	
@@ -81,7 +81,7 @@ describe("CalculatorController", function() {
 	it("Should calculate the price of Home insurance", inject(function ($rootScope) {
 		expect(calcCtrl.calculateHome).toBeDefined();
 		var home = "home";
-		$httpBackend.expectPOST('http://localhost:8444/spring4/calculateHome', home).respond(200, "home");
+		$httpBackend.expectPOST('https://localhost:8444/spring4/calculateHome', home).respond(200, "home");
 		Insurance.calculateHome(home);
 		$httpBackend.flush();
        	
@@ -90,7 +90,7 @@ describe("CalculatorController", function() {
 	it("Should calculate the price of Vehicle insurance", inject(function ($rootScope) {
 		expect(calcCtrl.calculateVehicle).toBeDefined();
 		var vehicle = "vehicle";
-		$httpBackend.expectPOST('http://localhost:8444/spring4/calculateVehicle', vehicle).respond(200, "vehicle");
+		$httpBackend.expectPOST('https://localhost:8444/spring4/calculateVehicle', vehicle).respond(200, "vehicle");
 		Insurance.calculateVehicle(vehicle);
 		$httpBackend.flush();
        	

@@ -86,7 +86,7 @@ describe("SaleController", function() {
     }));
 
     it("Should get Initial data", inject(function () {
-	    $httpBackend.expectGET('http://localhost:8444/spring4/data_init')
+	    $httpBackend.expectGET('https://localhost:8444/spring4/data_init')
          .respond(200, [1]);
         Insurance.data_init();
 		$httpBackend.flush();
@@ -96,7 +96,7 @@ describe("SaleController", function() {
 	it("Should calculate the price of insurance", (function () {
 		expect(slcCtrl.calculate).toBeDefined();
 		var insurance = "insurance";
-		$httpBackend.expectPOST('http://localhost:8444/spring4/calculate', insurance).respond(200, "insurance");
+		$httpBackend.expectPOST('https://localhost:8444/spring4/calculate', insurance).respond(200, "insurance");
 		Insurance.calculate(insurance);
 		$httpBackend.flush();
 	}));
@@ -104,7 +104,7 @@ describe("SaleController", function() {
 	it("Should calculate the price of insurance", (function () {
 		expect(slcCtrl.createInsurance).toBeDefined();
 		var insurance = "insurance";
-		$httpBackend.expectPOST('http://localhost:8444/spring4/create', insurance).respond(200, "insurance");
+		$httpBackend.expectPOST('https://localhost:8444/spring4/create', insurance).respond(200, "insurance");
 		Insurance.create(insurance);
 		$httpBackend.flush();
 	}));

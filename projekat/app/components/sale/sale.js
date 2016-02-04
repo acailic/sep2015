@@ -193,11 +193,11 @@
 	  	slc.setDates = function() {
 	  		slc.dates.travel_start_date = slc.formatDate(slc.insurance.travel.start_date);
 	  		slc.dates.travel_end_date = slc.formatDate(slc.insurance.travel.end_date);
-	  		if(slc.insurance.home !== undefined && !angular.equals({}, slc.insurance.home)){
+	  		if(slc.insurance.home !== undefined && slc.insurance.home !== null && !angular.equals({}, slc.insurance.home)){
 	  			slc.dates.home_start_date = slc.formatDate(slc.insurance.home.start_date); 
 	  			slc.dates.home_end_date = slc.formatDate(slc.insurance.home.end_date);
 	  		}
-	  		if(slc.insurance.vehicle !== undefined && !angular.equals({}, slc.insurance.vehicle)){
+	  		if(slc.insurance.vehicle !== undefined && slc.insurance.vehicle !== null && !angular.equals({}, slc.insurance.vehicle)){
 	  			slc.dates.vehicle_start_date = slc.formatDate(slc.insurance.vehicle.start_date);
 	  			slc.dates.vehicle_end_date = slc.formatDate(slc.insurance.vehicle.end_date);
 	  		}
