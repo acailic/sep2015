@@ -18,13 +18,14 @@
              cardholderlastname: '',
              cardtype:  '' ,
              pan: '',
-             cardSecCode:  '' ,
+             cardSecCode:'',
              expmonth: '',
              expyear: '',
              CSRFToken: ''
       };  
 
       inc.resultTrans= {
+          transactionResult: '',
         merchantOrderId: '',
         acquirerOrderId: '',
         acquirerTimestamp: '',
@@ -106,11 +107,13 @@
           //inc.showModalPayment(data); 
           console.log(data.errorMsg);
            inc.resultTrans= {
+                    transactionResult: 'success',
                     merchantOrderId: data.merchantOrderId,
                     acquirerOrderId: data.acquirerOrderId,
                     acquirerTimestamp: data.acquirerTimeStamp,
                     paymentId: data.paymentId
            };
+
            $timeout(function() {
             if (data.state=="SUCCESSFULL")
               inc.showConfirm();
@@ -162,12 +165,12 @@
       inc.generatingTransaction = function(value) {
          console.log("GENERATING TRANSACTIONS:" );
 
-         inc.sending_transaction = {
+          inc.sending_transaction = {
                paymentId: inc.transaction.paymentId,
                amount: inc.transaction.amount,
-               cardHolderName: inc.cardholdername+' '+inc.transaction.cardholderlastname,
+               cardHolderName: inc.transaction.cardholdername+' '+inc.transaction.cardholderlastname,
                pan:  inc.transaction.pan ,
-               cardSecCode:  inc.cardSecCode,
+               cardSecCode:  inc.transaction.cardSecCode,
                cardExpDate : new Date(1,inc.transaction.expmonth,inc.transaction.expyear),
                CSRFToken: inc.transaction.CSRFToken,
                acquirerTimeStamp : new Date()
@@ -258,10 +261,10 @@
                     '<h2 style="color:red">Fail</h2>'+
                     '<div   layout="column"> Payment failed.<hr><p>'+
                      message+ '</p><hr>'+
-                     '<div layout="row" ><img style="margin: auto; max-width: 100%;" alt="error" src="/images/error.png">'
-                      + '</div></div><md-dialog-actions layout="row">'+
+                     '<div layout="row" ><img style="margin: auto; max-width: 100%;" alt="error" src="/images/error.png">' + 
+                      '</div></div><md-dialog-actions layout="row">'+
                    ' <span/><md-button class="md-raised md-primary" ng-click="mc.answer(odg)">'+
-                    + 'Go to merchant</md-button></md-dialog-actions></md-dialog-content>'
+                     'Go to merchant</md-button></md-dialog-actions></md-dialog-content>'
           })  
           .then(function(answer) {
             //$location.path('/about');
