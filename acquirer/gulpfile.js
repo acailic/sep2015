@@ -13,6 +13,8 @@ var minifyCss = require('gulp-minify-css');
 var concatCss = require('gulp-concat-css');
 //jshint
 var jshint = require('gulp-jshint');
+var protractor = require('gulp-protractor');
+var exit = require('gulp-exit');
 
 var sources = [
 	'app/app.module.js',
@@ -44,7 +46,7 @@ gulp.task('webserverhttps', function() {
     }));
 });
 
-gulp.task('webserver', function() {
+gulp.task('webserverhttp', function() {
   gulp.src('.')
     .pipe(webserver({
       livereload: true,
@@ -85,3 +87,34 @@ gulp.task('watch', function() {
 
 //gulp.task('default', ['lint', 'vendorScripts', 'scripts', 'minCss', 'watch', 'sass:watch', 'webserver']);
 gulp.task('default', ['lint','watch', 'sass:watch', 'webserver']);
+
+gulp.task('test', function(done) {
+    karma.server.start({
+      //putanja do karma.config.js
+        configFile: __dirname + '\\tests\\karma.conf.js'
+    }, done);
+});
+
+gulp.task('webserver', function() {
+  gulp.src('.')
+    .pipe(webserver());
+});
+
+//potrebno je ažurirati webdriver za selenium server 
+var webdriverUpdate = require('gulp-protractor').webdriver_update;
+gulp.task('webdriverUpdate', webdriverUpdate);
+
+gulp.task('e2e', ['webserver', 'webdriverUpdate'], function(done) {
+  gulp.src([])
+    .pipe(protractor.protractor({
+      //putanja do protractor.config.js
+      configFile: __dirname + "\\tests\\protractor.conf.js",
+      //menjamo baseUrl pošto webserver koristi port 8000, a http-server 8080
+          //args: ['--baseUrl', 'http://localhost:8000/#/input']
+    }))
+    .on('error', function(error) {
+      console.log(error);
+    })
+  //bez ovog plugina se ne ugase pokrenuti serveri
+    .pipe(exit());
+});

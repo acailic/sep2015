@@ -1,8 +1,8 @@
-<md-dialog aria-label="Placeno"  ng-cloak>
+<md-dialog aria-label="Placeno"  ng-cloak ng-cloak ng-controller="ModalController as mc">
   <form>
     <md-toolbar>
       <div class="md-toolbar-tools">
-        <h2>Greska</h2>
+        <h2>Fail</h2>
         <span flex></span>
         <md-button class="md-icon-button" ng-click="cancel()">
           <md-icon md-svg-src="/assets/images/angular-material/icons/ic_close_24px.svg" aria-label="Close dialog"></md-icon>
@@ -10,25 +10,24 @@
       </div>
     </md-toolbar>
     <md-dialog-content>
-      <div class="md-dialog-content">
-          Placanje neuspesno!!!!!!
-          ....
-      <md-icon md-font-icon="
-check circle
-48dp
-PNGS
-SVG
-" />
+      <div class="md-dialog-content" layout="column">
+          Payment failed.
+          <hr>
+          <p> 
+            {{mc.name}} 
+          </p>
+          <hr>
+       <div layout="row" >
+          <img style="margin: auto; max-width: 100%;" alt="error" src="/images/error.png">
+          </div>
+      
       </div>
-    </md-dialog-content>
+    
 
     <md-dialog-actions layout="row">
-      
-      <span flex></span>
-      <md-button ng-click="mc.answer('redirect')">
-       Redirekcija na merchanta
+      <span/>  <md-button class="md-raised md-primary" ng-click="mc.answer('redirect')">
+       Go to merchant
       </md-button>
-    
     </md-dialog-actions>
   </form>
 </md-dialog>

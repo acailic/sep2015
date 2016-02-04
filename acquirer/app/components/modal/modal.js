@@ -6,9 +6,10 @@
  		.controller('ModalController', ModalController);
 
  	ModalController.$inject = ['$mdDialog'];
- 	function ModalController($mdDialog) {
- 		var mdc = this;
+ 	function ModalController($mdDialog  ) {
 
+ 		var mdc = this;
+ 		 
 		mdc.hide = function() {
 		    $mdDialog.hide();
 		};
@@ -17,7 +18,6 @@
 		};
 		mdc.answer = function(answer) {
 		    $mdDialog.hide(answer);
-		    console.log("POZVANA 12");
 		};
 	}
  })();

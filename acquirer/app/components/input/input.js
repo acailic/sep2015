@@ -8,15 +8,16 @@
 
    
   InputController.$inject = ['$mdDialog', '$mdMedia','Transaction', 'Payment' ,'$stateParams','$timeout'  ,'Result',  '$window' ];
- 	function InputController($mdDialog, $mdMedia, Transaction, Payment,  $stateParams, $timeout,  Result,  $window ) {
+ 	function InputController( $mdDialog, $mdMedia, Transaction, Payment,  $stateParams, $timeout,  Result,  $window ) {
  		  var inc = this; 
       //inc.$state=$state;
        inc.transaction = {
-             paymentId: 0,
-             amount: 0,
+             paymentId: '',
+             amount: '',
              cardholdername: '',
              cardholderlastname: '',
-             pan:  '' ,
+             cardtype:  '' ,
+             pan: '',
              cardSecCode:  '' ,
              expmonth: '',
              expyear: '',
@@ -69,18 +70,18 @@
       }
         
     
-       /*inc.transaction = {
+       /* inc.transaction = {
              paymentId: 10,
              amount: 10,
              cardholdername: 'aca',
              cardholderlastname: 'ilic',
-             pan:  '12341245' ,
-             cardSecCode:  '1242' ,
+             pan:  '12345678' ,
+             cardSecCode:  '1124' ,
              expmonth: '12',
              expyear: '2011',
              CSRFToken: 'sadas123',
 
-      };  */
+      };  */ 
 
       /*inc.sending_transaction = {
            paymentId: 10,
@@ -103,6 +104,7 @@
          //uspesna transakcija trebalo bi samo da procitam url i da se redirektujem
           // alert(data.state);
           //inc.showModalPayment(data); 
+          console.log(data.errorMsg);
            inc.resultTrans= {
                     merchantOrderId: data.merchantOrderId,
                     acquirerOrderId: data.acquirerOrderId,
@@ -112,8 +114,10 @@
            $timeout(function() {
             if (data.state=="SUCCESSFULL")
               inc.showConfirm();
-            if (data.state=="UNSUCCESSFULL")
-              inc.showError();
+            if (data.state=="UNSUCCESSFULL"){
+              inc.showError(data.errorMsg);
+               console.log(data.errorMsg);
+             }
             console.log('update with timeout fired');
         }, 1500);
       };
@@ -133,19 +137,18 @@
                 );
             console.log('update with timeout fired');
         }, 1000); 
-
-   
-           /*  inc.resultTrans= {
+ 
+         /* inc.resultTrans= {
                       merchantOrderId: "1",
                       acquirerOrderId: "1",
                       acquirerTimestamp: new Date(),
                       paymentId: '1'
                     };
           $timeout(function() {       
-            inc.showConfirm();  
+           // inc.showConfirm();  
             console.log('update with timeout fired');
-          }, 1500); */
-          
+          }, 3000);  
+           inc.showError("NISTE IMALI DOVOLJNO PARA.");  */
       };
      
       var onNotifyTransaction = function(update){
@@ -160,14 +163,14 @@
          console.log("GENERATING TRANSACTIONS:" );
 
          inc.sending_transaction = {
-               paymentId: inc.paymentId,
-               amount: inc.amount,
-               cardHolderName: inc.cardholdername+' '+inc.cardholderlastname,
-               pan:  inc.pan ,
+               paymentId: inc.transaction.paymentId,
+               amount: inc.transaction.amount,
+               cardHolderName: inc.cardholdername+' '+inc.transaction.cardholderlastname,
+               pan:  inc.transaction.pan ,
                cardSecCode:  inc.cardSecCode,
-               cardExpDate : new Date(1,inc.expmonth,inc.expyear),
-               CSRFToken: inc.CSRFToken,
-               acquirerTimeStamp : new Date(),
+               cardExpDate : new Date(1,inc.transaction.expmonth,inc.transaction.expyear),
+               CSRFToken: inc.transaction.CSRFToken,
+               acquirerTimeStamp : new Date()
          };
 
         console.log(inc.sending_transaction );
@@ -176,7 +179,7 @@
       };
 
       
-      inc.showModalPayment = function() {
+      /*inc.showModalPayment = function() {
 
           $mdDialog.show({
             animate: true,
@@ -188,7 +191,7 @@
             fullscreen: $mdMedia('sm') && inc.customFullscreen
           });
           
-      };
+      };*/
 
       inc.showModalProgress = function(ev) {
 
@@ -209,6 +212,7 @@
      inc.showConfirm = function( ) {
           var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
           $mdDialog.show({
+            
             controller: ModalController,
             templateUrl: 'app/components/modal/success-modal.html',
             parent: angular.element(document.body),
@@ -238,15 +242,26 @@
    
        
 
-       inc.showError = function( ) {
+       inc.showError = function(message) {
           var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
+          console.log("PORUKA PRE SLANJA: "+message);
           $mdDialog.show({
-            controller: ModalController,
-            templateUrl: 'app/components/modal/error-modal.html',
+              
+          // templateUrl: 'app/components/modal/error-modal.html',
             parent: angular.element(document.body),
             clickOutsideToClose:false,
-            fullscreen: useFullScreen
-          })
+            fullscreen: useFullScreen,
+            controller: ModalController,
+            template: '<md-dialog  ng-controller="ModalController as mc">'+
+                    ' <md-dialog-content>'+ 
+                    '<h2 style="color:red">Fail</h2>'+
+                    '<div   layout="column"> Payment failed.<hr><p>'+
+                     message+ '</p><hr>'+
+                     '<div layout="row" ><img style="margin: auto; max-width: 100%;" alt="error" src="/images/error.png">'
+                      + '</div></div><md-dialog-actions layout="row">'+
+                   ' <span/><md-button class="md-raised md-primary" ng-click="mc.answer(odg)">'
+                    + 'Go to merchant</md-button></md-dialog-actions></md-dialog-content>'
+          })  
           .then(function(answer) {
             //$location.path('/about');
            console.log("redirekcija."+answer);
@@ -270,11 +285,12 @@
  
  } )();
  
-  function ModalController($mdDialog) {
+  function ModalController($mdDialog ) {
 
 
   var mdc = this;
 
+ 
   mdc.hide = function() {
       $mdDialog.hide();
   };
@@ -286,6 +302,6 @@
        
   }; 
 }  
-
+ 
 
   

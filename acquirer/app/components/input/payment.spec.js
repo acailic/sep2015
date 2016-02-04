@@ -1,12 +1,12 @@
 describe("InputController", function() {
 
-    var InputController, Payment, Transaction;
+    var InputController,Result, Payment, Transaction,$httpBackend;
   
-     beforeEach(module("acquirer.input"));
+     beforeEach(module("acquirer"));
     
    
     //pre svakog testa učitavamo mock PaymentService servis sa datom implementacijom
-    /* beforeEach(module(function($provide){
+    /*  beforeEach(module(function($provide){
 
         $provide.factory('Payment', function(){
             return {
@@ -20,26 +20,40 @@ describe("InputController", function() {
             }
         });
       
-    })); */
+    }));  */
  
  
-
-    beforeEach(inject(function($controller, _Payment_ , _Transaction_) {
+ 
+    beforeEach(inject(function($controller, _Payment_ , _Transaction_,_Result_, _$httpBackend_) {
         Payment = _Payment_;
         Transaction=_Transaction_;
+        Result=_Result_;
+        $httpBackend=_$httpBackend_
         InputController = $controller("InputController", {
             Payment: Payment,
-            Transaction: Transaction
+            Transaction: Transaction,
+            Result:Result
         });
-    })); 
+    }));  
  
     
+     /*   it("should make request when use input changes and model should be valid", function () {
+            $httpBackend.whenGET(appUrl + "/radnici/987?apiKey="+appKey).respond(404);
+            $compile(inputElement)($scope);
+
+            //kad promenimo vrednost jmbg polja znamo da se izvršava HTTP zahtev
+            $scope.testForm.jmbg.$setViewValue("987");
+            $httpBackend.flush();
+
+            //kako je definisano da zahtev vraća 404 očekujemo da će forma biti validna
+            expect($scope.testForm.$valid).toBe(true);
+        });*/
     it("and so is a spec", function() {
         a = 1;
 
         expect(a+a).toBe(2);
     });
-
+/* 
    it("should send payment service functions be called", function() {
         spyOn(Payment, "send");
 
@@ -47,7 +61,7 @@ describe("InputController", function() {
 
         
     });   
- /*
+*/ /*
     it("should send payment service functions be called with param", function() {
         spyOn(Payment, "send");
 
@@ -75,8 +89,8 @@ describe("InputController", function() {
 
     //na kraju dodajemo ovaj blok da garantujemo da smo flushovali sve zahteve koje smo formirali,
     //kao i da ne postoje expect izrazi za HTTP zahteve koji nisu okinuti
-   /* afterEach(function() {
+    /* afterEach(function() {
         $httpBackend.verifyNoOutstandingRequest();
         $httpBackend.verifyNoOutstandingExpectation();
-    });*/
+    }); */
 });

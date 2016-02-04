@@ -17,7 +17,6 @@ module.exports = function(config) {
     //treba doddati
     files: [
         '../assets/js/angular/angular.js',
-        '../assets/js/angular-material/angular-material-mocks.js',
         '../assets/js/angular-material/angular-material.js',
         '../assets/js/angular-mocks/angular-mocks.js',
         '../assets/js/angular-messages/angular-messages.js',
