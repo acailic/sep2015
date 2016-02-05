@@ -13,6 +13,9 @@ var minifyCss = require('gulp-minify-css');
 var concatCss = require('gulp-concat-css');
 //jshint
 var jshint = require('gulp-jshint');
+var protractor = require('gulp-protractor');
+var karma = require('karma');
+var exit = require('gulp-exit');
 
 var sources = [
   'app/app.module.js',
@@ -26,6 +29,13 @@ gulp.task('vendorScripts', function() {
     .pipe(gulp.dest('dist'))
 });
 
+gulp.task('minCss', ['sass'], function() {
+  gulp.src('assets/css/**/*.css')
+    .pipe(concatCss("all.min.css"))
+        .pipe(minifyCss())
+        .pipe(gulp.dest('dist'));
+});
+
 gulp.task('scripts', function() {
   return gulp.src(sources)
     .pipe(concat('all.min.js'))
@@ -33,13 +43,15 @@ gulp.task('scripts', function() {
     .pipe(gulp.dest('dist'));
 });
 
+gulp.task('minify', ['minCss', 'scripts']);
+
 gulp.task('webserver', function() {
   gulp.src('.')
     .pipe(webserver({
       livereload: true,
       open: true,
       port: 8001,
-     https: true
+      https: true
 
     }));
 });
@@ -48,13 +60,6 @@ gulp.task('sass', function () {
     gulp.src('assets/sass/**/*.scss')
         .pipe(sass())
         .pipe(gulp.dest('assets/css'));
-});
-
-gulp.task('minCss', ['sass'], function() {
-  gulp.src('assets/css/**/*.css')
-    .pipe(concatCss("all.min.css"))
-        .pipe(minifyCss())
-        .pipe(gulp.dest('dist'));
 });
 
 gulp.task('sass:watch', function () {
@@ -73,3 +78,32 @@ gulp.task('watch', function() {
 
 //gulp.task('default', ['lint', 'vendorScripts', 'scripts', 'minCss', 'watch', 'sass:watch', 'webserver']);
 gulp.task('default', ['lint','watch', 'sass:watch', 'webserver']);
+
+gulp.task('test', function(done) {
+    karma.server.start({
+      //putanja do karma.config.js
+        configFile: __dirname + '\\tests\\karma.conf.js'
+    }, done);
+});
+
+//potrebno je ažurirati webdriver za selenium server 
+var webdriverUpdate = require('gulp-protractor').webdriver_update;
+gulp.task('webdriverUpdate', webdriverUpdate);
+
+gulp.task('e2e', ['webserver', 'webdriverUpdate'], function(done) {
+  gulp.src([])
+    .pipe(protractor.protractor({
+      //putanja do protractor.config.js
+      configFile: __dirname + "\\tests\\protractor.conf.js",
+      //menjamo baseUrl pošto webserver koristi port 8000, a http-server 8080
+          //args: ['--baseUrl', 'http://localhost:8000/#/input']
+    }))
+    .on('error', function(error) {
+      console.log(error);
+    })
+  //bez ovog plugina se ne ugase pokrenuti serveri
+    .pipe(exit());
+});
+
+gulp.task('defaultmin', ['lint', 'minify', 'watch', 'sass:watch', 'webserver']);
+
