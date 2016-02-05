@@ -83,20 +83,18 @@ public class PaymentController {
 			return new ModelAndView("redirect:" + responseDto.getPaymentUrl() + "/" + responseDto.getPaymentId());
 		} catch (Exception e){
 			logger.error(e.toString());
-			return new ModelAndView("redirect:/confirm"); //DOPUNITI
+			return new ModelAndView("redirect:/https://localhost:8001/error.html"); //DOPUNITI
 		}
 	}
 	
 	@RequestMapping(value = "/transactionResults", method = RequestMethod.POST)
-	public ResponseEntity<?> getTransactionResults(TransactionResultDTO transactionResult){
+	public ResponseEntity<?> getTransactionResults(@RequestBody TransactionResultDTO transactionResult){
 		try{
 			Order order = orderService.find(transactionResult.getMerchantOrderId());
 			if(order == null)
 				return new ResponseEntity<Object>(HttpStatus.BAD_REQUEST);
 			
 			String redirectUrl = order.getSuccessUrl();
-			//imati acquirera u bazi i proveriti??
-			//imati payment ID u bazi i proveriti??
 			if(!transactionResult.getTransactionResult().equalsIgnoreCase("success")){
 				if(transactionResult.getTransactionResult().equalsIgnoreCase("fail"))
 					redirectUrl = order.getFailedUrl();
@@ -109,7 +107,7 @@ public class PaymentController {
 			
 			java.util.Date currentDate = new Date();
 			java.sql.Date currentDateSql = new java.sql.Date(currentDate.getTime());
-			java.sql.Date acquirerTimestamp = transactionResult.getAcquirerTimestamp();
+			java.sql.Date acquirerTimestamp = new java.sql.Date(transactionResult.getAcquirerTimestamp());
 			java.sql.Date timestampLimit = new java.sql.Date(currentDate.getTime());
 			timestampLimit.setMinutes(currentDateSql.getMinutes() + 10);
 			boolean timeResult = true;

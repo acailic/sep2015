@@ -1,0 +1,51 @@
+INSERT INTO `issuer`.`user`
+(`id`,
+`address`,
+`email`,
+`firstName`,
+`jmbg`,
+`lastName`,
+`telNumber`)
+VALUES
+(1,'Petra Drapsina 1','pera@gmail.com',
+'Petar',
+'1125478963225',
+'Petrovic','021554788');
+INSERT INTO `issuer`.`issuer`
+(`id`,
+`address`,
+`email`,
+`iin`,
+`name`,
+`telNumber`,
+`url`)
+VALUES
+(1,
+'Neznanog junaka 1',
+'intesa@mail.com',
+'484187','Intesa','021554788',
+'http://localhost:8083/issuer');
+INSERT INTO `issuer`.`account`
+(`id`,
+`balance`,
+`number`,
+`issuer`,
+`user`)
+VALUES
+(1,100,122589,
+1,
+1);
+
+INSERT INTO `issuer`.`card`
+(`id`,
+`cardExpDate`,
+`cardHolderName`,
+`pan`,
+`account`,
+`user`)
+VALUES
+(1,
+2016-12-01,
+'Petar',
+'4841878776173670',
+1,1);

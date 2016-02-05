@@ -47,6 +47,8 @@ dependencies {
 	compile 'com.fasterxml.jackson.core:jackson-databind:2.0.1'
 	compile 'org.springframework:spring-context-support:3.2.4.RELEASE'
 	compile 'javax.mail:mail:1.4.5'
+	compile 'org.springframework.security:spring-security-web:3.2.4.RELEASE'
+
 
 	
 }

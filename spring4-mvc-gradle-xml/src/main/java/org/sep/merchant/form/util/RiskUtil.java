@@ -22,32 +22,6 @@ public class RiskUtil {
 	public RiskUtil(){
 	}
 	
-	/*public boolean connectRiskItem(Integer riskItemId, Insurance insurance, PriceList priceList, 
-			WholeInsuranceDTO wholeInsurance){
-		try{
-			System.out.println("Usao");
-			RiskItem riskItem = riskItemService.find(riskItemId);
-			System.out.println(riskItem.getName());
-			if(riskItem == null)
-				return false;
-			logger.info("uzeo riskItem");
-			System.out.println("Uzeo riskItem");
-			RiskItemInsurance connectionSport = new RiskItemInsurance(riskItem,
-					insurance);
-			//Cena za pojedinacni riskItem
-			BigDecimal price = PriceUtil.determineBasicPrice(wholeInsurance);
-			price = price.multiply(new BigDecimal(riskItem.getFactor()));
-			PriceListItem priceListItemSport = new PriceListItem(
-					price, riskItem, priceList, insurance);
-			priceListItemService.save(priceListItemSport);
-			riskItemInsuranceService.save(connectionSport);
-		} catch (Exception e){
-			logger.error(e.toString());
-			return false;
-		}
-		return true;
-	}*/
-	
 	public BigDecimal determineRiskItemPrice(RiskItem riskItem, BigDecimal basicPrice){
 		try{
 			BigDecimal riskPrice = basicPrice;

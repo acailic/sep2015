@@ -134,7 +134,6 @@ public class InsuranceController {
         InsuranceDTO travel = insurance.getTravel();
         Insurance insuranceToPersist = new Insurance(travel.getDuration(), travel.getStart_date(), travel.getEnd_date(), 
         		insurance.getTravellers().size());
-        //obracunati cenu osiguranja
         PriceList priceList = new PriceList();
         priceList = priceListService.find(1);
         BigDecimal totalPrice = PriceUtil.determineBasicPrice(insurance);
@@ -342,8 +341,8 @@ public class InsuranceController {
  
 		java.util.Date currentDate = new Date();
 		java.sql.Date merchantTimestamp = new java.sql.Date(currentDate.getTime());
-		Order order = new Order(new Double(totalPrice.doubleValue()), merchantTimestamp, "http://localhost:8000/error.html",
-				"http://localhost:8000/success.html", "http://localhost:8000/failed.html");
+		Order order = new Order(new Double(totalPrice.doubleValue()), merchantTimestamp, "https://localhost:8001/error.html",
+				"https://localhost:8001/success.html", "https://localhost:8001/failed.html");
 		Merchant merchant = merchantService.find(1);
 		if(merchant == null){
 			logger.info("Could not find merchant.");

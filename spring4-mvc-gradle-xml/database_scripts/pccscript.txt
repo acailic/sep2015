@@ -1,0 +1,28 @@
+INSERT INTO `pcc`.`bank`
+(`id`,
+`address`,
+`email`,
+`iin`,
+`name`,
+`telNumber`,
+`url`)
+VALUES
+(1,'Neznanog junaka 1',
+'intesa@mail.com','
+484187','Intesa',
+'0215555555',
+'http://intesa.com');
+INSERT INTO `pcc`.`bank`
+(`id`,
+`address`,
+`email`,
+`iin`,
+`name`,
+`telNumber`,
+`url`)
+VALUES
+(2,'Neznanog junaka 5',
+'unicredit@mail.com','
+114587','UniCredit',
+'0215555545',
+'http://unicredit.com');

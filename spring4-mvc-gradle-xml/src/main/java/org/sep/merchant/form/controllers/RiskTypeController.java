@@ -37,10 +37,7 @@ public class RiskTypeController {
     public ResponseEntity<?> populateData() {
 		
 		logger.info("Populating data in populateData method.");
-		
 		DataInitDTO data_init = new DataInitDTO();
-		/*List<Risk> allRisks = new ArrayList<Risk>();
-		allRisks = riskService.findAll(); *///da li ih odmah uzeti sve iz baze, ili jedno po jedno se obracati servisu?
 		
 		try {
 			List<RiskItemDTO> regions = new ArrayList<RiskItemDTO>();

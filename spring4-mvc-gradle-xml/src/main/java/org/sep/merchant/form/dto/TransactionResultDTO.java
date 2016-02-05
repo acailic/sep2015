@@ -10,7 +10,7 @@ public class TransactionResultDTO implements Serializable{
 	private String transactionResult;
 	private Integer merchantOrderId;
 	private Integer acquirerOrderId;
-	private Date acquirerTimestamp;
+	private Long acquirerTimestamp;
 	private Integer paymentId;
 	
 	public TransactionResultDTO(){
@@ -18,7 +18,7 @@ public class TransactionResultDTO implements Serializable{
 	}
 
 	public TransactionResultDTO(String transactionResult, Integer merchantOrderId,
-			Integer acquirerOrderId, Date acquirerTimestamp, Integer paymentId) {
+			Integer acquirerOrderId, Long acquirerTimestamp, Integer paymentId) {
 		super();
 		this.transactionResult = transactionResult;
 		this.merchantOrderId = merchantOrderId;
@@ -51,11 +51,11 @@ public class TransactionResultDTO implements Serializable{
 		this.acquirerOrderId = acquirerOrderId;
 	}
 
-	public Date getAcquirerTimestamp() {
+	public Long getAcquirerTimestamp() {
 		return acquirerTimestamp;
 	}
 
-	public void setAcquirerTimestamp(Date acquirerTimestamp) {
+	public void setAcquirerTimestamp(Long acquirerTimestamp) {
 		this.acquirerTimestamp = acquirerTimestamp;
 	}
 

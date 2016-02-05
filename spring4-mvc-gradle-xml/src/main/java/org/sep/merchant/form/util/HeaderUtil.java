@@ -17,6 +17,7 @@ public final class HeaderUtil {
 		 responseHeaders.set("Access-Control-Max-Age", "3600");
 		 responseHeaders.set("Access-Control-Allow-Headers", "Content-Type, Accept, X-Requested-With, remember-me,"
 		 		+ "x-csrf-xxx-token");
+		 responseHeaders.set("x-csrf-xxx-token", "1");
 		 return responseHeaders;
 		
 	}

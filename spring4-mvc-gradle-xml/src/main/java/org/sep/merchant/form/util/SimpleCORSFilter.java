@@ -10,11 +10,13 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.web.csrf.CsrfToken;
 
 public class SimpleCORSFilter  implements Filter {
 	
@@ -29,6 +31,12 @@ public class SimpleCORSFilter  implements Filter {
 
 	    HttpServletRequest request = (HttpServletRequest) req;
 	    HttpServletResponse response = (HttpServletResponse) res;
+	    CsrfToken csrf = (CsrfToken) request.getAttribute(CsrfToken.class.getName());
+	    if (csrf != null) {
+	        Cookie cookie = new Cookie("XSRF-TOKEN", csrf.getToken());
+	        cookie.setPath("/");
+	        response.addCookie(cookie);
+	    }
 	    List<String> listOfAllowed = new ArrayList<String>();
 		 listOfAllowed.add("http://localhost:8082");
 		 listOfAllowed.add("http://localhost:8080");
