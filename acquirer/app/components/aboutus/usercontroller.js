@@ -3,7 +3,7 @@
   angular
        .module('acquirer.users')
        .controller('UserController', [
-          'userService', '$mdSidenav', '$mdBottomSheet', '$log', '$q',
+          'userService', '$mdSidenav', '$mdBottomSheet', '$q',
           UserController
        ]);
 
@@ -31,7 +31,7 @@
    * @param avatarsService
    * @constructor
    */
-  function UserController( userService, $mdSidenav, $mdBottomSheet, $log, $q) {
+  function UserController( userService, $mdSidenav, $mdBottomSheet , $q) {
     var self = this;
 
     self.selected     = null;

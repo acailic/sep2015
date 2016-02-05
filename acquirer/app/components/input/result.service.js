@@ -13,7 +13,7 @@
 
                    var deferred = $q.defer();
                     $http({
-                        url:"http://localhost:8080/spring4/transactionResults",
+                        url:"https://localhost:8080/spring4/transactionResults",
                         method: "POST",
                         data :   result,
                         headers: {'Content-Type': 'application/json',

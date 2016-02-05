@@ -49,16 +49,7 @@
 				}
 			})
 			
-			.state('main.transactions', {
-				url: '/transactions',
-				views: {
-					'content@': {
-						templateUrl: 'app/components/transactions/transactions-list2.html',
-						controller: 'TransactionsListController',
-						controllerAs: 'tlc'
-					}
-				}
-			})
+			 
 			.state('main.arg', {
 				url: '/input/idpayment/:idpayment',
 				views: {

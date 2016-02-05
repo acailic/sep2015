@@ -72,13 +72,13 @@ describe("InputController", function() {
     it("Should get result data", function()  {
          
         var result= "SUCCESSFUL";
-        $httpBackend.expectPOST('http://localhost:8080/spring4/transactionResults', result).respond(200, ['redirectlink']);
+        $httpBackend.expectPOST('https://localhost:8080/spring4/transactionResults', result).respond(200, ['redirectlink']);
         Result.sending("SUCCESSFUL");
         $httpBackend.flush();
         expect(InputController.redirectUrl).toBeDefined();
         
     }); 
-
+    
     //na kraju dodajemo ovaj blok da garantujemo da smo flushovali sve zahteve koje smo formirali,
     //kao i da ne postoje expect izrazi za HTTP zahteve koji nisu okinuti
      afterEach(function() {

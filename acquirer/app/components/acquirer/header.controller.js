@@ -11,7 +11,7 @@
 		var hc = this;
 		hc.currentLanguage = crTranslations[$translate.use()].LANGUAGE;
 		hc.setLanguage = setLanguage;
-
+		//$translate.useSanitizeValueStrategy('sanitize');
 		function setLanguage(language) {
 			$translate.use(language);
 			tmhDynamicLocale.set(language);

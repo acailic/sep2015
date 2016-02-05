@@ -26,30 +26,32 @@
 
     <md-input-container class="md-block"> 
       <label>{{'LABELS.CARDHOLDERNAME'|translate}} </label>
-      <input required name="cardholderName" ng-model="inc.transaction.cardholdername"   ng-pattern="/^[a-z ,.'-]+$/i" >
+      <input required name="cardholderName" ng-model="inc.transaction.cardholdername"   ng-pattern="/^[a-z '-]+$/i" >
        <div ng-messages="inc.paymentForm.cardholderName.$error" ng-show="inc.paymentForm.cardholderName.$touched" >
           <div ng-message="required">{{'LABELS.REQUIRED'|translate}}</div>
-          <div ng-message="pattern">This field should contain letters. {{'LABELS.LETTERS'|translate}}</div>
+          <div ng-message="pattern"> {{'LABELS.LETTERS'|translate}}</div>
         </div>
     </md-input-container>
 
 <!--   -->
     <md-input-container>
       <label> {{'LABELS.CARDHOLDERLASTNAME'|translate}}  </label>
-      <input  required  ng-model="inc.transaction.cardholderlastname"  name="cardholderlastname" ng-pattern="/^[a-z ,.'-]+$/i" >
+      <input  required  ng-model="inc.transaction.cardholderlastname"  name="cardholderlastname" ng-pattern="/^[a-z '-]+$/i" >
       
        <div ng-messages="inc.paymentForm.cardholderlastname.$error" ng-show="inc.paymentForm.cardholderlastname.$touched" >
           <div ng-message="required">{{'LABELS.REQUIRED'|translate}}</div>
-          <div ng-message="pattern">This field should contain letters.</div>
+          <div ng-message="pattern">{{'LABELS.LETTERS'|translate}}</div>
         </div>
     </md-input-container>
 
       <div layout-gt-sm="row">
         <md-input-container class="md-block" flex-gt-sm="">
           <label>{{'LABELS.CARDTYPE'|translate}}</label>
-          <input  required ng-model="inc.transaction.cardtype" name="cardtype"  ng-pattern="">
+<input  required ng-model="inc.transaction.cardtype" name="cardtype" 
+ ng-pattern="/^[a-z '-]+$/i" >
            <div ng-messages="inc.paymentForm.cardtype.$error"   ng-show="inc.paymentForm.cardtype.$touched" >
           <div ng-message="required">{{'LABELS.REQUIRED'|translate}}</div>
+          <div ng-message="pattern">This field should contain letters.</div>
          
         </div>
         </md-input-container>
@@ -70,7 +72,7 @@
 
         <md-input-container class="md-block" flex-gt-sm="">
           <label>{{'LABELS.SECCODE'|translate}}</label>
-          <input ng-model="inc.transaction.cardSecCode" name="seccode" ng-pattern="/^[0-9]{3}$/" required >
+          <input ng-model="inc.transaction.cardSecCode" name="cardSecCode" ng-pattern="/^[0-9]{3}$/" required >
 
             <div ng-messages="inc.paymentForm.cardSecCode.$error" ng-show="inc.paymentForm.cardSecCode.$touched" >
               <div ng-message="required">{{'LABELS.REQUIRED'|translate}}</div>

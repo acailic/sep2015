@@ -25,7 +25,7 @@
       };  
 
       inc.resultTrans= {
-          transactionResult: '',
+        transactionResult: '',
         merchantOrderId: '',
         acquirerOrderId: '',
         acquirerTimestamp: '',
@@ -35,12 +35,14 @@
       console.log("USAO JE U KONTROLER");
       //console.log($stateParams);
       if(!angular.isUndefined($stateParams.idpayment)){   
+
           console.log($stateParams.idpayment);
           inc.idpayment = $stateParams.idpayment;
       }
 
        var onSuccess = function(data){
           console.log("ON SUCCESS PAYMENTA:");
+         // alert("ON SUCCESS PAYMENTA:"+data.amount);
           console.log(data.paymentId);
           console.log(data.amount);
           console.log(data.csrftoken);
@@ -61,12 +63,14 @@
         inc.onIncomingParametar= function(vrednostParametra){ 
           console.log("POZIVA NA OSNOVU INDEFINED ID PAYMENTA :"+vrednostParametra);
           console.log("SALJE ID PAYMENTA :"+ vrednostParametra );
+         // alert(vrednostParametra);
           var promise=Payment.send(vrednostParametra) ;
           promise.then(onSuccess, onFailure); 
-          console.log("POSLAO JE!@@" );
+          
       };
       
       if(!angular.isUndefined(inc.idpayment)) {
+       // alert("isUndefined"+inc.idpayment);
         inc.onIncomingParametar(inc.idpayment);
       }
       inc.redirectUrl='';  
@@ -96,16 +100,21 @@
 
       }; */
        //  OVDE BI TREBAO LINK NAZAD DO MERCHANTA
-      inc.returnUrl= 'http://localhost:8000/insurance'; 
+      inc.returnUrl= 'https://localhost:8000/insurance'; 
 
      
        var onSuccessTransaction = function(data){
           console.log("ON SUCCESS onSuccessTransaction:");
           console.log(data);
+
+
+        //  alert(data);
+         // inc.showError("GRESKA");
          //uspesna transakcija trebalo bi samo da procitam url i da se redirektujem
           // alert(data.state);
           //inc.showModalPayment(data); 
           console.log(data.errorMsg);
+
            inc.resultTrans= {
                     transactionResult: 'success',
                     merchantOrderId: data.merchantOrderId,
@@ -122,7 +131,7 @@
                console.log(data.errorMsg);
              }
             console.log('update with timeout fired');
-        }, 1500);
+        }, 3000);
       };
 
       var onFailureTransaction = function(){
@@ -139,19 +148,9 @@
                     .ok('OK')
                 );
             console.log('update with timeout fired');
-        }, 1000); 
+        }, 3000); 
  
-         /* inc.resultTrans= {
-                      merchantOrderId: "1",
-                      acquirerOrderId: "1",
-                      acquirerTimestamp: new Date(),
-                      paymentId: '1'
-                    };
-          $timeout(function() {       
-           // inc.showConfirm();  
-            console.log('update with timeout fired');
-          }, 3000);  
-           inc.showError("NISTE IMALI DOVOLJNO PARA.");  */
+        
       };
      
       var onNotifyTransaction = function(update){
@@ -164,37 +163,40 @@
         
       inc.generatingTransaction = function(value) {
          console.log("GENERATING TRANSACTIONS:" );
+         if( inc.transaction.paymentId!==''){ 
+              inc.sending_transaction = {
+                   paymentId: inc.transaction.paymentId,
+                   amount: inc.transaction.amount,
+                   cardHolderName: inc.transaction.cardholdername+' '+inc.transaction.cardholderlastname,
+                   pan:  inc.transaction.pan ,
+                   cardSecCode:  inc.transaction.cardSecCode,
+                   cardExpDate : new Date(1,inc.transaction.expmonth,inc.transaction.expyear),
+                   CSRFToken: inc.transaction.CSRFToken,
+                   acquirerTimeStamp : new Date()
+             };
 
-          inc.sending_transaction = {
-               paymentId: inc.transaction.paymentId,
-               amount: inc.transaction.amount,
-               cardHolderName: inc.transaction.cardholdername+' '+inc.transaction.cardholderlastname,
-               pan:  inc.transaction.pan ,
-               cardSecCode:  inc.transaction.cardSecCode,
-               cardExpDate : new Date(1,inc.transaction.expmonth,inc.transaction.expyear),
-               CSRFToken: inc.transaction.CSRFToken,
-               acquirerTimeStamp : new Date()
-         };
+            console.log(inc.sending_transaction );
+            var retTransaction=Transaction.generate(inc.sending_transaction);
+            retTransaction.then(onSuccessTransaction, onFailureTransaction, onNotifyTransaction); 
+           }
+         else{
+            $timeout(function() {
+              $mdDialog.show(
+                  $mdDialog.alert()
+                    .parent( angular.element(document.body))
+                    .clickOutsideToClose(false)
+                    .title(' UNSUCCESSFULL TRANSACTION ')
+                    .content('<h3 style="color:red">Transaction is not generate.</h3> <div style="color:red>There are missing value for payment id.<div>')
+                    .ariaLabel('Alert Dialog ')
+                    .ok('OK')
+                );
+            console.log('update with timeout fired');
+        }, 3000); 
 
-        console.log(inc.sending_transaction );
-        var retTransaction=Transaction.generate(inc.sending_transaction);
-        retTransaction.then(onSuccessTransaction, onFailureTransaction, onNotifyTransaction); 
+
+         }
       };
 
-      
-      /*inc.showModalPayment = function() {
-
-          $mdDialog.show({
-            animate: true,
-            controller: ModalController,
-            controllerAs: 'mdc',
-            templateUrl: 'app/components/modal/success-modal.html',
-            parent: angular.element(document.body),
-            clickOutsideToClose:true,
-            fullscreen: $mdMedia('sm') && inc.customFullscreen
-          });
-          
-      };*/
 
       inc.showModalProgress = function(ev) {
 
@@ -248,6 +250,10 @@
 
        inc.showError = function(message) {
           var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
+
+          if(angular.isUndefined(message)){
+            message="There are problems with a transaction.";
+          }
           console.log("PORUKA PRE SLANJA: "+message);
           $mdDialog.show({
               

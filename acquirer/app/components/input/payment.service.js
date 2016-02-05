@@ -24,6 +24,7 @@
                     }).error(function () {
                         //alert("Došlo je do greške pri slanju payment id.");
                         console.log("Došlo je do greške pri slanju payment id." );
+                        deferred.reject();
                     });
                     return deferred.promise;
                 } 

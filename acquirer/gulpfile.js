@@ -18,8 +18,23 @@ var protractor = require('gulp-protractor');
 var exit = require('gulp-exit');
 
 var sources = [
-	'app/app.module.js',
-	'app/**/*.js'
+        'app/app.module.js',
+        'app/components/acquirer/acquirer.module.js',
+        'app/components/acquirer/acquirer.route.js',
+        'app/components/modal/modal.module.js',
+        'app/components/menu/menu.module.js',
+        'app/components/input/input.module.js',
+        'app/components/transactions/transactions.module.js',
+        'app/components/shared/shared.module.js',
+        'app/components/shared/i18n/i18n.module.js',
+        'app/components/shared/i18n/i18n-constants/i18n-constants.module.js',
+        'app/components/aboutus/users.js',
+        'app/components/aboutus/usercontroller.js',
+        'app/components/aboutus/userservice.js',
+        'assets/js/angular-dynamic-locale/dist/tmhDynamicLocale.js',
+        'app/components/transactions/transaction.service.js',
+        'app/components/input/payment.service.js',
+        'app/**/*.js'
 ];
 
 gulp.task('vendorScripts', function() {
@@ -97,8 +112,12 @@ gulp.task('test', function(done) {
 });
 
 gulp.task('webserver', function() {
-  gulp.src('.')
-    .pipe(webserver());
+   gulp.src('.')
+    .pipe(webserver({
+      livereload: true,
+      open: true,
+  https: true
+    }));
 });
 
 //potrebno je ažurirati webdriver za selenium server 
@@ -119,3 +138,19 @@ gulp.task('e2e', ['webserver', 'webdriverUpdate'], function(done) {
   //bez ovog plugina se ne ugase pokrenuti serveri
     .pipe(exit());
 });
+
+gulp.task('minCssDist', ['sass'], function() {
+  gulp.src('assets/css/**/*.css')
+    .pipe(concatCss("all.min.css"))
+        .pipe(minifyCss())
+        .pipe(gulp.dest('dist'));
+});
+
+gulp.task('scriptsDist', function() {
+  return gulp.src(sources)
+    .pipe(concat('all.min.js'))
+    .pipe(uglify())
+    .pipe(gulp.dest('dist'));
+});
+
+gulp.task('minifikuj', ['minCssDist', 'scriptsDist']);
