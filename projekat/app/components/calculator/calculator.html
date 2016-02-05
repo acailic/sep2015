@@ -331,7 +331,7 @@
 
 <div layout="row" layout-align="center center" ng-show="(calc.flat || calc.car)">
    <md-chips>
-      <md-chip>Ukupno = {{calc.price.travel_price + calc.price.home_price + calc.price.vehicle_price}} RSD </md-chip>
+      <md-chip>Ukupno = {{calc.price.travel_price + calc.price.home_price + calc.price.vehicle_price | number:2}} EUR </md-chip>
       
    </md-chips>
 </div>

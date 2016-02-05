@@ -1,9 +1,18 @@
 (function() {
 	angular
-		.module('merchant', ['ngMaterial', 'ngMessages', 'merchant.core', 'merchant.insurance', 'merchant.modal', 
+		.module('merchant', ['spring-security-csrf-token-interceptor-extended','ngMaterial', 'ngMessages', 'merchant.core', 'merchant.insurance', 'merchant.modal', 
 			'merchant.sale', 'merchant.calculator'])
-		.config(function( $sceDelegateProvider, $mdThemingProvider, $mdDateLocaleProvider) {
+		.config(function( csrfProvider, $sceDelegateProvider, $mdThemingProvider, $mdDateLocaleProvider) {
 
+
+			
+			csrfProvider.config({
+                
+                maxRetries: 3,
+                csrfHttpType: 'get',
+                csrfTokenHeader: 'X-CSRF-XXX-TOKEN',
+                httpTypes: ['PUT', 'POST', 'DELETE'] //CSRF token will be added only to these method types 
+            });
 
 			//Allow CORS requests to these urls:
 			$sceDelegateProvider.resourceUrlWhitelist([
