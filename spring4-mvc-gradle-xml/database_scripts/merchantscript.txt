@@ -1,0 +1,458 @@
+INSERT INTO `sep_merchant`.`risk_type`
+(`id_risk_type`,
+`name_risk_type`)
+VALUES
+(1,
+'home');
+
+
+INSERT INTO `sep_merchant`.`risk_type`
+(`id_risk_type`,
+`name_risk_type`)
+VALUES
+(2,
+'vehicle');
+INSERT INTO `sep_merchant`.`risk_type`
+(`id_risk_type`,
+`name_risk_type`)
+VALUES
+(3,
+
+'travel
+');
+
+
+
+
+INSERT INTO `sep_merchant`.`risk`
+(`id_risk`,
+`name_risk`,
+`id_risk_type`)
+VALUES
+(1,
+
+'sport
+',
+3);
+INSERT INTO `sep_merchant`.`risk`
+(`id_risk`,
+`name_risk`,
+`id_risk_type`)
+VALUES
+(2,
+
+
+
+'region
+
+
+',
+3);
+INSERT INTO `sep_merchant`.`risk`
+(`id_risk`,
+`name_risk`,
+`id_risk_type`)
+VALUES
+(3,
+
+
+
+'max_value
+
+
+',
+3);
+INSERT INTO `sep_merchant`.`risk`
+(`id_risk`,
+`name_risk`,
+`id_risk_type`)
+VALUES
+(4,
+
+
+
+'towing
+
+
+',
+2);
+INSERT INTO `sep_merchant`.`risk`
+(`id_risk`,
+`name_risk`,
+`id_risk_type`)
+VALUES
+(5,
+
+'repair
+',
+2);
+INSERT INTO `sep_merchant`.`risk`
+(`id_risk`,
+`name_risk`,
+`id_risk_type`)
+VALUES
+(6,
+
+'casualty
+',
+1);
+INSERT INTO `sep_merchant`.`risk`
+(`id_risk`,
+`name_risk`,
+`id_risk_type`)
+VALUES
+(7,
+
+'city
+',
+3);
+INSERT INTO `sep_merchant`.`risk`
+(`id_risk`,
+`name_risk`,
+`id_risk_type`)
+VALUES
+(8,
+'brand
+',2);
+INSERT INTO `sep_merchant`.`risk`
+(`id_risk`,
+`name_risk`,
+`id_risk_type`)
+VALUES
+(9,
+
+'accomodation
+',
+2);
+INSERT INTO `sep_merchant`.`risk`
+(`id_risk`,
+`name_risk`,
+`id_risk_type`)
+VALUES
+(10,
+
+'alternative
+',
+2);
+INSERT INTO `sep_merchant`.`risk`
+(`id_risk`,
+`name_risk`,
+`id_risk_type`)
+VALUES
+(11,
+
+'age
+',
+3);
+
+
+INSERT INTO `sep_merchant`.`risk_item`
+(`id_risk_item`,
+`factor_risk_item`,
+`name_risk_item`,
+`id_risk`)
+VALUES
+(5,0.3,
+
+'Hokej
+',1);
+
+INSERT INTO `sep_merchant`.`risk_item`
+(`id_risk_item`,
+`factor_risk_item`,
+`name_risk_item`,
+`id_risk`)
+VALUES
+(6,
+0.1,
+'Fudbal
+',
+1);
+
+INSERT INTO `sep_merchant`.`risk_item`
+(`id_risk_item`,
+`factor_risk_item`,
+`name_risk_item`,
+`id_risk`)
+VALUES
+(7,0.2,
+'Kosarka
+',
+1);
+
+INSERT INTO `sep_merchant`.`risk_item`
+(`id_risk_item`,
+`factor_risk_item`,
+`name_risk_item`,
+`id_risk`)
+VALUES
+(8,
+0.1,
+'Evropa
+',2);
+
+INSERT INTO `sep_merchant`.`risk_item`
+(`id_risk_item`,
+`factor_risk_item`,
+`name_risk_item`,
+`id_risk`)
+VALUES
+(9,
+0.3,
+
+'Azija
+',2);
+INSERT INTO `sep_merchant`.`risk_item`
+(`id_risk_item`,
+`factor_risk_item`,
+`name_risk_item`,
+`id_risk`)
+VALUES
+(10,0.2,
+
+'Severna Amerika
+',
+2);
+INSERT INTO `sep_merchant`.`risk_item`
+(`id_risk_item`,
+`factor_risk_item`,
+`name_risk_item`,
+`id_risk`)
+VALUES
+(11,0.1,
+
+'10.000 EUR
+',
+3);
+
+INSERT INTO `sep_merchant`.`risk_item`
+(`id_risk_item`,
+`factor_risk_item`,
+`name_risk_item`,
+`id_risk`)
+VALUES
+(12,
+0.2,
+'20.000 EUR
+',3);
+
+INSERT INTO `sep_merchant`.`risk_item`
+(`id_risk_item`,
+`factor_risk_item`,
+`name_risk_item`,
+`id_risk`)
+VALUES
+(13,
+0.3,
+
+'30.000 EUR
+',
+3);
+
+INSERT INTO `sep_merchant`.`risk_item`
+(`id_risk_item`,
+`factor_risk_item`,
+`name_risk_item`,
+`id_risk`)
+VALUES
+(14,
+0.1,
+'100 km
+',4);
+
+INSERT INTO `sep_merchant`.`risk_item`
+(`id_risk_item`,
+`factor_risk_item`,
+`name_risk_item`,
+`id_risk`)
+VALUES
+(15,
+0.2,
+'200 km
+',
+4);
+INSERT INTO `sep_merchant`.`risk_item`
+(`id_risk_item`,
+`factor_risk_item`,
+`name_risk_item`,
+`id_risk`)
+VALUES
+(16,
+0.3,
+
+'300 km
+',
+4);
+
+INSERT INTO `sep_merchant`.`risk_item`
+(`id_risk_item`,
+`factor_risk_item`,
+`name_risk_item`,
+`id_risk`)
+VALUES
+(17,
+0.1,
+
+'500 EUR
+',
+5);
+
+INSERT INTO `sep_merchant`.`risk_item`
+(`id_risk_item`,
+`factor_risk_item`,
+`name_risk_item`,
+`id_risk`)
+VALUES
+(18,0.2,
+
+'800 EUR
+',5);
+
+INSERT INTO `sep_merchant`.`risk_item`
+(`id_risk_item`,
+`factor_risk_item`,
+`name_risk_item`,
+`id_risk`)
+VALUES
+(19,
+0.3,
+
+'1000 EUR
+',
+5);
+
+INSERT INTO `sep_merchant`.`risk_item`
+(`id_risk_item`,
+`factor_risk_item`,
+`name_risk_item`,
+`id_risk`)
+VALUES
+(20,
+0,
+'Novi Sad
+',
+7);
+
+INSERT INTO `sep_merchant`.`risk_item`
+(`id_risk_item`,
+`factor_risk_item`,
+`name_risk_item`,
+`id_risk`)
+VALUES
+(21,0,
+
+'Beograd
+',7);
+
+INSERT INTO `sep_merchant`.`risk_item`
+(`id_risk_item`,
+`factor_risk_item`,
+`name_risk_item`,
+`id_risk`)
+VALUES
+(22,0,
+
+'Subotica
+',7);
+
+INSERT INTO `sep_merchant`.`risk_item`
+(`id_risk_item`,
+`factor_risk_item`,
+`name_risk_item`,
+`id_risk`)
+VALUES
+(23,
+0,
+
+'Mercedes
+',
+8);
+
+INSERT INTO `sep_merchant`.`risk_item`
+(`id_risk_item`,
+`factor_risk_item`,
+`name_risk_item`,
+`id_risk`)
+VALUES
+(24,
+0,
+'Opel
+',
+8);
+
+INSERT INTO `sep_merchant`.`risk_item`
+(`id_risk_item`,
+`factor_risk_item`,
+`name_risk_item`,
+`id_risk`)
+VALUES
+(25,
+0,
+'Peugeot
+',8);
+
+INSERT INTO `sep_merchant`.`risk_item`
+(`id_risk_item`,
+`factor_risk_item`,
+`name_risk_item`,
+`id_risk`)
+VALUES
+(26,0.1,
+
+'Do 18 godina
+',11);
+
+INSERT INTO `sep_merchant`.`risk_item`
+(`id_risk_item`,
+`factor_risk_item`,
+`name_risk_item`,
+`id_risk`)
+VALUES
+(27,0.2,
+'Od 18 do 30 godina
+',
+11);
+
+INSERT INTO `sep_merchant`.`risk_item`
+(`id_risk_item`,
+`factor_risk_item`,
+`name_risk_item`,
+`id_risk`)
+VALUES
+(28,0.3,
+'Preko 30 godina
+',
+11);
+
+INSERT INTO `sep_merchant`.`risk_item`
+(`id_risk_item`,
+`factor_risk_item`,
+`name_risk_item`,
+`id_risk`)
+VALUES
+(29,0.2,
+'Pozar
+',
+6);
+
+INSERT INTO `sep_merchant`.`risk_item`
+(`id_risk_item`,
+`factor_risk_item`,
+`name_risk_item`,
+`id_risk`)
+VALUES
+(30,0.2,
+'Poplava
+',
+6);
+
+INSERT INTO `sep_merchant`.`risk_item` (`id_risk_item`, `factor_risk_item`, `name_risk_item`, `id_risk`) VALUES ('31', '0.3', 'Avion', '10');
+
+INSERT INTO `sep_merchant`.`risk_item` (`id_risk_item`, `factor_risk_item`, `name_risk_item`, `id_risk`) VALUES ('32', '0.1', 'Kombi', '10');
+
+INSERT INTO `sep_merchant`.`risk_item` (`id_risk_item`, `factor_risk_item`, `name_risk_item`, `id_risk`) VALUES ('33', '0.2', 'Hotel', '9');
+
+INSERT INTO `sep_merchant`.`risk_item` (`id_risk_item`, `factor_risk_item`, `name_risk_item`, `id_risk`) VALUES ('34', '0.1', 'Motel', '9');
+
+
+INSERT INTO `sep_merchant`.`merchant` (`id_merchant`, `password_merchant`) VALUES ('1', '123');

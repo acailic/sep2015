@@ -1,0 +1,29 @@
+INSERT INTO `acquirer`.`acquirer`
+(`id`,
+`address`,
+`email`,
+`iin`,
+`name`,
+`telNumber`,
+`url`)
+VALUES
+(1,
+'Skojevska 1',
+'acquirer@mail.com','147863',
+'Strahinja','02155478','strahinja@mail.com');
+INSERT INTO `acquirer`.`merchant`
+(`id`,
+`address`,
+`email`,
+`name`,
+`password`,
+`pib`,
+`telNumber`,
+`acquirer`)
+VALUES
+(1,
+'Trg heroja 1','merchant@mail.com','merchant',
+'123',
+'125478',
+'02144585',
+1);
