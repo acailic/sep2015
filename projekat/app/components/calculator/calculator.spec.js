@@ -1,9 +1,9 @@
 describe("CalculatorController", function() {
-	var calcCtrl, sharedObject, Insurance, $state, $httpBackend, $scope;
+	var calcCtrl, sharedObject, Insurance, $state, $httpBackend, $scope, $rootScope;
 	beforeEach(module("merchant"));
-	//pre svakog testa učitavamo app modul
+
 	beforeEach(module("merchant.calculator"));
-	//pre svakog testa učitavamo mock employeeService servis sa datom implementacijom
+
 	beforeEach(module(function($provide){
 		$provide.factory('sharedObject', function(){
 			return {
@@ -13,13 +13,13 @@ describe("CalculatorController", function() {
 		});
 	}));
 
-	//pre svakog testa "ubrizgavamo" $controller i mock employeeService i definišemo kontroler
-	beforeEach(inject(function($controller, _sharedObject_, _Insurance_, _$state_, _$httpBackend_) {
+	beforeEach(inject(function($controller, _sharedObject_, _Insurance_, _$state_, _$httpBackend_, _$rootScope_) {
 		sharedObject = _sharedObject_;
 		Insurance = _Insurance_;
 		$state = _$state_;
 		$httpBackend = _$httpBackend_;
-		$scope = {};
+		$rootScope = _$rootScope_;
+		$scope = $rootScope.$new();
 		$httpBackend.whenGET("app/components/core/header.html").respond("<div/>");
         $httpBackend.whenGET("app/components/core/menu.html").respond("<div/>");
         $httpBackend.whenGET("app/components/sale/sale.html").respond("<div/>");
@@ -32,6 +32,7 @@ describe("CalculatorController", function() {
 			Insurance : Insurance,
 			$state : $state,
 			$httpBackend: $httpBackend,
+			$rootScope : $rootScope,
 			$scope: $scope
 		});
 	}));

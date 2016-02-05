@@ -5,10 +5,10 @@
  		.module('merchant.calculator')
  		.controller('CalculatorController', CalculatorController);
 
- 		CalculatorController.$inject = ['Insurance', 'SharedObject', '$state', '$timeout'];
+ 		CalculatorController.$inject = ['Insurance', 'SharedObject', '$state', '$timeout', '$scope'];
 
- 		function CalculatorController(Insurance, SharedObject, $state, $timeout) {
- 			var calc= this;
+ 		function CalculatorController(Insurance, SharedObject, $state, $timeout, $scope) {
+ 			var calc= this;	
 
 
  			calc.checked_required = false;
@@ -33,6 +33,8 @@
 				angular.forEach(calc.data_init.ages, function (age, index) {
 		  			human_ages[index] = {'id': age.id,'value': age.name, 'number_of_people': 0};
 		  		});
+
+		  		
 			});
 
 
@@ -81,17 +83,28 @@
 
 
 
-		    //prazan objekat travel koji smjestam u calculate home, pucalo je kada su datumi null
-			var travel = {};
-			travel.duration = null;
-			travel.start_date = new Date();
-			travel.end_date = new Date();
-			travel.region_id = null;
-			travel.sport_id = null;
-			travel.max_value_id = null;
-			travel.human_age = [];
-			travel.owner = {};
 
+		if(calc.insurance.vehicle !== null){
+			$scope.$watch('calc.towing', function (newValue, oldValue) {
+		  		if(newValue === false && calc.insurance.vehicle !== undefined)
+		  			calc.insurance.vehicle.towing_id = {};
+			});
+
+			$scope.$watch('calc.repair', function (newValue, oldValue) {
+		  		if(newValue === false && calc.insurance.vehicle !== undefined)
+		  			calc.insurance.vehicle.repair_id = {};
+			});
+
+			$scope.$watch('calc.accommodation', function (newValue, oldValue) {
+		  		if(newValue === false && calc.insurance.vehicle !== undefined)
+		  			calc.insurance.vehicle.accomodation_id = {};
+			});
+
+			$scope.$watch('calc.alternative', function (newValue, oldValue) {
+		  		if(newValue === false && calc.insurance.vehicle !== undefined)
+		  			calc.insurance.vehicle.alternative_id = {};
+			});
+		}
 			 
 
 			//pomocna funkcija za validaciju liste check-boxova
