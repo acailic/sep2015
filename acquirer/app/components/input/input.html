@@ -63,8 +63,8 @@
           <label>{{'LABELS.CARDNUM'|translate}}</label>
           <input ng-model="inc.transaction.pan"  ng-pattern="/^[0-9]{16}$/"  name="cardnum"  required>
 
-          <div ng-messages="inc.paymentForm.cardnum.$error" role="alert" ng-show="inc.paymentForm.cardnum.$touched">
-            <div ng-message="required">{{'LABELS.REQUIRED'|translate}}</div>
+          <div ng-messages="inc.paymentForm.cardnum.$error" role="alert" ng-show="inc.paymentForm.cardnum.$touched"  >
+            <div ng-message="required">{{'LABELS.REQUIRED'|translate}}. -->{{inc.transaction.pan.length}}</div>
             <div ng-message="pattern"> {{'LABELS.CARDNUMM'|translate}}</div>
         </div>
 

@@ -18,6 +18,7 @@
         $httpBackend.whenGET("http://localhost:8081/Acquirer_back/payment/init/payment?id=1").respond(200,
             {paymentId:"1", amount: "1234", csrftoken: "Iv1ov"});
         
+        //za gresku
           $httpBackend.whenGET("http://localhost:8081/Acquirer_back/payment/init/payment?=").respond(200,
             {paymentId:"", amount: "", csrftoken: ""});
  

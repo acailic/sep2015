@@ -32,6 +32,8 @@
         paymentId: ''
       };
 
+
+
       console.log("USAO JE U KONTROLER");
       //console.log($stateParams);
       if(!angular.isUndefined($stateParams.idpayment)){   
@@ -39,6 +41,8 @@
           console.log($stateParams.idpayment);
           inc.idpayment = $stateParams.idpayment;
       }
+
+    
 
        var onSuccess = function(data){
           console.log("ON SUCCESS PAYMENTA:");

@@ -2,15 +2,18 @@
 <html>
 <head>
 	<title>Acquirer</title>
-	 <link href="./assets/js/angular-material/angular-material.css" rel="stylesheet">
+
+	<!--  -->
+	<link href="./assets/js/angular-material/angular-material.css" rel="stylesheet">
 	<link href="./assets/js/angular-material/angular-material.layouts.css" rel="stylesheet">
+	<link href="./dist/all.min.css" rel="stylesheet" >  
 	 
 	 <!-- MINIFIKACIJA -->
-	<!--<script src="./dist/all.min.js"></script>  
-	<script src="./dist/all.min.cs"></script>  
-	<script src="./dist/vendor.min.js"></script>  
-	 -->
-	 <link href="./assets/css/font-awesome.css" rel="stylesheet">  
+
+	   
+	 <!-- <script src="./dist/all.min.js"></script>  -->  
+	  
+	  
 </head>
    <body ng-app="acquirer" layout="row" layout-align="center start">   
    <!--  <body ng-app="appe2e" layout="row" layout-align="center start">-->   
@@ -21,12 +24,11 @@
 	     <div ui-view="menu"></div>
 	     <div ui-view="content"></div>
 	     <div ui-view="footer"></div>
-
     </div>
 
     
- 
-	<script src="./assets/js/angular/angular.js"></script>
+  
+	<!-- <script src="./assets/js/angular/angular.js"></script>
 	<script src="./assets/js/angular-resource/angular-resource.js"></script>
 	<script src="./assets/js/angular-ui-router/release/angular-ui-router.js"></script>
 	<script src="./assets/js/angular-animate/angular-animate.js"></script>
@@ -35,8 +37,10 @@
 	<script src="./assets/js/angular-messages/angular-messages.js"></script>
 	<script src="./assets/js/angular-translate/angular-translate.js"></script>
 	<script src="./assets/js/angular-route/angular-route.js"></script>
-    <script src="./assets/js/angular-mocks/angular-mocks.js"></script>
- 	
+    <script src="./assets/js/angular-mocks/angular-mocks.js"></script> -->
+
+   <script src="./dist/vendor.min.js"> </script> 
+
 	<script src="./app/app.module.js"></script>
 	<script src="./app/appe2e.module.js"></script>
 	<script src="./app/components/acquirer/acquirer.module.js"></script>
@@ -66,7 +70,7 @@
 	
 	<script src="./assets/js/angular-dynamic-locale/dist/tmhDynamicLocale.js"></script>
 	<script src="./app/components/input/payment.service.js"></script> 
-	<script src="./app/components/transactions/transaction.service.js"></script> 
+	<script src="./app/components/transactions/transaction.service.js"></script>  
 	   
 
 </body>

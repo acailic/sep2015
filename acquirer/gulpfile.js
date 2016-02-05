@@ -20,20 +20,23 @@ var exit = require('gulp-exit');
 var sources = [
         'app/app.module.js',
         'app/components/acquirer/acquirer.module.js',
-        'app/components/acquirer/acquirer.route.js',
+      //  'app/components/acquirer/home.js',
+    //    'app/components/acquirer/acquirer.route.js',
         'app/components/modal/modal.module.js',
         'app/components/menu/menu.module.js',
         'app/components/input/input.module.js',
         'app/components/transactions/transactions.module.js',
         'app/components/shared/shared.module.js',
-        'app/components/shared/i18n/i18n.module.js',
+       // 'app/components/shared/i18n/i18n.module.js',
         'app/components/shared/i18n/i18n-constants/i18n-constants.module.js',
         'app/components/aboutus/users.js',
-        'app/components/aboutus/usercontroller.js',
-        'app/components/aboutus/userservice.js',
-        'assets/js/angular-dynamic-locale/dist/tmhDynamicLocale.js',
-        'app/components/transactions/transaction.service.js',
-        'app/components/input/payment.service.js',
+       // 'app/components/aboutus/usercontroller.js',
+       // 'app/components/aboutus/userservice.js',
+       // 'assets/js/angular-dynamic-locale/dist/tmhDynamicLocale.js',
+       // 'app/components/transactions/transaction.service.js',
+       // 'app/components/input/payment.service.js',
+       '!app/components/payment.spec.js',
+       '!app/appe2e.module.js',
         'app/**/*.js'
 ];
 
@@ -139,6 +142,7 @@ gulp.task('e2e', ['webserver', 'webdriverUpdate'], function(done) {
     .pipe(exit());
 });
 
+//minifikacija css i js
 gulp.task('minCssDist', ['sass'], function() {
   gulp.src('assets/css/**/*.css')
     .pipe(concatCss("all.min.css"))
@@ -153,4 +157,13 @@ gulp.task('scriptsDist', function() {
     .pipe(gulp.dest('dist'));
 });
 
-gulp.task('minifikuj', ['minCssDist', 'scriptsDist']);
+gulp.task('vendorScripts', function() {
+  return gulp.src('assets/js/*')
+    .pipe(concatVendor('vendor.min.js'))
+    .pipe(uglify())
+    .pipe(gulp.dest('dist'))
+});
+
+gulp.task('minifikuj', [ 'vendorScripts','minCssDist', 'scriptsDist']);
+
+gulp.task('defaultmin', ['lint', 'minifikuj', 'watch', 'sass:watch', 'webserver']);
