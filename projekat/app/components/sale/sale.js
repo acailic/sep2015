@@ -102,10 +102,6 @@
       			}else{
       				slc.validAlternative = true;
       			}
-
-      			console.log(slc.invalidForm);
-
-      			console.log(slc.validTowing);
 			}
 	  	};
 

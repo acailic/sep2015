@@ -397,7 +397,7 @@
             </md-checkbox>
             <md-input-container layout="column" layout-align="left center" ng-show="slc.towing = !slc.towing">
               <label>Šlepovanje</label>
-              <md-select  required="true" name="towing" ng-model="slc.insurance.vehicle.towing_id">
+              <md-select  ng-required="slc.car" name="towing" ng-model="slc.insurance.vehicle.towing_id">
 
                 <md-option ng-repeat="towing in slc.data_init.towing" ng-value="towing.id">{{towing.name}}</md-option>
               </md-select>
@@ -414,7 +414,7 @@
             </md-checkbox>
             <md-input-container layout="column" layout-align="left center" ng-show="slc.repair = !slc.repair">
               <label>Popravka</label>
-              <md-select required="true" name="repair "ng-model="slc.insurance.vehicle.repair_id">
+              <md-select ng-required="slc.car" name="repair "ng-model="slc.insurance.vehicle.repair_id">
                 <md-option ng-repeat="repair in slc.data_init.repair" ng-value="repair.id">{{repair.name}}</md-option>
               </md-select>
                <div ng-messages="slc.saleWizardPart1.repair.$error" ng-show="slc.saleWizardPart1.repair.$touched || ( slc.invalidForm && slc.validRepair)">
@@ -430,7 +430,7 @@
             </md-checkbox>
             <md-input-container layout="column" layout-align="left center" ng-show="slc.accommodation = !slc.accommodation">
               <label>Smeštaj</label>
-              <md-select required="true" name="accomodation" ng-model="slc.insurance.vehicle.accomodation_id">
+              <md-select ng-required="slc.car" name="accomodation" ng-model="slc.insurance.vehicle.accomodation_id">
                 <md-option ng-repeat="accomodation in slc.data_init.accomodation" ng-value="accomodation.id">{{accomodation.name}}</md-option>
               </md-select>
               <div ng-messages="slc.saleWizardPart1.accomodation.$error" ng-show="slc.saleWizardPart1.accomodation.$touched || ( slc.invalidForm && slc.validAccommodation)">
@@ -449,7 +449,7 @@
             </md-checkbox>
             <md-input-container layout="column" layout-align="left center" ng-show="slc.alternative = !slc.alternative">
               <label> Alternativni prevoz</label>
-              <md-select required="true" name="alternative" ng-model="slc.insurance.vehicle.alternative_id">
+              <md-select ng-required="slc.car" name="alternative" ng-model="slc.insurance.vehicle.alternative_id">
                 <md-option ng-repeat="alternative in slc.data_init.alternative" ng-value="alternative.id">{{alternative.name}}</md-option>
               </md-select>
 
