@@ -17,7 +17,7 @@ describe("SaleController", function() {
         $httpBackend.whenGET("app/components/core/menu.html").respond("<div/>");
         $httpBackend.whenGET("app/components/sale/sale.html").respond("<div/>");
         $httpBackend.whenGET("app/components/insurance/insurance.html").respond("<div/>");
-        $httpBackend.whenGET('http://localhost:8444/spring4/data_init').respond(200, [1]);
+        $httpBackend.whenGET('https://localhost:8444/spring4/data_init').respond(200, [1]);
 		slcCtrl = $controller("SaleController", {
 			SharedObject : SharedObject,
 			Insurance : Insurance,

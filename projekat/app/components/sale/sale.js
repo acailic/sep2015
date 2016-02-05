@@ -38,8 +38,12 @@
 					slc.number_of_people += age.number_of_people;
 				}
 			});
-		}else
+		}else{
 			slc.insurance = {};
+			slc.insurance.travel = {};
+			slc.insurance.travel.start_date = new Date();
+			slc.insurance.travel.end_date = new Date();
+		}
 
 		slc.insurance.travellers = [];
 		slc.finalView = false;
@@ -141,6 +145,7 @@
 	  				slc.number_of_travellers -= 1;
 	  				slc.finalView = false;
 	  				slc.addTravellerForm = true;
+	  				slc.checkTravellers = true;
 	  			}
 	        });
 	  	};
