@@ -3,9 +3,9 @@ package org.sep.acquirer.form.util;
 public final class AcquirerConstants {
 	
 	
-	public static final String ACQUIRER_WEB_APP_HOST = "http://localhost:8080/";
+	public static final String ACQUIRER_WEB_APP_HOST = "http://localhost:8000/";
 	
-	public static final String ACQUIRER_WEB_APP_PAYMENT_URL = "payment";
+	public static final String ACQUIRER_WEB_APP_PAYMENT_URL = "#/input/idpayment";
 	
 	public static final String PCC_HOST = "http://localhost:8082/";
 	

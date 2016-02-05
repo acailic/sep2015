@@ -39,7 +39,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 @RequestMapping(value = "/payment")
-//@CrossOrigin(origins = "http://localhost:8000")
+@CrossOrigin(origins = "http://localhost:8000")
 public class PaymentController {
 
 	private final Logger logger = LoggerFactory.getLogger(PaymentController.class);
