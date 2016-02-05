@@ -68,6 +68,7 @@
 		});
 
 		slc.getInsurancesDetails = function() {
+
 		  	if(slc.saleWizardPart1.$valid){
 		    	slc.invalidForm = false;
 		    	$state.go("main.sale.wizard2");
@@ -101,6 +102,10 @@
       			}else{
       				slc.validAlternative = true;
       			}
+
+      			console.log(slc.invalidForm);
+
+      			console.log(slc.validTowing);
 			}
 	  	};
 
@@ -340,22 +345,22 @@
 		if(slc.insurance.vehicle !== null){
 			$scope.$watch('slc.towing', function (newValue, oldValue) {
 		  		if(newValue === false && slc.insurance.vehicle !== undefined)
-		  			slc.insurance.vehicle.towing_id = {};
+		  			slc.insurance.vehicle.towing_id = null;
 			});
 
 			$scope.$watch('slc.repair', function (newValue, oldValue) {
 		  		if(newValue === false && slc.insurance.vehicle !== undefined)
-		  			slc.insurance.vehicle.repair_id = {};
+		  			slc.insurance.vehicle.repair_id = null;
 			});
 
 			$scope.$watch('slc.accommodation', function (newValue, oldValue) {
 		  		if(newValue === false && slc.insurance.vehicle !== undefined)
-		  			slc.insurance.vehicle.accomodation_id = {};
+		  			slc.insurance.vehicle.accomodation_id = null;
 			});
 
 			$scope.$watch('slc.alternative', function (newValue, oldValue) {
 		  		if(newValue === false && slc.insurance.vehicle !== undefined)
-		  			slc.insurance.vehicle.alternative_id = {};
+		  			slc.insurance.vehicle.alternative_id = null;
 			});
 		}
 

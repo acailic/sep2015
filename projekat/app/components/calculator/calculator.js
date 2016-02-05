@@ -87,22 +87,22 @@
 		if(calc.insurance.vehicle !== null){
 			$scope.$watch('calc.towing', function (newValue, oldValue) {
 		  		if(newValue === false && calc.insurance.vehicle !== undefined)
-		  			calc.insurance.vehicle.towing_id = {};
+		  			calc.insurance.vehicle.towing_id = null;
 			});
 
 			$scope.$watch('calc.repair', function (newValue, oldValue) {
 		  		if(newValue === false && calc.insurance.vehicle !== undefined)
-		  			calc.insurance.vehicle.repair_id = {};
+		  			calc.insurance.vehicle.repair_id = null;
 			});
 
 			$scope.$watch('calc.accommodation', function (newValue, oldValue) {
 		  		if(newValue === false && calc.insurance.vehicle !== undefined)
-		  			calc.insurance.vehicle.accomodation_id = {};
+		  			calc.insurance.vehicle.accomodation_id = null;
 			});
 
 			$scope.$watch('calc.alternative', function (newValue, oldValue) {
 		  		if(newValue === false && calc.insurance.vehicle !== undefined)
-		  			calc.insurance.vehicle.alternative_id = {};
+		  			calc.insurance.vehicle.alternative_id = null;
 			});
 		}
 			 

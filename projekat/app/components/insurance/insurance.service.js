@@ -19,7 +19,7 @@
 				}).success(function (data) {
 					deferred.resolve(data);
 				}).error(function () {
-					alert("Došlo je do greške pri učitavanju inicijalnih podataka");
+					alert("Došlo je do greške pri učitavanju inicijalnih podataka, molimo Vas za strpljenje");
 				});
 
 				return deferred.promise;
@@ -39,7 +39,7 @@
 				}).success(function (data) {
 					deferred.resolve(data);
 				}).error(function () {
-					alert("Došlo je do greške pri kalkulaciji");
+					alert("Došlo je do greške pri kalkulaciji, molimo Vas za strpljenje");
 				});
 				
 				return deferred.promise;
@@ -79,7 +79,7 @@
 				}).success(function (data) {
 					deferred.resolve(data);
 				}).error(function () {
-					alert("Došlo je do greške pri kalkulaciji");
+					alert("Došlo je do greške pri kalkulaciji, molimo Vas za strpljenje");
 				});
 				
 				return deferred.promise;
@@ -99,7 +99,7 @@
 				}).success(function (data) {
 					deferred.resolve(data);
 				}).error(function () {
-					alert("Došlo je do greške pri kalkulaciji");
+					alert("Došlo je do greške pri kalkulaciji, molimo Vas za strpljenje");
 				});
 				
 				return deferred.promise;
@@ -123,7 +123,7 @@
 				}).success(function (data) {
 					deferred.resolve(data);
 				}).error(function () {
-					alert("Došlo je do greške pri kupovini osiguranja");
+					alert("Došlo je do greške pri kupovini osiguranja, molimo Vas za strpljenje");
 				});
 				
 				return deferred.promise;
