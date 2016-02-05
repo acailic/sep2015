@@ -33,8 +33,8 @@ public class AcquirerOrderDTO {
 		return CSRFToken;
 	}
 
-	public void setCSRFToken(String cSRFToken) {
-		CSRFToken = cSRFToken;
+	public void setCSRFToken(String CSRFToken) {
+		this.CSRFToken = CSRFToken;
 	}
 
 	public Long getPaymentId() {

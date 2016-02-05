@@ -14,7 +14,6 @@ import org.sep.acquirer.form.dto.PaymentDTO;
 
 @Entity
 public class Payment extends AbstractEntity {
-
 	
 	@Column(name="amount", nullable=false)
 	private Double amount;
@@ -34,9 +33,6 @@ public class Payment extends AbstractEntity {
 	@ManyToOne
     @JoinColumn(name = "merchant")
 	private Merchant merchant;
-	
-//	@OneToOne
-//	private AcquirerOrder acquirerOrder;
 	
 	public Payment() {
 	}
@@ -67,15 +63,7 @@ public class Payment extends AbstractEntity {
 	public void setCSRFToken(String cSRFToken) {
 		CSRFToken = cSRFToken;
 	}
-
-//	public AcquirerOrder getAcquirerOrder() {
-//		return acquirerOrder;
-//	}
-//
-//	public void setAcquirerOrder(AcquirerOrder acquirerOrder) {
-//		this.acquirerOrder = acquirerOrder;
-//	}
-
+	
 	public Merchant getMerchant() {
 		return merchant;
 	}

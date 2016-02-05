@@ -25,9 +25,6 @@ public class Account extends AbstractEntity {
 	@JoinColumn(name="user", nullable = false)
 	private User user;
 	
-//	@OneToMany(mappedBy = "account")
-//	private ArrayList<Card> cards = new ArrayList<Card>();
-	
 	public Account(Double balance, Long number) {
 		super();
 		this.balance = balance;
@@ -52,14 +49,6 @@ public class Account extends AbstractEntity {
 	public void setUser(User user) {
 		this.user = user;
 	}
-
-//	public ArrayList<Card> getCards() {
-//		return cards;
-//	}
-//
-//	public void setCards(ArrayList<Card> cards) {
-//		this.cards = cards;
-//	}
 
 	public Issuer getIssuer() {
 		return issuer;

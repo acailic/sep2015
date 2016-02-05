@@ -1,6 +1,5 @@
 package org.sep.issuer.form.controllers;
 
-import java.awt.List;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -12,7 +11,6 @@ import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.spec.SecretKeySpec;
-import javax.persistence.criteria.Order;
 
 import org.sep.issuer.form.dto.IssuerOrderDTO;
 import org.sep.issuer.form.dto.TransactionResponseDTO;
@@ -91,8 +89,6 @@ public class IssuerOrderController {
 				return new ResponseEntity<String>("PAN is not valid!", HttpStatus.BAD_GATEWAY);
 			}					
 			
-			//TODO: fix nullpointerex
-			//Card card = cardService.findByPan(dto.getPan());
 			Card card = null;
 			ArrayList<Card> cards = (ArrayList<Card>) cardService.findAll();
 			for(Card crd : cards){
@@ -115,15 +111,7 @@ public class IssuerOrderController {
 				logger.info(DECLINE + "Unauthorised!");
 				return new ResponseEntity<String>("Unauthorised!", HttpStatus.BAD_REQUEST);
 			}
-
 			
-//			logger.info(card.getCardExpDate() + "::::" + dto.getCardExpDate());
-			
-//			if(!card.getCardExpDate().equals(dto.getCardExpDate())){
-//				logger.info(DECLINE + "Credit Card expiration date is wrong!");
-//				return new ResponseEntity<String>("Credit Card expiration date is wrong!", HttpStatus.BAD_GATEWAY);
-//			}
-
 			if(card.getCardExpDate().before(new Date())){
 				logger.info(DECLINE + "Credit Card is expired!");
 				return new ResponseEntity<String>("Credit Card is expired!", HttpStatus.BAD_GATEWAY);
@@ -227,7 +215,7 @@ public class IssuerOrderController {
 			}
 			
 			logger.info(encoded);
-			logger.info(String.valueOf(csc));
+			logger.info("CARD SECURITY CODE: " + String.valueOf(csc));
 			
 			
 		} catch (NoSuchAlgorithmException e) {
@@ -290,6 +278,4 @@ public class IssuerOrderController {
 			e.printStackTrace();
 		}
 	}
-	
-	
 }

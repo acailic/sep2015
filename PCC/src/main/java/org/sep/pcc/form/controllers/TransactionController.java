@@ -104,14 +104,6 @@ public class TransactionController {
 				}
 			}
 			
-//			try{
-//				issuer = bankService.findByIin(iin);
-//
-//			}catch(NullPointerException ex){
-//				
-//			}
-			
-			logger.info("test3");
 			if(issuer == null){
 				errorMsg = "Issuer does not exist!";
 				logger.info(DECLINE + errorMsg);
@@ -148,7 +140,6 @@ public class TransactionController {
 				tr.setOrderState(OrderStateEnum.UNSUCCESSFULL);
 				tr = transactionService.update(tr);
 				
-//				result = new PccResponseDTO(tr);
 				result.setErrorMsg(response.getBody());
 				logger.error("PCC received error - HTTP State: " + response.getStatusCode());
 				return new ResponseEntity<Object>(result, response.getStatusCode());

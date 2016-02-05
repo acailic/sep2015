@@ -55,15 +55,6 @@ public class PaymentController {
 
 	private static final String DECLINE = "Aquirer Declined Transaction - reason: ";
 	
-	@RequestMapping(method = RequestMethod.GET)
-    public @ResponseBody ResponseEntity<?> testGet(){
-		
-		logger.info("Test Get !!");
-		
-		return new ResponseEntity<String>("pozz", HeaderUtil.getHeader(), HttpStatus.OK);
-		
-	}
-	
 	
 	@RequestMapping(method = RequestMethod.POST)
     public @ResponseBody ResponseEntity<?> paymentRequest(@RequestBody String request) {
@@ -126,6 +117,7 @@ public class PaymentController {
 			
 			SecureRandom scrfToken = new SecureRandom();			
 			payment.setCSRFToken(String.valueOf(scrfToken.nextInt()));
+			payment = paymentService.update(payment);
 			
 			TokenResponseDTO response = new TokenResponseDTO(payment.getId(), payment.getAmount(), payment.getCSRFToken());
 			
@@ -142,6 +134,7 @@ public class PaymentController {
     public @ResponseBody ResponseEntity<?> confirmPayment(@RequestBody AcquirerOrderDTO orderDTO) {
 		logger.info("confirm payment called");
 
+		logger.info("CSRF token: " + orderDTO.getCSRFToken());
 		AcquirerOrder order = null;
 		RestTemplate temp = new RestTemplate();
 		temp.setErrorHandler(new DefaultResponseErrorHandler(){
@@ -166,17 +159,13 @@ public class PaymentController {
 				logger.info(DECLINE + "Payment does not exist!");
 				return new ResponseEntity<String>("Payment does not exist!", HttpStatus.BAD_GATEWAY);
 			}
-			
-//			if(payment.getAcquirerOrder() != null){
-//				logger.info(DECLINE + "Order has already been procceded!");
-//				return new ResponseEntity<String>("Order has already been procceded!", HttpStatus.BAD_GATEWAY);
-//			}
-			
+						
 			if(!payment.getAmount().equals(orderDTO.getAmount())){
 				logger.info(DECLINE + "Amount in Order difers from amount in Payment!");
 				return new ResponseEntity<String>("Amount in Order difers from amount in Payment!", HttpStatus.BAD_GATEWAY);
 			}
 			logger.info(payment.getCSRFToken() + "_" + orderDTO.getCSRFToken());
+			//TODO: orderDTO.getCSRFToken() uvek vraca null, sa fronta se posalje dobra vrednost
 //			if(!payment.getCSRFToken().equals(orderDTO.getCSRFToken())){
 //				logger.info(DECLINE + "CSRF Token is invalid!");
 //				return new ResponseEntity<String>("CSRF Token is invalid!", HttpStatus.BAD_GATEWAY);
@@ -195,8 +184,7 @@ public class PaymentController {
 													mapper.writeValueAsString(transaction), String.class);
 
 			logger.info("After response creation");
-			
-			
+						
 			AcquirerResponseDTO result = new AcquirerResponseDTO();
 			result.setAcquirerOrderId(order.getId());
 			result.setAcquirerTimeStamp(order.getAcquirerTimestamp());
@@ -210,12 +198,9 @@ public class PaymentController {
 				PccResponseDTO responseDto = mapper.readValue(response.getBody(), PccResponseDTO.class);
 				logger.info("Acquirer received PCC's response");
 				
-				//TODO: verify ID's and timestamp
-				
 				order.setOrderState(responseDto.getState());
 				logger.info("Order id:" + order.getId() + " Payment id:" + order.getPayment().getId());
 				order = acquirerOrderService.update(order);
-				logger.info("After update");
 				
 				result.setState(order.getOrderState());
 				
@@ -224,7 +209,6 @@ public class PaymentController {
 			}else{	
 				PccResponseDTO responseDto = mapper.readValue(response.getBody(), PccResponseDTO.class);
 				logger.error("Acquirer received error - HTTP State: " + response.getStatusCode() + " Msg: " + responseDto.getErrorMsg());
-//				order = acquirerOrderService.find(responseDto.getAcquirerOrderId());
 				order.setOrderState(OrderStateEnum.UNSUCCESSFULL);
 				order = acquirerOrderService.update(order);
 				result.setState(order.getOrderState());

@@ -14,8 +14,7 @@ public class AcquirerOrder extends AbstractEntity{
 	public enum OrderStateEnum {
 		PENDING, SUCCESSFULL, UNSUCCESSFULL
 	}
-	
-	
+		
 	@Column(name="acquirerTimestamp", nullable=false)
 	private Date acquirerTimestamp;
 	
