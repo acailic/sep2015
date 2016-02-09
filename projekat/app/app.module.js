@@ -1,13 +1,11 @@
 (function() {
 	angular
-		.module('merchant', ['spring-security-csrf-token-interceptor-extended','ngMaterial', 'ngMessages', 'merchant.core', 'merchant.insurance', 'merchant.modal', 
+		.module('merchant', ['spring-security-csrf-token-interceptor','ngMaterial', 'ngMessages', 'merchant.core', 'merchant.insurance', 'merchant.modal', 
 			'merchant.sale', 'merchant.calculator'])
-		.config(function( csrfProvider, $sceDelegateProvider, $mdThemingProvider, $mdDateLocaleProvider) {
-
+.config(['csrfProvider','$sceDelegateProvider', '$mdThemingProvider', '$mdDateLocaleProvider',function(csrfProvider, $sceDelegateProvider, $mdThemingProvider, $mdDateLocaleProvider) {
 
 			
 			csrfProvider.config({
-                
                 maxRetries: 3,
                 csrfHttpType: 'get',
                 csrfTokenHeader: 'X-CSRF-XXX-TOKEN',
@@ -49,5 +47,5 @@
 			    else
 			    	return null;
 			};
-		});
+		}]);
 })();

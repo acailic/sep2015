@@ -19,7 +19,32 @@ var exit = require('gulp-exit');
 
 var sources = [
   'app/app.module.js',
-  'app/**/*.js'
+  'app/app.service.js',
+  'app/components/core/core.module.js',
+  'app/components/core/core.route.js',
+  'app/components/insurance/insurance.module.js',
+  'app/components/insurance/insurance.service.js',
+  'app/components/insurance/insurance.js',
+  'app/components/insurance/insurance.route.js',
+  'app/components/sale/sale.module.js',
+  'app/components/sale/sale.js',
+  'app/components/sale/sale.route.js',
+  'app/components/modal/modal.module.js',
+  'app/components/modal/modal.js',
+  'app/components/calculator/calculator.module.js',
+  'app/components/calculator/calculator.js',
+  'app/components/calculator/calculator.route.js',
+  'assets/js/angular-messages/angular-messages.js'
+];
+
+var sourcesAssets = [
+  'assets/js/angular/angular.js',
+  'assets/js/angular-ui-router/release/angular-ui-router.js',
+  'assets/js/angular-material/angular-material.js',
+  'assets/js/angular-animate/angular-animate.js',
+  'assets/js/angular-aria/angular-aria.js',
+  'assets/js/angular-messages/angular-messages.js',
+  'assets/js/angular-mocks/angular-mocks.js'
 ];
 
 gulp.task('vendorScripts', function() {
@@ -43,7 +68,7 @@ gulp.task('scripts', function() {
     .pipe(gulp.dest('dist'));
 });
 
-gulp.task('minify', ['minCss', 'scripts']);
+gulp.task('minify', ['minCss', 'vendorScripts', 'scripts']);
 
 gulp.task('webserver', function() {
   gulp.src('.')
@@ -106,4 +131,3 @@ gulp.task('e2e', ['webserver', 'webdriverUpdate'], function(done) {
 });
 
 gulp.task('defaultmin', ['lint', 'minify', 'watch', 'sass:watch', 'webserver']);
-

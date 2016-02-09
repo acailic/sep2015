@@ -120,7 +120,7 @@
    <div flex-offset="10" layout="row" layout-align="center center" ng-show="!calc.flat && !calc.car">
       <img ng-src="./assets/images/insurance-app/dolarBlue.jpg" width="500" height="400" class="md-card-image" alt="Washed Out">
    </div>
-   <div flex="5" style="border: 1px rgb(255, 98, 21)" layout="row" layout-align="center center" ng-show="calc.flat = !calc.flat">
+   <div flex="2" style="border: 1px rgb(255, 98, 21)" layout="row" layout-align="center center" ng-show="calc.flat = !calc.flat">
       <md-icon md-svg-icon="./assets/images/angular-material/icons/add182.svg" style="color:rgb(255, 98, 21)" aria-label="Plus"></md-icon>
    </div>
    <fieldset flex="30" style="border: 1px solid rgb(255, 98, 21)" ng-show="calc.flat = !calc.flat">
@@ -182,7 +182,7 @@
       </form>
 
    </fieldset>
-   <div flex="5" style="border: 1px rgb(255, 98, 21)" layout="row" layout-align="center center" ng-show="calc.car = !calc.car">
+   <div flex="2" style="border: 1px rgb(255, 98, 21)" layout="row" layout-align="center center" ng-show="calc.car = !calc.car">
       <md-icon md-svg-icon="./assets/images/angular-material/icons/add182.svg" style="color:rgb(255, 98, 21)" aria-label="Plus"></md-icon>
    </div>
    <fieldset flex="30" style="border: 1px solid rgb(255, 98, 21)" ng-show="calc.car = !calc.car">
@@ -285,25 +285,29 @@
       </form>
    </fieldset>
 </md-content>
-<md-content class="md-padding" layout="row">
-   <div flex="30" layout="row" layout-align="center start">
-      <div flex-offset="2">
-         <md-button id="calculateTravel" type="submit" form="travelForm" class="md-raised md-primary" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);" >Izračunajte</md-button>
+<md-content flex="110" class="md-padding" layout="row" layout-align="none start">
+   
+   <div  flex="5" > </div>
+   <div flex="30" layout="row" >
+      
+         <md-button id="calculateTravel" type="submit" form="travelForm" class="md-raised md-primary" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);" >Izračunaj</md-button>
          <md-button id="resetTravel" class="md-raised md-primary" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);"
          ng-click="calc.resetTravel()" >Reset</md-button>
-      </div>
+     
    </div>
-   <div flex="35" layout="row" layout-align="center start" ng-show="calc.flat = !calc.flat">
-      <div flex-offset="15">
-         <md-button id="calculateHome" type="submit" form="homeForm" class="md-raised md-primary" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);">Izračunajte</md-button>
+   <div  flex="5" ng-show="calc.flat = !calc.flat"> </div>
+   <div  flex="25" layout="row" ng-show="calc.flat = !calc.flat">
+     
+         <md-button id="calculateHome" type="submit" form="homeForm" class="md-raised md-primary" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);">Izračunaj</md-button>
          <md-button id="resetHome" class="md-raised md-primary" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);" ng-click="calc.resetHome()">Reset</md-button>
-      </div>
+     
    </div>
-   <div flex="35" layout="row" layout-align="center start" ng-show="calc.car = !calc.car">
-      <div flex-offset="15">
-         <md-button id="calculateVehicle" type="submit" form="vehicleForm" class="md-raised md-primary" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);">Izračunajte</md-button>
+   <div  flex="5" ng-show="calc.car = !calc.car"> </div>
+   <div  flex="28" layout="row"  ng-show="calc.car = !calc.car">
+     
+         <md-button id="calculateVehicle" type="submit" form="vehicleForm" class="md-raised md-primary" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);">Izračunaj</md-button>
          <md-button id="resetVehicle" class="md-raised md-primary" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);" ng-click="calc.resetVehicle()">Reset</md-button>
-      </div>
+      
    </div>
 </md-content>
 <md-divider></md-divider>
@@ -321,7 +325,7 @@
       </div>
    </div>
    <div flex="35" layout="row" layout-align="center start" ng-show="calc.car = !calc.car">
-      <div flex-offset="15" >
+      <div flex-offset="5" >
          <md-chips>
             <md-chip>= {{calc.price.vehicle_price}} EUR</md-chip>
          </md-chips>
@@ -336,7 +340,7 @@
    </md-chips>
 </div>
 <md-divider></md-divider>
-<div flex-offset="80" layout-gt-sm="row" layout-align="center center" >
+<div flex-offset="75" layout-gt-sm="row" layout-align="center center" >
 
       <md-button id="sale" class="md-raised md-primary" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);" ng-click="calc.sale()">Kupite osiguranje 
       <md-icon md-svg-icon="./assets/images/angular-material/icons/share-arrow.svg" style="color:rgb(3,169,244)" aria-label="Plus"></md-icon>

@@ -1,20 +1,20 @@
 <br/>
 <md-card flex="60" flex-offset="20" style="padding:10px">
-	   <md-card-header>
+     <md-card-header>
           <md-card-header-text>
             <span class="md-title">Podaci o vlasniku</span>
           </md-card-header-text>
      </md-card-header>
      <md-card-content style="border-bottom: 1px dotted #ccc; margin-bottom:10px">
-     	<table style="width:100%">
-     		<tr>
-     			<td style="width:60%; text-align:right"><strong>Ime i prezime:</strong></td>
-     			<td>{{slc.insurance.travel.owner.first_name}} {{slc.insurance.travel.owner.last_name}}</td> 
-     		</tr>
-     		<tr>
-     			<td style="text-align:right"><strong>Email:</strong></td>
-     			<td>{{slc.insurance.travel.owner.email}}</td>
-     	  </tr>
+      <table style="width:100%">
+        <tr>
+          <td style="width:60%; text-align:right"><strong>Ime i prezime:</strong></td>
+          <td>{{slc.insurance.travel.owner.first_name}} {{slc.insurance.travel.owner.last_name}}</td> 
+        </tr>
+        <tr>
+          <td style="text-align:right"><strong>Email:</strong></td>
+          <td>{{slc.insurance.travel.owner.email}}</td>
+        </tr>
         </table>
      </md-card-content>
      <md-card-header>
@@ -99,7 +99,7 @@
           </tr>
           <tr>
             <td style="text-align:right"><strong>Ukupan iznos:</strong></td>
-            <td>{{slc.price.sum_price}} EUR</td>
+            <td>{{slc.price.sum_price | number:2}} EUR</td>
           </tr>
         </table>
      </md-card-content>
@@ -107,6 +107,6 @@
 <br/>
 
 <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
-	<md-button class="md-raised md-primary" ng-click="slc.selectedIndex = 1" ui-sref="main.sale.wizard2" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);">Povratak</md-button>
-	<md-button id="buttonPart4" class="md-raised md-primary" ng-click="slc.createInsurance()" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);">Potvrdi</md-button>
+  <md-button class="md-raised md-primary" ng-click="slc.selectedIndex = 1" ui-sref="main.sale.wizard2" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);">Povratak</md-button>
+  <md-button id="buttonPart4" class="md-raised md-primary" ng-click="slc.createInsurance()" style="color: rgba(255,255,255,0.87); background-color: rgb(249, 141, 52);">Potvrdi</md-button>
 </section> 

@@ -182,7 +182,7 @@
               <br/>
                <div layout-gt-sm="row">
                   <section layout="column" flex-gt-sm>
-                    <label flex-offset="15">Od:</label>
+                    <label flex-offset="5">Od:</label>
                     <md-datepicker name="home_start_date" ng-model="slc.insurance.home.start_date" id="datapicker_travel_start"  md-placeholder="Početak"
                      md-min-date="slc.insurance.travel.start_date" md-max-date="slc.homeStartDateMax" ng-required="slc.flat"></md-datepicker>   
                      <md-tooltip md-direction="right">
@@ -194,9 +194,12 @@
                       </div>
                     </div> 
                   </section>
+
+                </div>
+                <div layout-gt-sm="row">
                    
                   <section layout="column" flex-gt-sm>
-                    <label flex-offset="15">Do:</label>
+                    <label flex-offset="5">Do:</label>
                     <md-datepicker name="home_end_date" ng-model="slc.insurance.home.end_date" id="datapicker_travel_start"  md-placeholder="Kraj"
                     md-min-date="slc.homeEndDateMin" md-max-date="slc.insurance.travel.end_date" ng-required="slc.flat"></md-datepicker>
                     <md-tooltip md-direction="right">
@@ -213,7 +216,7 @@
         </section>
 
         <section layout="column" flex-gt-sm>
-          <div flex="20" flex-offset="20">
+          <div flex="20">
             <fieldset style="border: 1px dotted rgb(255, 98, 21)">
                 <legend style="color:rgb(255, 98, 21)">Podaci o stanu</legend>
                  <md-input-container layout="column" layout-align="left center">
@@ -271,7 +274,7 @@
       </section>
    
     <section layout="column" flex-gt-sm>
-      <div flex-offset="10">
+      <div>
         <fieldset style="border: 1px dotted rgb(255, 98, 21)">
             <legend style="color:rgb(255, 98, 21)">Podaci o vlasniku</legend>
               <md-input-container layout="column" layout-align="left center">
@@ -360,7 +363,7 @@
       <div flex="80" flex-offset="3">
         <div layout-gt-sm="row">
             <section layout="column" flex-gt-sm>
-              <label flex-offset="15">Od:</label>
+              <label flex-offset="5">Od:</label>
               <md-datepicker name="vehicle_start_date" ng-model="slc.insurance.vehicle.start_date" id="datapicker_travel_start" md-placeholder="Početak"
                md-min-date="slc.insurance.travel.start_date" md-max-date="slc.vehicleStartDateMax" ng-required="slc.car"></md-datepicker>   
                <md-tooltip md-direction="right">
@@ -372,9 +375,10 @@
                 </div>
               </div>      
             </section>
-
+        </div>
+        <div layout-gt-sm="row">
             <section layout="column" flex-gt-sm>
-              <label flex-offset="15">Do:</label>
+              <label flex-offset="5">Do:</label>
               <md-datepicker name="vehicle_end_date" ng-model="slc.insurance.vehicle.end_date" id="datapicker_travel_start" md-placeholder="Kraj"
               md-min-date="slc.vehicleEndDateMin" md-max-date="slc.insurance.travel.end_date" ng-required="slc.car"></md-datepicker>
               <md-tooltip md-direction="right">
@@ -397,7 +401,7 @@
             </md-checkbox>
             <md-input-container layout="column" layout-align="left center" ng-show="slc.towing = !slc.towing">
               <label>Šlepovanje</label>
-              <md-select  ng-required="slc.car" name="towing" ng-model="slc.insurance.vehicle.towing_id">
+              <md-select  ng-required="slc.towing" name="towing" ng-model="slc.insurance.vehicle.towing_id">
 
                 <md-option ng-repeat="towing in slc.data_init.towing" ng-value="towing.id">{{towing.name}}</md-option>
               </md-select>
@@ -414,7 +418,7 @@
             </md-checkbox>
             <md-input-container layout="column" layout-align="left center" ng-show="slc.repair = !slc.repair">
               <label>Popravka</label>
-              <md-select ng-required="slc.car" name="repair "ng-model="slc.insurance.vehicle.repair_id">
+              <md-select ng-required="slc.repair" name="repair "ng-model="slc.insurance.vehicle.repair_id">
                 <md-option ng-repeat="repair in slc.data_init.repair" ng-value="repair.id">{{repair.name}}</md-option>
               </md-select>
                <div ng-messages="slc.saleWizardPart1.repair.$error" ng-show="slc.saleWizardPart1.repair.$touched || ( slc.invalidForm && slc.validRepair)">
@@ -430,7 +434,7 @@
             </md-checkbox>
             <md-input-container layout="column" layout-align="left center" ng-show="slc.accommodation = !slc.accommodation">
               <label>Smeštaj</label>
-              <md-select ng-required="slc.car" name="accomodation" ng-model="slc.insurance.vehicle.accomodation_id">
+              <md-select ng-required="slc.accommodation" name="accomodation" ng-model="slc.insurance.vehicle.accomodation_id">
                 <md-option ng-repeat="accomodation in slc.data_init.accomodation" ng-value="accomodation.id">{{accomodation.name}}</md-option>
               </md-select>
               <div ng-messages="slc.saleWizardPart1.accomodation.$error" ng-show="slc.saleWizardPart1.accomodation.$touched || ( slc.invalidForm && slc.validAccommodation)">
@@ -449,7 +453,7 @@
             </md-checkbox>
             <md-input-container layout="column" layout-align="left center" ng-show="slc.alternative = !slc.alternative">
               <label> Alternativni prevoz</label>
-              <md-select ng-required="slc.car" name="alternative" ng-model="slc.insurance.vehicle.alternative_id">
+              <md-select ng-required="slc.alternative" name="alternative" ng-model="slc.insurance.vehicle.alternative_id">
                 <md-option ng-repeat="alternative in slc.data_init.alternative" ng-value="alternative.id">{{alternative.name}}</md-option>
               </md-select>
 
@@ -467,7 +471,7 @@
      </section>
 
      <section layout="column" flex-gt-sm>
-        <div flex="20" flex-offset="20">
+        <div flex="20">
            <fieldset style="border: 1px dotted rgb(255, 98, 21)">
             <legend style="color:rgb(255, 98, 21)">Podaci o vozilu</legend>
             <md-input-container layout="column" layout-align="left center">
@@ -540,7 +544,7 @@
       </section>
       
       <section layout="column" flex-gt-sm>
-        <div flex-offset="10">
+        <div>
           <fieldset style="border: 1px dotted rgb(255, 98, 21)">
             <legend style="color:rgb(255, 98, 21)">Podaci o vlasniku</legend>
             <md-input-container layout="column" layout-align="left center">
